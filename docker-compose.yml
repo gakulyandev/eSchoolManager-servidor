@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  esm_server:
+    container_name: esm_server
+    build: 
+      context: .
+      dockerfile: .docker/java/Dockerfile
+    env_file: .env
+    ports:
+      - '8080:80'
+    depends_on:
+      - esm_mysql
+    networks:
+      esm:
+
+  esm_mysql:
+    container_name: esm_mysql
+    build: 
+      context: .
+      dockerfile: .docker/mysql/Dockerfile
+    env_file: .env
+    ports:
+      - '3306:3306'
+    networks:
+      esm:
+
+
+networks:
+  esm:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.24.6.0/24
