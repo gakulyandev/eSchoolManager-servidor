@@ -1,3 +1,8 @@
+# eSchoolManager-servidor
+
+Projecte de servidor escoltant de peticions per al Projecte final del CFGS Desenvolupament d'aplicacions multiplataforma (DAM) que gestiona un centre educatiu de necessitats especials.
+
+
 **Execució del servidor**
 
 1. Clona el repositori:\
