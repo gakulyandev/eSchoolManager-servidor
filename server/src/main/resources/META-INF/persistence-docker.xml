@@ -2,7 +2,19 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="eSchoolManager" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.eschoolmanager.server.model.User</class>
+    <class>com.eschoolmanager.server.model.Persona</class>
+    <class>com.eschoolmanager.server.model.Empleat</class>
+    <class>com.eschoolmanager.server.model.Professor</class>
+    <class>com.eschoolmanager.server.model.Administratiu</class>
+    <class>com.eschoolmanager.server.model.Usuari</class>
+    <class>com.eschoolmanager.server.model.Departament</class>
+    <class>com.eschoolmanager.server.model.Estudiant</class>
+    <class>com.eschoolmanager.server.model.Beca</class>
+    <class>com.eschoolmanager.server.model.Servei</class>
+    <class>com.eschoolmanager.server.model.Sessio</class>
+    <class>com.eschoolmanager.server.model.Factura</class>
+    <class>com.eschoolmanager.server.model.Informe</class>
+    <class>com.eschoolmanager.server.model.Escola</class>
     <validation-mode>NONE</validation-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://esm_mysql:3306/eSchoolManager"/>
@@ -10,6 +22,7 @@
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
       <property name="javax.persistence.jdbc.password" value="password"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="database" />
     </properties>
   </persistence-unit>
 </persistence>

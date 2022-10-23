@@ -1,0 +1,86 @@
+/**
+ * 
+ */
+package com.eschoolmanager.server.model;
+
+import static javax.persistence.InheritanceType.JOINED;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+/**
+ * @author Gayané Akulyan Akulyan
+ * Classe persistent per emmagatzemar els professors de l'escola
+ */
+@Entity
+@Table(name="Professor")
+@DiscriminatorValue("PR")
+public class Professor extends Empleat {
+	
+	private List<Servei> serveis = new ArrayList<>();
+	private List<Sessio> sessions = new ArrayList<>();
+
+	/**
+	 * Constructor per defecte sense paràmetres
+	 * necessari per el correcte funcionament de l'ORM EclipseLink
+	 */
+	public Professor() {
+	}
+	
+	/**
+     * Constructor parametritzat: construeix un nou empleat amb els paràmetres especificats
+     * @param dni identificador del professor
+     * @param nom del professor
+     * @param cognoms del professor
+     * @param dataNaixement del professor
+     * @param telefon de contacte del professor
+     * @param email de contacte del professor
+     * @param adreca del professor
+     */
+	public Professor(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Departament departament) {
+		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca, departament);
+		
+	}
+	
+	/**
+	 * Llista els serveis prestats pel professor
+	 * @return serveis prestats pel professor
+	 */
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="professors")
+	public List<Servei> getServeis() {
+		return this.serveis;
+	}
+	
+	/**
+	 * Actualitza els serveis prestats pel professor (només s'inclou pel correcte funcionament del mapeig ORM)
+	 * @param serveis nou valor dels serveis prestats pel professor
+	 */
+	public void setServeis(List<Servei> serveis) {
+		this.serveis = serveis;
+	}
+	
+	/**
+	 * Llista les sessions realitzades pel professor
+	 * @return sessions realitzades pel professor
+	 */
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="professor")
+	public List<Sessio> getSessions() {
+		return this.sessions;
+	}
+	
+	/**
+	 * Actualitza les sessions realitzades pel professor (només s'inclou pel correcte funcionament del mapeig ORM)
+	 * @param sessions nou valor per les sessions realitzades pel professor
+	 */
+	public void setSessions(List<Sessio> sessions) {
+		this.sessions = sessions;
+	}
+}
