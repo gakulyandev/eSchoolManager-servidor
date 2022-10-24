@@ -21,17 +21,18 @@ import org.junit.Test;
 
 import org.json.JSONObject;
 
+import com.eschoolmanager.server.gestors.GestorPeticions;
 import com.eschoolmanager.server.model.*;
-import com.google.protobuf.TextFormat.ParseException;
 
 /**
  * @author Gayané Akulyan Akulyan
  * Classe per comprovar el funcionament de les peticions de login
  */
-public class LoginTest {
+public class GestioSessioUsuariTest {
 
 	private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
+    private GestorPeticions gestorPeticions;
     private JSONObject peticio, dadesPeticio, resposta, dadesResposta;
 	private final static String CRIDA = "crida";
     private final static String PERSISTENCE_UNIT = "eSchoolManager";
@@ -54,11 +55,10 @@ public class LoginTest {
     @Before
     public void setUp() throws Exception {
     	obreGestor();
-        insertaDades();
+    	generaDades();
         peticio = new JSONObject();
         peticio.put(CRIDA, CRIDA_LOGIN);
         dadesPeticio = new JSONObject();
-        resposta = new JSONObject();
         dadesResposta = new JSONObject();
     }
     
@@ -70,7 +70,6 @@ public class LoginTest {
     public void classEnds() {
     	peticio = null;
         dadesPeticio = null;
-        resposta = null;
         dadesResposta = null;
     	tancaGestor();
     }
@@ -84,8 +83,11 @@ public class LoginTest {
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
     	dadesPeticio.put(DADES_CONTRASENYA, "passtest1");
     	peticio.put(DADES, dadesPeticio);
-    	
+
     	//Resposta del servidor una vegada processada la petició
+    	System.out.println(gestorPeticions.generaResposta(peticio.toString()));
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
     	
     	//Comprovació
         assertEquals(resposta.get(RESPOSTA), RESPOSTA_OK);
@@ -104,6 +106,7 @@ public class LoginTest {
     	peticio.put(DADES, dadesPeticio);
     	
     	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
         assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
@@ -119,6 +122,7 @@ public class LoginTest {
     	peticio.put(DADES, dadesPeticio);
     	
     	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
         assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
@@ -126,96 +130,74 @@ public class LoginTest {
     }
     
     /**
-     * Inserta dades d'exemple a la base de dades
+     * Genera dades d'exemple a la base de dades
      */
-    private void insertaDades() {
-    	Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");		
-		entityManager.getTransaction().begin();
-        entityManager.persist(escola);
-        entityManager.getTransaction().commit();
+    private void generaDades() {
+    	Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");
+    	escola.setCodi(1);	
+    	insertaDades(escola);
         entityManager.getTransaction().begin();        
         escola = (Escola) entityManager.find(Escola.class, 1);       
         entityManager.getTransaction().commit();
         
-        Departament departament1 = new Departament (escola, "Administrador");
-		Departament departament2 = new Departament (escola, "Administratiu");
-		Departament departament3 = new Departament (escola, "Docent");
-		
-		List<Departament> departaments = new ArrayList();
-		departaments.add(departament1);
-		departaments.add(departament2);
-		departaments.add(departament3);
+        
+        Departament departament = new Departament (escola, "Administrador");
+        departament.setCodi(1);
+        List<Departament> departaments = new ArrayList();
+		departaments.add(departament);
 		escola.setDepartaments(departaments);
-		
-		entityManager.getTransaction().begin();
-        entityManager.persist(escola);
-        entityManager.getTransaction().commit();
+    	insertaDades(escola);
+    	
         entityManager.getTransaction().begin();        
-		escola = (Escola) entityManager.find(Escola.class, 1);       
+        escola = (Escola) entityManager.find(Escola.class, 1);       
         entityManager.getTransaction().commit();
 
+        
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date parsed1 = null, parsed2 = null, parsed3 = null;
+        java.util.Date parsed = null;
 		try {
-			parsed1 = format.parse("1990-10-28");
-			parsed2 = format.parse("1987-05-10");
-			parsed3 = format.parse("1991-05-11");
+			parsed = format.parse("1990-10-28");
 		} catch (java.text.ParseException e) {
 			System.out.println("S'ha produït un error");
 		}
-		Empleat empleat1 = new Empleat("22233344N", "Pedro", "Gomez", new Date(parsed1.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4", departament1);
-		Empleat empleat2 = new Empleat("55533344N", "Clara", "Carrillo", new Date(parsed2.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5", departament2);
-		Empleat empleat3 = new Empleat("45628915M", "Blas", "Roig", new Date(parsed3.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departament3);
-		
-		List<Empleat> empleats1 = new ArrayList();
-		empleats1.add(empleat1);
-		departament1.setEmpleats(empleats1);
-		
-		List<Empleat> empleats2 = new ArrayList();
-		empleats2.add(empleat2);
-		departament2.setEmpleats(empleats2);
-		
-		List<Empleat> empleats3 = new ArrayList();
-		empleats3.add(empleat3);
-		departament1.setEmpleats(empleats3);
-		
-		entityManager.getTransaction().begin();
-        entityManager.persist(escola);
-        entityManager.getTransaction().commit();
-        entityManager.getTransaction().begin();        
-		escola = (Escola) entityManager.find(Escola.class, 1);       
-        entityManager.getTransaction().commit();
+		Empleat empleat = new Empleat("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4", departament);
+		empleat.setCodi(1);	
+		List<Empleat> empleats = new ArrayList();
+		empleats.add(empleat);
+		departament.setEmpleats(empleats);
 		
 		
-		Usuari usuari1 = new Usuari(escola, "p.gomez", "passtest1");
-		Usuari usuari2 = new Usuari(escola, "c.carrillo", "passtest2");
-		Usuari usuari3 = new Usuari(escola, "b.roig", "passtest3");
-		usuari3.setEscola(escola);
-		empleat1.setUsuari(usuari1);
-		empleat2.setUsuari(usuari2);
-		empleat3.setUsuari(usuari3);
-		usuari1.setEmpleat(empleat1);
-		usuari2.setEmpleat(empleat2);
-		usuari3.setEmpleat(empleat3);
-
+		Usuari usuari = new Usuari(escola, "p.gomez", "passtest1");
+		usuari.setCodi(1);	
+		empleat.setUsuari(usuari);
+		usuari.setEmpleat(empleat);
+		
 		List<Usuari> usuaris = new ArrayList();
-		usuaris.add(usuari1);
-		usuaris.add(usuari2);
-		usuaris.add(usuari3);
+		usuaris.add(usuari);
 		escola.setUsuaris(usuaris);
 		
-		entityManager.getTransaction().begin();
-        entityManager.persist(escola);
-        entityManager.getTransaction().commit();
+		insertaDades(escola);
     }
     
     /**
-     * Obre l'entityManager i gestors
+     * Inserta dades d'exemple a la base de dades
+     */
+    private void insertaDades(Object objecte) {
+		entityManager.getTransaction().begin();
+        entityManager.persist(objecte);
+        entityManager.getTransaction().commit();
+        entityManager.detach(objecte);    
+    }
+    
+    /**
+     * Obre l'entityManager
      */
     private void obreGestor() {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
             entityManager = entityManagerFactory.createEntityManager();
+            
+            gestorPeticions = new GestorPeticions(entityManager);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -226,6 +208,7 @@ public class LoginTest {
      * Tanca l'entityManager
      */
     private void tancaGestor() {
+    	entityManager.clear();
     	entityManager.close();
         entityManagerFactory.close();
     }
