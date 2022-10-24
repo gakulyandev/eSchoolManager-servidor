@@ -84,6 +84,29 @@ public class GestorUsuari {
         	throw new GestorExcepcions("No existeix cap usuari amb les dades indicades");
         }
     }
+	
+	/**
+     * Obte l'usuari de la base de dades amb un codi de sessiñi determinat
+     * @param codiSessio de l'usuari a obtenir
+     * @return usuari en cas d'haver-hi un usuari amb aquest codi
+	 * @throws GestorExcepcions en cas que no s'hagi trobat cap usuari amb dades indicades
+     */
+    public Usuari troba(String codiSessio) throws GestorExcepcions {
+    	
+		try {
+    		entityManager.getTransaction().begin();        
+    		Usuari  usuari = (Usuari) entityManager
+        					.createQuery("SELECT u FROM Usuari u WHERE u.codiSessio = :" + CODI_SESSIO)
+        					.setParameter(CODI_SESSIO, codiSessio)
+        					.getSingleResult();        
+            entityManager.getTransaction().commit();
+            
+            return usuari;
+            
+        } catch (NoResultException ex) {
+        	throw new GestorExcepcions("No existeix cap usuari amb les dades indicades");
+        }
+    }
 
     /**
      * Obte l'usuari de la base de dades amb un usuari i contrasenya determinats

@@ -154,10 +154,10 @@ public class GestioSessioUsuariTest {
      * Mètode que prova tancar sessió amb dades incompletes
      */
     @Test
-    public void provaLogoutCodiSessioDadesIncorrectes() {
+    public void provaLogoutDadesIncorrectes() {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LOGOUT);
-    	peticio.put(CODI_SESSIO, "codiPROVA");
+    	peticio.put(CODI_SESSIO, "codiPR");
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));

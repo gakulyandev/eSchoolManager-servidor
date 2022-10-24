@@ -25,8 +25,8 @@ public class FilClient extends Thread {
     private Scanner in;
     private PrintWriter out;
     private int numeroClient;
+    private EntityManager entityManager;
 
-	private final static String PERSISTENCE_UNIT = "eSchoolManager";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_NOK = "NOK";
 	private final static String MISSATGE = "missatge";
@@ -37,7 +37,10 @@ public class FilClient extends Thread {
      * @param numeroClient número del client
      * @throws GestorExcepcions en cas d'error
      */
-	public FilClient(Socket client, int numeroClient) throws GestorExcepcions {
+	public FilClient(Socket client, int numeroClient, EntityManager entityManager) throws GestorExcepcions {
+		
+		this.entityManager = entityManager;
+		
 		try {
             this.client = client;
             this.in = new Scanner(client.getInputStream());
@@ -56,10 +59,6 @@ public class FilClient extends Thread {
         while(!this.client.isClosed()) {
         	String peticio = this.in.next();
         	System.out.println("Client " + numeroClient + " => Peticio:" + peticio);
-
-
-    		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-    		EntityManager entityManager = entityManagerFactory.createEntityManager();
     		
         	GestorPeticions gestorPeticions = new GestorPeticions(entityManager);
         	String resposta = gestorPeticions.generaResposta(peticio);
@@ -67,9 +66,6 @@ public class FilClient extends Thread {
         	System.out.println("Client " + numeroClient + " => Resposta:" + resposta);
             
             this.out.println(resposta);
-            
-            entityManager.close();
-            entityManagerFactory.close();
             
             try {
 				this.client.close();

@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import com.eschoolmanager.server.gestors.GestorExcepcions;
 
 /**
@@ -11,6 +15,8 @@ import com.eschoolmanager.server.gestors.GestorExcepcions;
  * Classe servidor que espera i atén les connexions de diversos clients
  */
 public class Servidor {
+	
+	private final static String PERSISTENCE_UNIT = "eSchoolManager";
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -23,6 +29,10 @@ public class Servidor {
     		Integer port = Integer.parseInt(System.getenv("PORT"));
             ServerSocket server  = new ServerSocket(port);
             
+            //Creació del gestor d'entitats
+    		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+    		EntityManager entityManager = entityManagerFactory.createEntityManager();
+            
             //Bucle infinit esperant connexions
             int numeroClient=1;
             while(true) {
@@ -31,10 +41,11 @@ public class Servidor {
                 System.out.println("Client " + numeroClient + " connectat");
                 
                 //Creació d'un nou fil per el nou client connectat
-                new FilClient(socket, numeroClient).start();
+                new FilClient(socket, numeroClient, entityManager).start();
                 numeroClient++;
                 
             }
+            
         } catch (IOException ex) {
             throw new GestorExcepcions("S'ha produit un error");
         }

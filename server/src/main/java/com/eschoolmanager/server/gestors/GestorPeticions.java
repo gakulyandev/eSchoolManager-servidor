@@ -21,6 +21,7 @@ public class GestorPeticions {
 	private final static String CRIDA = "crida";
 	private final static String CRIDA_ALTA_EMPLEAT = "ALTA EMPLEAT";
 	private final static String CRIDA_LOGIN = "LOGIN";
+	private final static String CRIDA_LOGOUT = "LOGOUT";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_OK = "OK";
@@ -47,6 +48,7 @@ public class GestorPeticions {
      * @return resposta que envia el servidor una vegada processada la petició
      */
 	public String generaResposta(String peticioString) {
+		GestorSessioUsuari gestorSessioUsuari = new GestorSessioUsuari(entityManager);
 		JSONObject peticio = new JSONObject(peticioString);
 		JSONObject dadesPeticio = new JSONObject();
 
@@ -54,7 +56,10 @@ public class GestorPeticions {
 			String crida = peticio.getString(CRIDA);
 		
 			//Valida codi de sessió per l'usuari amb la sessió iniciada
-			GestorSessioUsuari gestorSessioUsuari = new GestorSessioUsuari(entityManager);
+			
+			if (!crida.equals(CRIDA_LOGIN)) {
+				gestorSessioUsuari.validaCodi(peticio.getString(CODI_SESSIO));
+			}
 			
 			//Gestió de la petició segons tipus de crida
 			switch (crida) {
@@ -72,6 +77,11 @@ public class GestorPeticions {
 					dadesResposta.put(DADES_CODI_DEPARTAMENT, sessio.getCodiDepartament());
 
 					return generaRespostaOK(dadesResposta);	
+				
+				case CRIDA_LOGOUT:
+					gestorSessioUsuari.tancaSessio(peticio.getString(CODI_SESSIO));
+
+					return generaRespostaOK(null);
 					
 				default:
 					return generaRespostaNOK("S'ha produït un error");	

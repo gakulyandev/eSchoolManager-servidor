@@ -104,9 +104,9 @@
      	  <version>3.1.0</version>
           <configuration>
             <archive>
-            <manifest>
-              <mainClass>com.eschoolmanager.server.app.App</mainClass>
-            </manifest>
+              <manifest>
+                <mainClass>com.eschoolmanager.server.app.App</mainClass>
+              </manifest>
             </archive>
             <descriptorRefs>
               <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -141,6 +141,9 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
+          <configuration>
+            <skipTests>true</skipTests>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
