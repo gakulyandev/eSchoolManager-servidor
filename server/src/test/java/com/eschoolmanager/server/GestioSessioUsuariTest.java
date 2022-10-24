@@ -37,6 +37,8 @@ public class GestioSessioUsuariTest {
 	private final static String CRIDA = "crida";
     private final static String PERSISTENCE_UNIT = "eSchoolManager";
 	private final static String CRIDA_LOGIN = "LOGIN";
+	private final static String CRIDA_LOGOUT = "LOGOUT";
+	private final static String CODI_SESSIO = "codiSessio";
 	private final static String DADES = "dades";
 	private final static String DADES_NOM_USUARI = "usuari";
 	private final static String DADES_CONTRASENYA = "contrasenya";
@@ -57,7 +59,6 @@ public class GestioSessioUsuariTest {
     	obreGestor();
     	generaDades();
         peticio = new JSONObject();
-        peticio.put(CRIDA, CRIDA_LOGIN);
         dadesPeticio = new JSONObject();
         dadesResposta = new JSONObject();
     }
@@ -79,13 +80,13 @@ public class GestioSessioUsuariTest {
      */
     @Test
     public void provaLoginUsuariContrasenyaCorrectes() {
+        peticio.put(CRIDA, CRIDA_LOGIN);
     	//Petició del client
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
     	dadesPeticio.put(DADES_CONTRASENYA, "passtest1");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
-    	System.out.println(gestorPeticions.generaResposta(peticio.toString()));
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	dadesResposta = resposta.getJSONObject(DADES);
     	
@@ -97,10 +98,12 @@ public class GestioSessioUsuariTest {
     }
     
     /**
-     * Mètode que prova iniciar sessió amb un usuari i contrasenya incorrectes
+     * Mètode que prova iniciar sessió amb dades incorrectes
      */
     @Test
-    public void provaLoginUsuariContrasenyaIncorrectes() {
+    public void provaLoginDadesIncorrectes() {
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LOGIN);
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
     	dadesPeticio.put(DADES_CONTRASENYA, "passtestFALSE");
     	peticio.put(DADES, dadesPeticio);
@@ -117,10 +120,61 @@ public class GestioSessioUsuariTest {
      * Mètode que prova iniciar sessió amb dades incompletes
      */
     @Test
-    public void provaLoginUsuariDadesIncompletes() {
+    public void provaLoginDadesIncompletes() {
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LOGIN);
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
     	peticio.put(DADES, dadesPeticio);
     	
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
+        assertEquals(resposta.get(MISSATGE), "Falten dades");
+    }
+    
+    /**
+     * Mètode que prova tancar sessió amb un codi de sessió correcte
+     */
+    @Test
+    public void provaLogoutCodiSessioCorrecte() {
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LOGOUT);
+    	peticio.put(CODI_SESSIO, "codiPROVA");
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(resposta.get(RESPOSTA), RESPOSTA_OK);
+    }
+    
+    /**
+     * Mètode que prova tancar sessió amb dades incompletes
+     */
+    @Test
+    public void provaLogoutCodiSessioDadesIncorrectes() {
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LOGOUT);
+    	peticio.put(CODI_SESSIO, "codiPROVA");
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
+        assertEquals(resposta.get(MISSATGE), "No existeix cap usuari amb les dades indicades");
+    }
+    
+    /**
+     * Mètode que prova tancar sessió amb un codi de sessió incorrecte
+     */
+    @Test
+    public void provaLogoutDadesIncompletes() {
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LOGOUT);
+
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
@@ -169,6 +223,7 @@ public class GestioSessioUsuariTest {
 		
 		Usuari usuari = new Usuari(escola, "p.gomez", "passtest1");
 		usuari.setCodi(1);	
+		usuari.setCodiSessio("codiProva");	
 		empleat.setUsuari(usuari);
 		usuari.setEmpleat(empleat);
 		
