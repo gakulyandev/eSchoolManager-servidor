@@ -17,7 +17,7 @@ import com.eschoolmanager.server.gestors.GestorPeticions;
 
 /**
  * @author Gayané Akulyan Akulyan
- * Classe Fil que atén la petició de traducció d'un client
+ * Classe Fil que atén la petició d'un client
  */
 public class FilClient extends Thread {
 
