@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -34,6 +36,7 @@ public class Departament {
 	private Escola escola;
 	private String nom;
 	private List<Empleat> empleats = new ArrayList<>();
+	private List<Permis> permisos = new ArrayList<>();
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -47,9 +50,9 @@ public class Departament {
      * @param escola a on és el departament
      * @param nom del departament
      */
-	public Departament(Escola escola, String nom) {
-		this.setEscola(escola);
+	public Departament(String nom) {
         this.setNom(nom);
+        
 	}
 	
 	/**
@@ -121,5 +124,46 @@ public class Departament {
 	 */
 	public void setEmpleats(List<Empleat> empleats) {
 		this.empleats = empleats;
+	}
+	
+	/**
+	 * Llista els permisos dels empleats del departament 
+	 * @return permisos del departament
+	 */
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(
+			name="departaments_permisos",
+			joinColumns=@JoinColumn(name="departament"),
+			inverseJoinColumns=@JoinColumn(name="permis")
+	)
+	public List<Permis> getPermisos() {
+		return this.permisos;
+	}
+	
+	/**
+	 * Actualitza els permisos dels empleats del departament (només s'inclou pel correcte funcionament del mapeig ORM)
+	 * @param permisos nou valor pels permisos del departament
+	 */
+	public void setPermisos(List<Permis> permisos) {
+		this.permisos = permisos;
+	}
+	
+	/**
+	 * Confirma si el departament té permis per una crida
+	 * @param crida a confirmar
+	 * @return true o false segons si la crida està entre els permisos del departament
+	 */
+	public boolean confirmaPermis (String cridaPeticio) {
+		for (Permis permis : this.permisos) {
+			String[] crides = permis.getCrides().split(";");
+			
+			for(String crida : crides) {
+				if (crida.equals(cridaPeticio)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 }

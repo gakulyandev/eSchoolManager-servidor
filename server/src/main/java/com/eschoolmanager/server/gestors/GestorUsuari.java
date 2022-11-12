@@ -30,42 +30,6 @@ public class GestorUsuari {
 	}
 	
 	/**
-     * Afeigeix un nou usuari a la base de dades
-     * @param usuari l'usuari que s'ha de desar a la base de dades
-     * @throws GestorExcepcions
-     */
-	public void afegeix(Usuari usuari) throws GestorExcepcions {
-        if(existeix(usuari.getNomUsuari())) {
-            throw new GestorExcepcions("Ja existeix un usuari amb el mateix nom d'usuari");
-        }
-        
-        entityManager.getTransaction().begin();
-        entityManager.persist(usuari);
-        entityManager.getTransaction().commit();
-    }
-	
-	/**
-     * Comprova si existeix un usuari amb un nom d'usuari determinat
-     * @param nomUsuari de l'usuari a comprovar
-     * @return true o false en cas d'haver-hi o no algun usuari d'alta amb aquest nom d'usuari
-     */
-    private boolean existeix(String nomUsuari) {
-    	entityManager.getTransaction().begin();
-        
-    	int numeroUsuaris = ((Long) entityManager
-    					.createQuery("SELECT COUNT(u) FROM Usuari u WHERE u.nomUsuari = :" + NOM_USUARI)
-    					.setParameter(NOM_USUARI, nomUsuari).getSingleResult()).intValue();
-        
-        entityManager.getTransaction().commit();
-    	
-    	if (numeroUsuaris > 0) {
-            return true;
-    	}
-        
-        return false;
-    }
-	
-	/**
      * Obte l'usuari de la base de dades amb un identificador determinat
      * @param codi identificador de l'usuari a obtenir
      * @return usuari en cas d'haver-hi un usuari amb aquest codi

@@ -57,7 +57,7 @@ public class FilClient extends Thread {
     @Override
     public void run() {
         while(!this.client.isClosed()) {
-        	String peticio = this.in.next();
+        	String peticio = this.in.nextLine();
         	System.out.println("Client " + numeroClient + " => Peticio:" + peticio);
     		
         	GestorPeticions gestorPeticions = new GestorPeticions(entityManager);

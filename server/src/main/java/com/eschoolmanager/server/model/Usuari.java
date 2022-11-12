@@ -170,7 +170,12 @@ public class Usuari {
     public SessioUsuari iniciaSessio() {
         this.setCodiSessio((this.nomUsuari + Timestamp.from(Instant.now())).replaceAll("\\s+",""));
         
-        return new SessioUsuari(this.codiSessio, this.empleat.getNom(), this.empleat.getDepartament().getCodi());
+        return new SessioUsuari(
+        		this.codiSessio, 
+        		this.empleat.getNom(), 
+        		this.empleat.getDepartament().getNom(), 
+        		this.empleat.getDepartament().getPermisos()
+        		);
     }
     
     /**

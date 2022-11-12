@@ -9,12 +9,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import com.eschoolmanager.server.connexio.Servidor;
 import com.eschoolmanager.server.gestors.GestorExcepcions;
 import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Escola;
+import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Usuari;
 
 /**
@@ -45,6 +47,21 @@ public class App
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("eSchoolManager");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
+		// INICIALITZA PERMISOS
+		entityManager.getTransaction().begin();
+		entityManager.createNativeQuery("INSERT INTO Permis (codi, nom, crides) \r\n"
+				+ "VALUES"
+				+ "(1, 'acces','LOGIN;LOGOUT'),"
+				+ "(2, 'escola','MODI ESCOLA'),"
+				+ "(3, 'departament','ALTA DEPARTAMENT;BAIXA DEPARTAMENT;MODI DEPARTAMENT;LLISTA DEPARTAMENTS;CONSULTA DEPARTAMENT'),"
+				+ "(4, 'empleat','ALTA EMPLEAT;BAIXA EMPLEAT;MODI EMPLEAT;LLISTA EMPLEATS;CONSULTA EMPLEAT'),"
+				+ "(5, 'servei','ALTA SERVEI;BAIXA SERVEI;MODI SERVEI;LLISTA SERVEIS;CONSULTA SERVEI'),"
+				+ "(6, 'estudiant','ALTA ESTUDIANT;BAIXA ESTUDIANT;MODI ESTUDIANT;LLISTA ESTUDIANTS;CONSULTA ESTUDIANT'),"
+				+ "(7, 'beca','ALTA BECA;BAIXA BECA;MODI BECA;LLISTA BEQUES;CONSULTA BECA'),"
+				+ "(8, 'sessio','ALTA SESSIO;BAIXA SESSIO;MODI SESSIO;LLISTA SESSIONS;CONSULTA SESSIO'),"
+				+ "(9, 'informe','LLISTA DADES');").executeUpdate();
+		entityManager.getTransaction().commit();
+		
 		// DADES D'EXEMPLE A ELIMINAR
 		Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");		
 		entityManager.getTransaction().begin();
@@ -54,9 +71,44 @@ public class App
         escola = (Escola) entityManager.find(Escola.class, 1);       
         entityManager.getTransaction().commit();
         
-        Departament departament1 = new Departament (escola, "Administrador");
-		Departament departament2 = new Departament (escola, "Administratiu");
-		Departament departament3 = new Departament (escola, "Docent");
+        
+        Departament departament1 = new Departament("Administrador");
+        departament1.setEscola(escola);
+		Departament departament2 = new Departament("Administratiu");
+		departament2.setEscola(escola);
+		Departament departament3 = new Departament("Docent");
+		departament3.setEscola(escola);
+		
+		entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("SELECT p FROM Permis p ORDER BY p.nom ASC");
+        List<Permis> permisos = query.getResultList();
+        entityManager.getTransaction().commit();
+
+        List<Permis> permisosDepartament1 = new ArrayList();
+        List<Permis> permisosDepartament2 = new ArrayList();
+        List<Permis> permisosDepartament3 = new ArrayList();
+        for(Permis permis : permisos) {
+        	if(permis.getNom().equals("acces")) {
+        		permisosDepartament1.add(permis);
+        		permisosDepartament2.add(permis);
+        		permisosDepartament3.add(permis);
+        		List<Departament> departaments = new ArrayList();
+        		departaments.add(departament1);
+        		departaments.add(departament2);
+        		departaments.add(departament3);
+        		permis.setDepartaments(departaments);
+        	}
+        	if(permis.getNom().equals("escola") || permis.getNom().equals("departament")) {
+        		permisosDepartament1.add(permis);
+        		List<Departament> departaments = new ArrayList();
+        		departaments.add(departament1);
+        		permis.setDepartaments(departaments);
+        	}
+        }
+        departament1.setPermisos(permisosDepartament1);
+        departament2.setPermisos(permisosDepartament2);
+        departament3.setPermisos(permisosDepartament3);
+        
 		
 		List<Departament> departaments = new ArrayList();
 		departaments.add(departament1);

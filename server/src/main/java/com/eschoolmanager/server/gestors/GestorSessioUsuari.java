@@ -34,15 +34,20 @@ public class GestorSessioUsuari {
 	/**
 	 * Valida el codi de sessió de l'usuari
 	 * @param codiSessio de sessió a validar
-	 * @throws GestorExcepcions enc as que no sigui vàlid
+	 * @param crida per validar el permis de l'usuari
+	 * @throws GestorExcepcions en cas que no sigui vàlid
 	 */
-	public void validaCodi(String codiSessio) throws GestorExcepcions {
+	public void validaSessio(String codiSessio, String crida) throws GestorExcepcions {
 		
+		// Troba l'usuari pel codi de sessió
 		Usuari usuari = gestorUsuari.troba(codiSessio);
-    	
-    	if (usuari == null) {
-    		throw new GestorExcepcions("El codi de sessió no correspont a cap usuari");
-    	}		
+		
+		// Confirma si te permisos per la crida
+		Empleat empleat = usuari.getEmpleat();
+
+		if (!empleat.getDepartament().confirmaPermis(crida)) {
+			throw new GestorExcepcions("L'usuari no està autoritzat per aquesta acció");
+		}
 	}
 	
 	/**

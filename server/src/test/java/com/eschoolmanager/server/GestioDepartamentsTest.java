@@ -6,6 +6,8 @@ package com.eschoolmanager.server;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.json.JSONObject;
@@ -18,6 +20,29 @@ public class GestioDepartamentsTest extends BaseTest {
 
 	private final static String CRIDA_ALTA = "ALTA DEPARTAMENT";
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
+	private final static String DADES_PERMISOS = "permisos";
+	private final static String PERMIS = "departament";
+	
+	private JSONObject dadesPeticioPermisos;
+	
+	/**
+     * Neteja la base de dades i l'omple amb dades de prova
+     * @throws Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+    	super.setUp();
+    	dadesPeticioPermisos = new JSONObject();
+    }
+    
+    /**
+     * Tanca l'entityManager i la factoria d'entitats en acabar els tests
+     */
+    @After()
+    public void classEnds() {
+    	super.classEnds();
+    	dadesPeticioPermisos = null;
+    }
 
 	/**
      * Mètode que prova donar d'alta un departament amb un usuari autoritzat i departament inexistent
@@ -28,13 +53,16 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CODI_SESSIO, "codiProva1");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Docent");
+    	dadesPeticioPermisos.put(PERMIS, true);
+    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
+
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_OK);
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
     }
     
     /**
@@ -46,14 +74,17 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CODI_SESSIO, "codiProva2");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Docent");
+    	dadesPeticioPermisos.put(PERMIS, true);
+    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
+
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
-        assertEquals(resposta.get(MISSATGE), "L'usuari no està autoritzat per aquesta acció");
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals("L'usuari no està autoritzat per aquesta acció", resposta.get(MISSATGE));
     }
     
     /**
@@ -65,14 +96,16 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CODI_SESSIO, "codiProva1");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
+    	dadesPeticioPermisos.put(PERMIS, true);
+    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
-        assertEquals(resposta.get(MISSATGE), "El departament ja existeix");
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals("Ja existeix un departament amb el mateix nom", resposta.get(MISSATGE));
     }
 
 }

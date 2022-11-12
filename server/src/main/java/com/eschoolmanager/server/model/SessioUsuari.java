@@ -3,6 +3,8 @@
  */
 package com.eschoolmanager.server.model;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 /**
@@ -13,7 +15,8 @@ public class SessioUsuari {
 	
 	private String codi;
 	private String nomEmpleat;
-	private int codiDepartament;
+	private String nomDepartament;
+	private List<Permis> permisos;
 	
 	/**
      * Constructor que crea una sessio d'usuari a partir de paràmetres
@@ -21,10 +24,11 @@ public class SessioUsuari {
      * @param nomEmpleat de l'usuari
      * @param codiDepartament de l'usuari
      */
-	public SessioUsuari(String codiSessio, String nomEmpleat, int codiDepartament) {
+	public SessioUsuari(String codiSessio, String nomEmpleat, String nomDepartament, List<Permis> permisos) {
 		this.setCodi(codiSessio);
 		this.setNomEmpleat(nomEmpleat);
-		this.setCodiDepartament(codiDepartament);
+		this.setNomDepartament(nomDepartament);
+		this.setPermisos(permisos);
 	}
 
 	/**
@@ -60,19 +64,35 @@ public class SessioUsuari {
 	}
 
 	/**
-	 * Obté el codi del departament de l'empleat
-	 * @return codiDepartament a on pertany l'empleat
+	 * Obté el nom del departament de l'empleat
+	 * @return nomDepartament a on pertany l'empleat
 	 */
-	public int getCodiDepartament() {
-		return codiDepartament;
+	public String getNomDepartament() {
+		return nomDepartament;
 	}
 
 	/**
-	 * Actualitza el codi del departament de l'empleat
-	 * @param codiDepartament nou valor pel codi del departament de l'empleat
+	 * Actualitza el nom del departament de l'empleat
+	 * @param nomDepartament nou valor pel nom del departament de l'empleat
 	 */
-	public void setCodiDepartament(int codiDepartament) {
-		this.codiDepartament = codiDepartament;
+	public void setNomDepartament(String nomDepartament) {
+		this.nomDepartament = nomDepartament;
+	}
+
+	/**
+	 * Obté els permisos del departament de l'empleat
+	 * @return permisos del departament a on pertany l'empleat
+	 */
+	public List<Permis> getPermisos() {
+		return permisos;
+	}
+
+	/**
+	 * Actualitza els permisos del departament de l'empleat
+	 * @param permisos nou valor pels permisos del departament de l'empleat
+	 */
+	public void setPermisos(List<Permis> permisos) {
+		this.permisos = permisos;
 	}
 
 }

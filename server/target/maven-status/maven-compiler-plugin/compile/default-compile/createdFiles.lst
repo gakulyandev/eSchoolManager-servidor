@@ -1,7 +1,9 @@
 com\eschoolmanager\server\model\Beca.class
 com\eschoolmanager\server\app\App.class
+com\eschoolmanager\server\gestors\GestorDepartament.class
 com\eschoolmanager\server\model\Informe.class
 com\eschoolmanager\server\model\Professor.class
+com\eschoolmanager\server\model\Permis.class
 com\eschoolmanager\server\model\Estudiant.class
 com\eschoolmanager\server\model\Usuari.class
 com\eschoolmanager\server\model\Empleat.class
@@ -17,5 +19,6 @@ com\eschoolmanager\server\gestors\GestorExcepcions.class
 com\eschoolmanager\server\model\Sessio.class
 com\eschoolmanager\server\gestors\GestorSessioUsuari.class
 com\eschoolmanager\server\model\Factura.class
+com\eschoolmanager\server\gestors\GestorEscola.class
 com\eschoolmanager\server\model\Persona.class
 com\eschoolmanager\server\gestors\GestorUsuari.class

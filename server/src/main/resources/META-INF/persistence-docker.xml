@@ -8,6 +8,7 @@
     <class>com.eschoolmanager.server.model.Administratiu</class>
     <class>com.eschoolmanager.server.model.Usuari</class>
     <class>com.eschoolmanager.server.model.Departament</class>
+    <class>com.eschoolmanager.server.model.Permis</class>
     <class>com.eschoolmanager.server.model.Estudiant</class>
     <class>com.eschoolmanager.server.model.Beca</class>
     <class>com.eschoolmanager.server.model.Servei</class>

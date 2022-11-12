@@ -20,9 +20,10 @@ public class GestioSessioUsuariTest extends BaseTest {
 	private final static String CRIDA_LOGOUT = "LOGOUT";
 	private final static String DADES_NOM_USUARI = "usuari";
 	private final static String DADES_CONTRASENYA = "contrasenya";
-	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
+	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_CODI_SESSIO = "codiSessio";
 	private final static String DADES_NOM = "nom";
+	private final static String DADES_PERMISOS = "permisos";
     
     /**
      * Mètode que prova iniciar sessió amb un usuari i contrasenya correctes
@@ -40,9 +41,10 @@ public class GestioSessioUsuariTest extends BaseTest {
     	dadesResposta = resposta.getJSONObject(DADES);
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_OK);
-        assertEquals(dadesResposta.get(DADES_CODI_DEPARTAMENT), 1);
-        assertEquals(dadesResposta.get(DADES_NOM), "Pedro");
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Administrador", dadesResposta.get(DADES_NOM_DEPARTAMENT));
+        assertEquals("Pedro", dadesResposta.get(DADES_NOM));
+        assertTrue(dadesResposta.get(DADES_PERMISOS) != null);
         assertTrue(dadesResposta.get(DADES_CODI_SESSIO) != null);
     }
     
@@ -61,8 +63,8 @@ public class GestioSessioUsuariTest extends BaseTest {
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
-        assertEquals(resposta.get(MISSATGE), "No existeix cap usuari amb les dades indicades");
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals("No existeix cap usuari amb les dades indicades", resposta.get(MISSATGE));
     }
     
     /**
@@ -79,8 +81,8 @@ public class GestioSessioUsuariTest extends BaseTest {
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
-        assertEquals(resposta.get(MISSATGE), "Falten dades");
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals("Falten dades", resposta.get(MISSATGE));
     }
     
     /**
@@ -96,7 +98,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_OK);
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
     }
     
     /**
@@ -112,8 +114,8 @@ public class GestioSessioUsuariTest extends BaseTest {
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
-        assertEquals(resposta.get(MISSATGE), "No existeix cap usuari amb les dades indicades");
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals("No existeix cap usuari amb les dades indicades", resposta.get(MISSATGE));
     }
     
     /**
@@ -128,7 +130,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(resposta.get(RESPOSTA), RESPOSTA_NOK);
-        assertEquals(resposta.get(MISSATGE), "Falten dades");
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals("Falten dades", resposta.get(MISSATGE));
     }
 }
