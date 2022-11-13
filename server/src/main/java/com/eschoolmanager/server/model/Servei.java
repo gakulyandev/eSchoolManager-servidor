@@ -17,10 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -35,9 +32,9 @@ public class Servei {
 	private String nom;
 	private double cost;
 	private int durada;
-	private List<Beca> beques = new ArrayList<>();
-	private List<Professor> professors = new ArrayList<>();
-	private List<Sessio> sessions = new ArrayList<>();
+	private List<Beca> beques;
+	private List<Professor> professors;
+	private List<Sessio> sessions;
 	
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -58,6 +55,9 @@ public class Servei {
 		this.setNom(nom);
 		this.setCost(cost);
 		this.setDurada(durada);
+		this.setBeques(new ArrayList<Beca>());
+		this.setProfessors(new ArrayList<Professor>());
+		this.setSessions(new ArrayList<Sessio>());
 	}
 
 	/**

@@ -17,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -35,8 +34,8 @@ public class Departament {
 	private int codi;
 	private Escola escola;
 	private String nom;
-	private List<Empleat> empleats = new ArrayList<>();
-	private List<Permis> permisos = new ArrayList<>();
+	private List<Empleat> empleats;
+	private List<Permis> permisos;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -52,6 +51,8 @@ public class Departament {
      */
 	public Departament(String nom) {
         this.setNom(nom);
+        this.setEmpleats(new ArrayList<Empleat>());
+    	this.setPermisos(new ArrayList<Permis>());
         
 	}
 	
@@ -78,8 +79,8 @@ public class Departament {
 	 * Obté l'escola a on és el departament
 	 * @return escola a on és el departament
 	 */
-	@ManyToOne
-    @JoinColumn(name="escola_codi", nullable=false)
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="escola_codi")
 	public Escola getEscola() {
 		return escola;
 	}
@@ -149,11 +150,20 @@ public class Departament {
 	}
 	
 	/**
+	 * Afegeix un permis al llistat
+	 * @param permis a afegir
+	 */
+	public void adjudicaPermis(Permis permis) {
+		this.permisos.add(permis);
+		permis.afegeixDepartament(this);
+	}
+	
+	/**
 	 * Confirma si el departament té permis per una crida
 	 * @param crida a confirmar
 	 * @return true o false segons si la crida està entre els permisos del departament
 	 */
-	public boolean confirmaPermis (String cridaPeticio) {
+	public boolean confirmaPermis(String cridaPeticio) {
 		for (Permis permis : this.permisos) {
 			String[] crides = permis.getCrides().split(";");
 			
@@ -165,5 +175,14 @@ public class Departament {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Afegeix un empleat al llistat
+	 * @param empleat a afegir
+	 */
+	public void altaEmpleat(Empleat empleat) {
+		this.empleats.add(empleat);
+		empleat.setDepartament(this);
 	}
 }

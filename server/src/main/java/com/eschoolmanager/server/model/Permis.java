@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -27,7 +26,7 @@ public class Permis {
 	private int codi;
 	private String nom;
 	private String crides;
-	private List<Departament> departaments = new ArrayList<>();
+	private List<Departament> departaments;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -41,8 +40,10 @@ public class Permis {
      * @param escola a on és el departament
      * @param nom del departament
      */
-	public Permis(String nom, boolean activat) {
+	public Permis(String nom, String crides) {
         this.setNom(nom);
+        this.setCrides(crides);
+        this.setDepartaments(new ArrayList<Departament>());
 	}
 
 	/**
@@ -102,7 +103,7 @@ public class Permis {
 	 * Obté els departaments als que s'associa el permis
 	 * @return departaments als que s'associa el permis
 	 */
-	@ManyToMany(mappedBy="permisos")
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="permisos")
 	public List<Departament> getDepartaments() {
 		return departaments;
 	}
@@ -113,5 +114,13 @@ public class Permis {
 	 */
 	public void setDepartaments(List<Departament> departaments) {
 		this.departaments = departaments;
+	}
+	
+	/**
+	 * Afegeix un departament al llistat
+	 * @param departament a afegir
+	 */
+	public void afegeixDepartament(Departament departament) {
+		this.departaments.add(departament);
 	}
 }

@@ -4,8 +4,6 @@
 package com.eschoolmanager.server.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -15,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**

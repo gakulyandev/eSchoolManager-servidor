@@ -7,6 +7,7 @@ import static javax.persistence.InheritanceType.JOINED;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -49,11 +50,10 @@ public class Empleat extends Persona {
      * @param adreca de l'empleat
      * @param departament de l'empleat
      */
-	public Empleat(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Departament departament) {
+	public Empleat(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		
 		this.setActiu(true);
-		this.setDepartament(departament);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class Empleat extends Persona {
 	 * Obté l'usuari de l'empleat
 	 * @return usuari de l'empleat
 	 */
-    @OneToOne(optional=false, mappedBy="empleat", fetch=FetchType.LAZY)
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE}, optional=false, mappedBy="empleat", fetch=FetchType.LAZY)
 	public Usuari getUsuari() {
 		return usuari;
 	}
@@ -94,7 +94,7 @@ public class Empleat extends Persona {
 	 * Obté el departament de l'empleat
 	 * @return departament de l'empleat
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="departament_codi", nullable=false)
 	public Departament getDepartament() {
 		return departament;
@@ -106,5 +106,14 @@ public class Empleat extends Persona {
 	 */
 	public void setDepartament(Departament departament) {
 		this.departament = departament;
+	}
+	
+	/**
+	 * Afegeix l'usuari de l'empleat
+	 * @param usuari de l'empleat
+	 */
+	public void assignaUsuari(Usuari usuari) {
+		this.setUsuari(usuari);
+		usuari.setEmpleat(this);
 	}
 }

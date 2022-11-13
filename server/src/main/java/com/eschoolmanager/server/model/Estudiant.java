@@ -27,8 +27,8 @@ public class Estudiant extends Persona {
 	
 	private Escola escola;
 	private boolean registrat = false;
-	private List<Beca> beques = new ArrayList<>();
-	private List<Sessio> sessions = new ArrayList<>();
+	private List<Beca> beques;
+	private List<Sessio> sessions;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -53,6 +53,8 @@ public class Estudiant extends Persona {
 		
 		this.setEscola(escola);
 		this.setRegistrat(true);
+		this.setBeques(new ArrayList<Beca>());
+		this.setSessions(new ArrayList<Sessio>());
 	}
 
 	/**

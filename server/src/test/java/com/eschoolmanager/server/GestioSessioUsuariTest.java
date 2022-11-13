@@ -24,6 +24,9 @@ public class GestioSessioUsuariTest extends BaseTest {
 	private final static String DADES_CODI_SESSIO = "codiSessio";
 	private final static String DADES_NOM = "nom";
 	private final static String DADES_PERMISOS = "permisos";
+	
+	private final static String ERROR_USUARI_INEXISTENT = "No existeix cap usuari amb les dades indicades";
+	private final static String ERROR_DADES = "Falten dades";
     
     /**
      * Mètode que prova iniciar sessió amb un usuari i contrasenya correctes
@@ -64,7 +67,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals("No existeix cap usuari amb les dades indicades", resposta.get(MISSATGE));
+        assertEquals(ERROR_USUARI_INEXISTENT, resposta.get(MISSATGE));
     }
     
     /**
@@ -82,7 +85,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals("Falten dades", resposta.get(MISSATGE));
+        assertEquals(ERROR_DADES, resposta.get(MISSATGE));
     }
     
     /**
@@ -115,7 +118,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals("No existeix cap usuari amb les dades indicades", resposta.get(MISSATGE));
+        assertEquals(ERROR_USUARI_INEXISTENT, resposta.get(MISSATGE));
     }
     
     /**
@@ -131,6 +134,6 @@ public class GestioSessioUsuariTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals("Falten dades", resposta.get(MISSATGE));
+        assertEquals(ERROR_DADES, resposta.get(MISSATGE));
     }
 }

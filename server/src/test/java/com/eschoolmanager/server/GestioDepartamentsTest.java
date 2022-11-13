@@ -4,7 +4,6 @@
 package com.eschoolmanager.server;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,6 +21,10 @@ public class GestioDepartamentsTest extends BaseTest {
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_PERMISOS = "permisos";
 	private final static String PERMIS = "departament";
+	
+	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
+	private final static String ERROR_DUPLICAT = "Ja existeix un departament amb el mateix nom";
+	private final static String ERROR_DADES = "Falten dades";
 	
 	private JSONObject dadesPeticioPermisos;
 	
@@ -84,7 +87,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals("L'usuari no està autoritzat per aquesta acció", resposta.get(MISSATGE));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
     }
     
     /**
@@ -105,7 +108,26 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals("Ja existeix un departament amb el mateix nom", resposta.get(MISSATGE));
+        assertEquals(ERROR_DUPLICAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova donar d'alta un departament amb amb dades incompletes
+     */
+    @Test
+    public void provaAltaDepartamentDadesIncompletes() {
+        peticio.put(CRIDA, CRIDA_ALTA);
+    	//Petició del client
+        peticio.put(CODI_SESSIO, "codiProva1");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_DADES, resposta.get(MISSATGE));
     }
 
 }

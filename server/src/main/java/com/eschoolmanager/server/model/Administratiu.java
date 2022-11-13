@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,7 +22,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("AD")
 public class Administratiu extends Empleat {
 	
-	private List<Informe> informes = new ArrayList<>();
+	private List<Informe> informes;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -42,8 +41,9 @@ public class Administratiu extends Empleat {
      * @param email de contacte de l'administratiu
      * @param adreca de l'administratiu
      */
-	public Administratiu(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Departament departament) {
-		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca, departament);
+	public Administratiu(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) {
+		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+		this.setInformes(new ArrayList<Informe>());
 	}
 	
 	/**

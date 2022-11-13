@@ -9,14 +9,21 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import com.eschoolmanager.server.gestors.GestorExcepcions;
+import com.eschoolmanager.server.gestors.GestorPeticions;
+import com.eschoolmanager.server.gestors.GestorSessionsUsuari;
 
 /**
  * @author Gayané Akulyan Akulyan
  * Classe servidor que espera i atén les connexions de diversos clients
  */
 public class Servidor {
+
+	private Integer port;
+	private ServerSocket server;
 	
+	private final static String ENV_PORT = "PORT";
 	private final static String PERSISTENCE_UNIT = "eSchoolManager";
+	private final static String ERROR_GENERIC = "S'ha produit un error";
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -24,14 +31,17 @@ public class Servidor {
 	 * @throws GestorExcepcions en cas d'error 
 	 */
 	public void executa() throws GestorExcepcions {
+		
 		try {
             //Creació del socket
-    		Integer port = Integer.parseInt(System.getenv("PORT"));
-            ServerSocket server  = new ServerSocket(port);
+    		port = Integer.parseInt(System.getenv(ENV_PORT));
+            server = new ServerSocket(port);
             
-            //Creació del gestor d'entitats
+            //Inicialització del gestor de peticions
     		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
     		EntityManager entityManager = entityManagerFactory.createEntityManager();
+    		GestorSessionsUsuari gestorSessionsUsuari = new GestorSessionsUsuari();
+    		GestorPeticions gestorPeticions = new GestorPeticions(entityManager, gestorSessionsUsuari);
             
             //Bucle infinit esperant connexions
             int numeroClient=1;
@@ -41,13 +51,12 @@ public class Servidor {
                 System.out.println("Client " + numeroClient + " connectat");
                 
                 //Creació d'un nou fil per el nou client connectat
-                new FilClient(socket, numeroClient, entityManager).start();
+                new FilClient(socket, numeroClient, gestorPeticions).start();
                 numeroClient++;
-                
             }
             
         } catch (IOException ex) {
-            throw new GestorExcepcions("S'ha produit un error");
+            throw new GestorExcepcions(ERROR_GENERIC);
         }
 	}
 

@@ -11,7 +11,6 @@ import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.eschoolmanager.server.model.Escola;
 import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.SessioUsuari;
 
@@ -22,9 +21,10 @@ import com.eschoolmanager.server.model.SessioUsuari;
  */
 public class GestorPeticions {
 
-	private EntityManager entityManager = null;
+	private GestorDepartament gestorDepartament;
+	private GestorSessioUsuari gestorSessioUsuari;
+	
 	private final static String CRIDA = "crida";
-	private final static String CRIDA_ALTA_EMPLEAT = "ALTA EMPLEAT";
 	private final static String CRIDA_LOGIN = "LOGIN";
 	private final static String CRIDA_LOGOUT = "LOGOUT";
 	private final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
@@ -36,18 +36,22 @@ public class GestorPeticions {
 	private final static String DADES = "dades";
 	private final static String DADES_NOM_USUARI = "usuari";
 	private final static String DADES_CONTRASENYA = "contrasenya";
-	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_CODI_SESSIO = "codiSessio";
 	private final static String DADES_NOM = "nom";
 	private final static String DADES_PERMISOS = "permisos";
+	private final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
+	private final static String ERROR_GENERIC = "S'ha produit un error";
+	private final static String ERROR_DADES = "Falten dades";
 	
 	/**
-     * Constructor que associa el gestor a un EntityManager
+     * Constructor que associa i inicialitza els diferents gestors
      * @param entityManager EntityManager al qual s'associa el gestor
+	 * @throws GestorExcepcions 
      */
-	public GestorPeticions(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	public GestorPeticions(EntityManager entityManager, GestorSessionsUsuari gestorSessionsUsuari) throws GestorExcepcions {
+		this.gestorSessioUsuari = new GestorSessioUsuari(gestorSessionsUsuari, entityManager);
+		this.gestorDepartament = new GestorDepartament(entityManager);
 	}
 
 	/**
@@ -56,49 +60,40 @@ public class GestorPeticions {
      * @return resposta que envia el servidor una vegada processada la petició
      */
 	public String generaResposta(String peticioString) {
-		GestorSessioUsuari gestorSessioUsuari = new GestorSessioUsuari(entityManager);
-		GestorDepartament gestorDepartament = new GestorDepartament(entityManager);
 				
 		JSONObject peticio = new JSONObject(peticioString);
 		JSONObject dadesPeticio = new JSONObject();
-		JSONObject permisosGenerals = new JSONObject();
-		permisosGenerals.put("escola", false);
-		permisosGenerals.put("departament", false);
-		permisosGenerals.put("empleat", false);
-		permisosGenerals.put("estudiant", false);
-		permisosGenerals.put("servei", false);
-		permisosGenerals.put("beca", false);
-		permisosGenerals.put("sessio", false);
-		permisosGenerals.put("informe", false);
 
-		try {
+		try {			
+			
 			String crida = peticio.getString(CRIDA);
 		
-			//Valida codi de sessió i permis de crida per l'usuari amb la sessió iniciada
+			// Valida codi de sessió i permis de crida per l'usuari amb la sessió iniciada
 			if (!crida.equals(CRIDA_LOGIN)) {
 				gestorSessioUsuari.validaSessio(peticio.getString(CODI_SESSIO), crida);
 			}
 			
-			//Gestió de la petició segons tipus de crida
+			// Gestió de la petició segons tipus de crida
 			JSONObject dadesResposta = new JSONObject();
 			
 			switch (crida) {
-			
 				case CRIDA_LOGIN:
+					// Processa la petició i obté una sessió d'usuari
 					dadesPeticio = peticio.getJSONObject(DADES);
 					SessioUsuari sessio = gestorSessioUsuari.iniciaSessio(
 							dadesPeticio.getString(DADES_NOM_USUARI), 
 							dadesPeticio.getString(DADES_CONTRASENYA)
 					);
 					
+					// Genera resposta
 					dadesResposta.put(DADES_CODI_SESSIO, sessio.getCodi());
 					dadesResposta.put(DADES_NOM, sessio.getNomEmpleat());
 					dadesResposta.put(DADES_NOM_DEPARTAMENT, sessio.getNomDepartament());
+					
 					JSONObject dadesRespostaPermisos = new JSONObject();
-					Iterator keysPermisos = permisosGenerals.keys();
-					while(keysPermisos.hasNext()) {
-					    String permisNom = (String) keysPermisos.next();
-						dadesRespostaPermisos.put(permisNom, permisosGenerals.get(permisNom));
+					
+					for (String permisNom : PERMISOS_NOMS) {
+						dadesRespostaPermisos.put(permisNom, false);
 						for (Permis permisDepartament : sessio.getPermisos()) {
 							if(permisDepartament.getNom().equals(permisNom)) {
 								dadesRespostaPermisos.put(permisNom, true);
@@ -110,32 +105,36 @@ public class GestorPeticions {
 					return generaRespostaOK(dadesResposta);	
 				
 				case CRIDA_LOGOUT:
+					// Processa la petició
 					gestorSessioUsuari.tancaSessio(peticio.getString(CODI_SESSIO));
-
+					
+					// Genera resposta
 					return generaRespostaOK(null);
 					
 				case CRIDA_ALTA_DEPARTAMENT:
+					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
-
-				    HashMap<String, Boolean> permisos = new HashMap();
+				    HashMap<String, Boolean> permisos = new HashMap<String, Boolean>();
 					JSONObject dadesPeticioPermisos = dadesPeticio.getJSONObject(DADES_PERMISOS);
-					Iterator keysPermisosPeticio = dadesPeticioPermisos.keys();
+					Iterator<?> keysPermisosPeticio = dadesPeticioPermisos.keys();
 					while(keysPermisosPeticio.hasNext()) {
 					    String key = (String) keysPermisosPeticio.next();
 					    permisos.put(key, dadesPeticioPermisos.getBoolean(key));
 					}
 					
-					gestorDepartament.afegeix(dadesPeticio.getString(DADES_NOM_DEPARTAMENT), permisos);
+					gestorDepartament.alta(dadesPeticio.getString(DADES_NOM_DEPARTAMENT), permisos);
 
+					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 					
 				default:
-					return generaRespostaNOK("S'ha produït un error");	
+					// Genera resposta
+					return generaRespostaNOK(ERROR_GENERIC);	
 			}
 		
 		} catch (JSONException ex) {
-			return generaRespostaNOK("Falten dades");
+			return generaRespostaNOK(ERROR_DADES);
 		} catch (GestorExcepcions ex) {
 			return generaRespostaNOK(ex.getMessage());
 		}

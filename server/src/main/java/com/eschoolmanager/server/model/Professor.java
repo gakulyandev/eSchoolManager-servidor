@@ -3,8 +3,6 @@
  */
 package com.eschoolmanager.server.model;
 
-import static javax.persistence.InheritanceType.JOINED;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +23,8 @@ import javax.persistence.Table;
 @DiscriminatorValue("PR")
 public class Professor extends Empleat {
 	
-	private List<Servei> serveis = new ArrayList<>();
-	private List<Sessio> sessions = new ArrayList<>();
+	private List<Servei> serveis;
+	private List<Sessio> sessions;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -45,9 +43,10 @@ public class Professor extends Empleat {
      * @param email de contacte del professor
      * @param adreca del professor
      */
-	public Professor(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Departament departament) {
-		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca, departament);
-		
+	public Professor(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) {
+		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+		this.setServeis(new ArrayList<Servei>());
+		this.setSessions(new ArrayList<Sessio>());
 	}
 	
 	/**

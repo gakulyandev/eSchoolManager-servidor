@@ -6,23 +6,23 @@ package com.eschoolmanager.server;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 
+import com.eschoolmanager.server.gestors.GestorExcepcions;
 import com.eschoolmanager.server.gestors.GestorPeticions;
+import com.eschoolmanager.server.gestors.GestorSessionsUsuari;
 import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Escola;
 import com.eschoolmanager.server.model.Permis;
+import com.eschoolmanager.server.model.SessioUsuari;
 import com.eschoolmanager.server.model.Usuari;
 
 /**
@@ -34,6 +34,7 @@ public class BaseTest {
 	protected EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
 	protected GestorPeticions gestorPeticions;
+	protected GestorSessionsUsuari gestorSessionsUsuari;
 	protected JSONObject peticio, dadesPeticio, resposta, dadesResposta;
 	protected final static String CRIDA = "crida";
 	protected final static String PERSISTENCE_UNIT = "eSchoolManager";
@@ -51,8 +52,11 @@ public class BaseTest {
      */
     @Before
     public void setUp() throws Exception {
+    	gestorSessionsUsuari = new GestorSessionsUsuari();
     	obreGestor();
     	generaDades();
+        
+        gestorPeticions = new GestorPeticions(entityManager, gestorSessionsUsuari);
         peticio = new JSONObject();
         dadesPeticio = new JSONObject();
         dadesResposta = new JSONObject();
@@ -86,8 +90,6 @@ public class BaseTest {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
             entityManager = entityManagerFactory.createEntityManager();
-            
-            gestorPeticions = new GestorPeticions(entityManager);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -105,116 +107,91 @@ public class BaseTest {
     
     /**
      * Genera dades d'exemple a la base de dades
+     * @throws GestorExcepcions en cas d'error
      */
-    private void generaDades() {
-    	// INICIALITZA PERMISOS
-		entityManager.getTransaction().begin();
-		entityManager.createNativeQuery("INSERT INTO Permis (codi, nom, crides) \r\n"
-				+ "VALUES"
-				+ "(1, 'acces','LOGIN;LOGOUT'),"
-				+ "(2, 'escola','MODI ESCOLA'),"
-				+ "(3, 'departament','ALTA DEPARTAMENT;BAIXA DEPARTAMENT;MODI DEPARTAMENT;LLISTA DEPARTAMENTS;CONSULTA DEPARTAMENT'),"
-				+ "(4, 'empleat','ALTA EMPLEAT;BAIXA EMPLEAT;MODI EMPLEAT;LLISTA EMPLEATS;CONSULTA EMPLEAT'),"
-				+ "(5, 'servei','ALTA SERVEI;BAIXA SERVEI;MODI SERVEI;LLISTA SERVEIS;CONSULTA SERVEI'),"
-				+ "(6, 'estudiant','ALTA ESTUDIANT;BAIXA ESTUDIANT;MODI ESTUDIANT;LLISTA ESTUDIANTS;CONSULTA ESTUDIANT'),"
-				+ "(7, 'beca','ALTA BECA;BAIXA BECA;MODI BECA;LLISTA BEQUES;CONSULTA BECA'),"
-				+ "(8, 'sessio','ALTA SESSIO;BAIXA SESSIO;MODI SESSIO;LLISTA SESSIONS;CONSULTA SESSIO'),"
-				+ "(9, 'informe','LLISTA DADES');").executeUpdate();
-		entityManager.getTransaction().commit();
-		
-    	Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");
-    	escola.setCodi(1);	
-    	insertaDades(escola);
-        entityManager.getTransaction().begin();        
-        escola = (Escola) entityManager.find(Escola.class, 1);       
-        entityManager.getTransaction().commit();
+    private void generaDades() throws GestorExcepcions {
+    	
+    	// Creació de l'escola
+		Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");		
         
-        
-        
-
-
-        Departament departament1 = new Departament("Administrador");
-        departament1.setEscola(escola);
-		Departament departament2 = new Departament("Administratiu");
-		departament2.setEscola(escola);
+		// Creació dels departaments bàsics
+        Departament departamentAdministrador = new Departament("Administrador");
+		Departament departamentAdministratiu = new Departament("Administratiu");
+		escola.altaDepartament(departamentAdministrador);
+		escola.altaDepartament(departamentAdministratiu);
 		
-		entityManager.getTransaction().begin();
-        Query query = entityManager.createQuery("SELECT p FROM Permis p ORDER BY p.nom ASC");
-        List<Permis> permisos = query.getResultList();
-        entityManager.getTransaction().commit();
-
-        List<Permis> permisosDepartament1 = new ArrayList();
-        List<Permis> permisosDepartament2 = new ArrayList();
-        for(Permis permis : permisos) {
-        	if(permis.getNom().equals("acces")) {
-        		permisosDepartament1.add(permis);
-        		permisosDepartament2.add(permis);
-        		List<Departament> departaments = new ArrayList();
-        		departaments.add(departament1);
-        		departaments.add(departament2);
-        		permis.setDepartaments(departaments);
-        	}
-        	if(permis.getNom().equals("escola") || permis.getNom().equals("departament")) {
-        		permisosDepartament1.add(permis);
-        		List<Departament> departaments = new ArrayList();
-        		departaments.add(departament1);
-        		permis.setDepartaments(departaments);
-        	}
-        }
-        departament1.setPermisos(permisosDepartament1);
-        departament2.setPermisos(permisosDepartament2);
-        
+		// Adjudicació de permisos als departaments bàsics
+		Permis permisAcces = new Permis("acces","LOGIN;LOGOUT");
+		Permis permisEscola = new Permis("escola","MODI ESCOLA");
+		Permis permisDepartament = new Permis("departament","ALTA DEPARTAMENT;BAIXA DEPARTAMENT;MODI DEPARTAMENT;LLISTA DEPARTAMENTS;CONSULTA DEPARTAMENT");
+		Permis permisEmpleat = new Permis("empleat","ALTA EMPLEAT;BAIXA EMPLEAT;MODI EMPLEAT;LLISTA EMPLEATS;CONSULTA EMPLEAT");
+		Permis permisServei = new Permis("servei","ALTA SERVEI;BAIXA SERVEI;MODI SERVEI;LLISTA SERVEIS;CONSULTA SERVEI");
+		Permis permisEstudiant = new Permis("estudiant","ALTA ESTUDIANT;BAIXA ESTUDIANT;MODI ESTUDIANT;LLISTA ESTUDIANTS;CONSULTA ESTUDIANT");
+		Permis permisBeca = new Permis("beca","ALTA BECA;BAIXA BECA;MODI BECA;LLISTA BEQUES;CONSULTA BECA");
+		Permis permisSessio = new Permis("sessio","ALTA SESSIO;BAIXA SESSIO;MODI SESSIO;LLISTA SESSIONS;CONSULTA SESSIO");
+		Permis permisInforme = new Permis("informe","LLISTA DADES");
 		
-		List<Departament> departaments = new ArrayList();
-		departaments.add(departament1);
-		departaments.add(departament2);
-		escola.setDepartaments(departaments);
+		departamentAdministrador.adjudicaPermis(permisAcces);
+		departamentAdministratiu.adjudicaPermis(permisAcces);
 		
-
-    	insertaDades(escola);
-			
+		departamentAdministrador.adjudicaPermis(permisEscola);
+		departamentAdministrador.adjudicaPermis(permisDepartament);
+		departamentAdministrador.adjudicaPermis(permisEmpleat);
+		departamentAdministrador.adjudicaPermis(permisServei);
+		departamentAdministrador.adjudicaPermis(permisEstudiant);
+		departamentAdministrador.adjudicaPermis(permisBeca);
+		departamentAdministrador.adjudicaPermis(permisSessio);
+		departamentAdministrador.adjudicaPermis(permisInforme);
 		
-        entityManager.getTransaction().begin();        
-		escola = (Escola) entityManager.find(Escola.class, 1);       
-        entityManager.getTransaction().commit();
-
+		departamentAdministratiu.adjudicaPermis(permisEmpleat);
+		departamentAdministratiu.adjudicaPermis(permisServei);
+		departamentAdministratiu.adjudicaPermis(permisEstudiant);
+		departamentAdministratiu.adjudicaPermis(permisBeca);
+		departamentAdministratiu.adjudicaPermis(permisSessio);
+		departamentAdministratiu.adjudicaPermis(permisInforme);
+		
+        // Creació d'empleats d'exemple
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date parsed1 = null, parsed2 = null, parsed3 = null;
+        java.util.Date parsed = null;
 		try {
-			parsed1 = format.parse("1990-10-28");
-			parsed2 = format.parse("1987-05-10");
+			parsed = format.parse("1990-10-28");
 		} catch (ParseException e) {
 			System.out.println("S'ha produït un error");
 		}
-		Empleat empleat1 = new Empleat("22233344N", "Pedro", "Gomez", new Date(parsed1.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4", departament1);
-		Empleat empleat2 = new Empleat("55533344N", "Clara", "Carrillo", new Date(parsed2.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5", departament2);
+		Empleat empleatAdministrador = new Empleat("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4");
+		Empleat empleatAdministratiu = new Empleat("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5");
 		
-		List<Empleat> empleats1 = new ArrayList();
-		empleats1.add(empleat1);
-		departament1.setEmpleats(empleats1);
+		departamentAdministrador.altaEmpleat(empleatAdministrador);
+		departamentAdministratiu.altaEmpleat(empleatAdministratiu);
 		
-		List<Empleat> empleats2 = new ArrayList();
-		empleats2.add(empleat2);
-		departament2.setEmpleats(empleats2);
+        // Creació d'usuaris d'exemple
+		Usuari usuariAdministrador = new Usuari("p.gomez", "passtest1");
+		Usuari usuariAdministratiu = new Usuari("c.carrillo", "passtest2");
+		empleatAdministrador.assignaUsuari(usuariAdministrador);
+		empleatAdministratiu.assignaUsuari(usuariAdministratiu);
+		
+		gestorSessionsUsuari.desaSessio(
+				new SessioUsuari(
+						"codiProva1", 
+						usuariAdministrador, 
+						usuariAdministrador.getEmpleat().getNom(), 
+						usuariAdministrador.getEmpleat().getDepartament().getNom(), 
+						usuariAdministrador.getEmpleat().getDepartament().getPermisos()
+				)
+		);
+		gestorSessionsUsuari.desaSessio(
+				new SessioUsuari(
+						"codiProva2", 
+						usuariAdministratiu, 
+						usuariAdministratiu.getEmpleat().getNom(), 
+						usuariAdministratiu.getEmpleat().getDepartament().getNom(), 
+						usuariAdministratiu.getEmpleat().getDepartament().getPermisos()
+				)
+		);
+
+		escola.altaUsuari(usuariAdministrador);
+		escola.altaUsuari(usuariAdministratiu);
     	
-		
-		
-		Usuari usuari1 = new Usuari(escola, "p.gomez", "passtest1");
-		usuari1.setCodi(1);	
-		usuari1.setCodiSessio("codiProva1");	
-		Usuari usuari2 = new Usuari(escola, "c.carrillo", "passtest2");
-		usuari2.setCodi(2);	
-		usuari2.setCodiSessio("codiProva2");	
-		
-		empleat1.setUsuari(usuari1);
-		empleat2.setUsuari(usuari2);
-		usuari1.setEmpleat(empleat1);
-		usuari2.setEmpleat(empleat2);
-		
-		List<Usuari> usuaris = new ArrayList();
-		usuaris.add(usuari1);
-		usuaris.add(usuari2);
-		escola.setUsuaris(usuaris);
 		
 		insertaDades(escola);
     }

@@ -5,13 +5,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.eschoolmanager.server.gestors.GestorExcepcions;
 import com.eschoolmanager.server.gestors.GestorPeticions;
 
@@ -25,21 +18,20 @@ public class FilClient extends Thread {
     private Scanner in;
     private PrintWriter out;
     private int numeroClient;
-    private EntityManager entityManager;
-
-	private final static String RESPOSTA = "resposta";
-	private final static String RESPOSTA_NOK = "NOK";
-	private final static String MISSATGE = "missatge";
+    private GestorPeticions gestorPeticions;
+    
+	private final static String ERROR_GENERIC = "S'ha produit un error";
 	
     /**
      * Constructor que crea un Fil per un client
      * @param client flux de dades amb un client
      * @param numeroClient número del client
+     * @param gestorPeticions dels clients
      * @throws GestorExcepcions en cas d'error
      */
-	public FilClient(Socket client, int numeroClient, EntityManager entityManager) throws GestorExcepcions {
+	public FilClient(Socket client, int numeroClient, GestorPeticions gestorPeticions) throws GestorExcepcions {
 		
-		this.entityManager = entityManager;
+		this.gestorPeticions = gestorPeticions;
 		
 		try {
             this.client = client;
@@ -47,7 +39,7 @@ public class FilClient extends Thread {
             this.out = new PrintWriter(client.getOutputStream(), true);
             this.numeroClient = numeroClient;
         } catch (IOException ex) {
-            throw new GestorExcepcions("S'ha produit un error");
+            throw new GestorExcepcions(ERROR_GENERIC);
         } 
 	}
 	
@@ -56,22 +48,24 @@ public class FilClient extends Thread {
      */
     @Override
     public void run() {
+    	
         while(!this.client.isClosed()) {
-        	String peticio = this.in.nextLine();
-        	System.out.println("Client " + numeroClient + " => Peticio:" + peticio);
-    		
-        	GestorPeticions gestorPeticions = new GestorPeticions(entityManager);
-        	String resposta = gestorPeticions.generaResposta(peticio);
         	
-        	System.out.println("Client " + numeroClient + " => Resposta:" + resposta);
-            
-            this.out.println(resposta);
-            
-            try {
-				this.client.close();
-            } catch (IOException ex) {
-            	GestorPeticions.generaRespostaNOK("S'ha produit un error en tancar la comunicació");
-            } 
+        	if (this.in.hasNextLine()) {
+            	String peticio = this.in.nextLine();
+            	System.out.println("Client " + numeroClient + " => Peticio:" + peticio);
+            	
+            	String resposta = gestorPeticions.generaResposta(peticio);
+            	System.out.println("Client " + numeroClient + " => Resposta:" + resposta);
+                
+                this.out.println(resposta);
+                
+                try {
+    				this.client.close();
+                } catch (IOException ex) {
+                	GestorPeticions.generaRespostaNOK(ERROR_GENERIC);
+                }
+        	}
         }
         
         System.out.println("Client " + numeroClient + " desconnectat");

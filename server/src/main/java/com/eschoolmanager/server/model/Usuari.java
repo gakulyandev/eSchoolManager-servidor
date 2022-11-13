@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -35,7 +34,6 @@ public class Usuari {
 	private Escola escola;
 	private String nomUsuari;
 	private String contrasenya;
-	private String codiSessio;
 	private Empleat empleat;
 	
 	/**
@@ -51,8 +49,7 @@ public class Usuari {
      * @param nomUsuari nom d'usuari
      * @param contrasenya contrasenya
      */
-	public Usuari(Escola escola, String nomUsuari, String contrasenya) {
-		this.setEscola(escola);
+	public Usuari(String nomUsuari, String contrasenya) {
         this.setNomUsuari(nomUsuari);
         this.setContrasenya(contrasenya);
 	}
@@ -80,8 +77,8 @@ public class Usuari {
 	 * Obté l'escola a on està donat d'alta l'usuari
 	 * @return escola a on està donat d'alta l'usuari
 	 */
-	@ManyToOne
-    @JoinColumn(name="escola_codi", nullable=false)
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="escola_codi")
 	public Escola getEscola() {
 		return escola;
 	}
@@ -147,42 +144,16 @@ public class Usuari {
 	}
     
     /**
-     * Obté el codi de sessió (només s'inclou pel correcte funcionament del mapeig ORM)
-     * @return codiSessio de l'usuari
-     */
-    @Column(name="codi_sessio")
-    public String getCodiSessio() {
-        return codiSessio;
-    }
-    
-    /**
-     * Actualitza el codi de sessio (només s'inclou pel correcte funcionament del mapeig ORM)
-     * @param codi nou valor per el codi de sessio de l'usuari
-     */
-    public void setCodiSessio(String codi) {
-        this.codiSessio = codi;
-    }
-    
-    /**
      * Genera un codi de sessio
      * @return sessioUsuari iniciada
      */
-    public SessioUsuari iniciaSessio() {
-        this.setCodiSessio((this.nomUsuari + Timestamp.from(Instant.now())).replaceAll("\\s+",""));
-        
+    public SessioUsuari generaSessio() {
         return new SessioUsuari(
-        		this.codiSessio, 
+        		(this.nomUsuari + Timestamp.from(Instant.now())).replaceAll("\\s+",""), 
+        		this,
         		this.empleat.getNom(), 
         		this.empleat.getDepartament().getNom(), 
         		this.empleat.getDepartament().getPermisos()
-        		);
+        );
     }
-    
-    /**
-     * Esborra el codi de sessio
-     */
-    public void tancaSessio() {
-        this.setCodiSessio(null);
-    }
-
 }

@@ -3,16 +3,13 @@
  */
 package com.eschoolmanager.server.gestors;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.persistence.EntityManager;
 
 import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Permis;
-import com.eschoolmanager.server.model.Usuari;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -20,13 +17,14 @@ import com.eschoolmanager.server.model.Usuari;
  */
 public class GestorDepartament extends GestorEscola {
 
-	private final static String NOM_DEPARTAMENT= "nomDepartament";    
+	private final static String DEPARTAMENT_ADMINISTRADOR= "Administrador";   
+	private final static String PERMIS_ACCES= "acces";  
     
 	/**
      * Constructor que associa el gestor a un EntityManager
      * @param entityManager EntityManager al qual s'associa el gestor
      */
-	public GestorDepartament(EntityManager entityManager) {
+	public GestorDepartament(EntityManager entityManager) throws GestorExcepcions {
 		super(entityManager);
 	}
 	
@@ -35,56 +33,31 @@ public class GestorDepartament extends GestorEscola {
      * @param departament el departament que s'ha de desar a la base de dades
      * @throws GestorExcepcions
      */
-	public void afegeix(String nom, HashMap<String,Boolean>permisosPeticio) throws GestorExcepcions {
-        if(existeix(nom)) {
-            throw new GestorExcepcions("Ja existeix un departament amb el mateix nom");
-        }
-
+	public void alta(String nom, HashMap<String,Boolean>permisosPeticio) throws GestorExcepcions {
+        
+		// Inicialitza el departament
         Departament departament = new Departament(nom);
-        departament.setEscola(this.trobaEscola());
+        
+        // Adjudica permisos al departament a partir dels permisos d'administrador, els màxims
+        List<Permis> permisos = escola.trobaDepartament(DEPARTAMENT_ADMINISTRADOR).getPermisos();
+        for(Permis permis : permisos) {
+        	if(permis.getNom().equals(PERMIS_ACCES)) {
+        		departament.adjudicaPermis(permis);
+        	}
+        	
+        	for (String permisNom: permisosPeticio.keySet()) {
+            	if(permis.getNom().equals(permisNom)) {
+            		departament.adjudicaPermis(permis);
+            	}        		
+        	}
+        }       
 
+        // Dona d'alta el departament a l'escola
+        escola.altaDepartament(departament);
+
+        // Persisteix el departament
         entityManager.getTransaction().begin();
-        Query query = entityManager.createQuery("SELECT p FROM Permis p ORDER BY p.nom ASC");
-        List<Permis> permisos = query.getResultList();
+        entityManager.merge(departament);
         entityManager.getTransaction().commit();
-        
-        List<Permis> permisosDepartament = new ArrayList();
-        for (String permisNom: permisosPeticio.keySet()) {
-            if (permisosPeticio.get(permisNom) == true) {
-            	for(Permis permis : permisos) {
-                	if(permis.getNom().equals("acces") || permis.getNom().equals(permisNom)) {
-                		permisosDepartament.add(permis);
-                	}
-                }
-            }
-        }
-        
-        
-        departament.setPermisos(permisosDepartament);
-     
-        entityManager.getTransaction().begin();
-        entityManager.persist(departament);
-        entityManager.getTransaction().commit();
-    }
-	
-	/**
-     * Comprova si existeix un departament amb un nom determinat
-     * @param nom del departament a comprovar
-     * @return true o false en cas d'haver-hi o no algun departament d'alta amb aquest nom
-     */
-    private boolean existeix(String nom) {
-    	entityManager.getTransaction().begin();
-        
-    	int numeroDepartaments = ((Long) entityManager
-    					.createQuery("SELECT COUNT(d) FROM Departament d WHERE d.nom = :" + NOM_DEPARTAMENT)
-    					.setParameter(NOM_DEPARTAMENT, nom).getSingleResult()).intValue();
-        
-        entityManager.getTransaction().commit();
-    	
-    	if (numeroDepartaments > 0) {
-            return true;
-    	}
-        
-        return false;
     }
 }

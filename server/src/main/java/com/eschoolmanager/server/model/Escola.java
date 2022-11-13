@@ -3,7 +3,6 @@
  */
 package com.eschoolmanager.server.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +13,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
+
+import com.eschoolmanager.server.gestors.GestorExcepcions;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -25,16 +24,19 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
  */
 @Entity
 @Table(name="Escola")
-public class Escola implements Serializable {
+public class Escola {
 
 	private int codi;
 	private String nom;
 	private String adreca;
 	private String telefon;
-	private List<Usuari> usuaris = new ArrayList<>();
-	private List<Departament> departaments = new ArrayList<>();
-	private List<Estudiant> estudiants = new ArrayList<>();
-	private List<Servei> serveis = new ArrayList<>();
+	private List<Usuari> usuaris;
+	private List<Departament> departaments;
+	private List<Estudiant> estudiants;
+	private List<Servei> serveis;
+
+	protected final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
+	
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -54,6 +56,10 @@ public class Escola implements Serializable {
 		this.setNom(nom);
 		this.setAdreca(adreca);
 		this.setTelefon(telefon);
+		this.setUsuaris(new ArrayList<Usuari>());
+		this.setDepartaments(new ArrayList<Departament>());
+		this.setEstudiants(new ArrayList<Estudiant>());
+		this.setServeis(new ArrayList<Servei>());
 	}
 	
 	/**
@@ -193,5 +199,55 @@ public class Escola implements Serializable {
 	public void setServeis(List<Servei> serveis) {
 		this.serveis = serveis;
 	}
+	
+	/**
+	 * Afegeix un departament al llistat
+	 * @param departament a afegir
+	 * @throws GestorExcepcions 
+	 */
+	public void altaDepartament(Departament departament) throws GestorExcepcions {
+		if (trobaDepartament(departament.getNom()) != null) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_DEPARTAMENT);
+        }
 
+		this.departaments.add(departament);
+		departament.setEscola(this);
+	}
+	
+	/**
+	 * Obté un departament amb el nom indicat
+	 * @return departament trobat o null
+	 */
+	public Departament trobaDepartament(String nom) {
+		for(Departament departament : departaments) {
+			if (departament.getNom().equals(nom)) {
+				return departament;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Afegeix un usuari al llistat
+	 * @param usuari a afegir
+	 */
+	public void altaUsuari(Usuari usuari) {
+		this.usuaris.add(usuari);
+		usuari.setEscola(this);
+	}
+	
+	/**
+	 * Obté un departament amb el nom indicat
+	 * @return departament trobat o null
+	 */
+	public Usuari trobaUsuari(String nomUsuari, String contrasenya) {
+		for(Usuari usuari : usuaris) {
+			if (usuari.getNomUsuari().equals(nomUsuari) && usuari.getContrasenya().equals(contrasenya)) {
+				return usuari;
+			}
+		}
+		
+		return null;
+	}
 }
