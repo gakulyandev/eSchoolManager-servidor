@@ -120,6 +120,7 @@ public class App
 		escola.altaUsuari(usuariAdministratiu);
 		escola.altaUsuari(usuariDocent);
 		
+		
 		// Persistencia
 		entityManager.getTransaction().begin();
         entityManager.persist(escola);

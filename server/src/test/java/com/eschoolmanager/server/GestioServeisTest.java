@@ -13,20 +13,18 @@ import org.json.JSONObject;
 
 /**
  * @author Gayané Akulyan Akulyan
- * Classe per comprovar el funcionament de les gestions de departaments
+ * Classe per comprovar el funcionament de les gestions de serveis
  */
-public class GestioDepartamentsTest extends BaseTest {
+public class GestioServeisTest extends BaseTest {
 
-	private final static String CRIDA_ALTA = "ALTA DEPARTAMENT";
-	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
-	private final static String DADES_PERMISOS = "permisos";
-	private final static String PERMIS = "departament";
+	private final static String CRIDA_ALTA = "ALTA SERVEI";
+	private final static String DADES_NOM_SERVEI = "nom";
+	private final static String DADES_DURADA_SERVEI = "durada";
+	private final static String DADES_COST_SERVEI = "cost";
 	
 	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
-	private final static String ERROR_DUPLICAT = "Ja existeix un departament amb el mateix nom";
+	private final static String ERROR_DUPLICAT = "Ja existeix un servei amb el mateix nom";
 	private final static String ERROR_DADES = "Falten dades";
-	
-	private JSONObject dadesPeticioPermisos;
 	
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -35,7 +33,6 @@ public class GestioDepartamentsTest extends BaseTest {
     @Before
     public void setUp() throws Exception {
     	super.setUp();
-    	dadesPeticioPermisos = new JSONObject();
     }
     
     /**
@@ -44,21 +41,20 @@ public class GestioDepartamentsTest extends BaseTest {
     @After()
     public void classEnds() {
     	super.classEnds();
-    	dadesPeticioPermisos = null;
     }
 
 	/**
-     * Mètode que prova donar d'alta un departament amb un usuari autoritzat i departament inexistent
+     * Mètode que prova donar d'alta un servei amb un usuari autoritzat i servei inexistent
      */
     @Test
-    public void provaAltaDepartamentAutoritzatDadesCorrectes() {
+    public void provaAltaServeiAutoritzatDadesCorrectes() {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProva1");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Docent");
-    	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+        peticio.put(CODI_SESSIO, "codiProva2");
+    	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
+    	dadesPeticio.put(DADES_COST_SERVEI, 30.00);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -69,17 +65,17 @@ public class GestioDepartamentsTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova donar d'alta un departament amb un usuari no autoritzat
+     * Mètode que prova donar d'alta un servei amb un usuari no autoritzat
      */
     @Test
-    public void provaAltaDepartamentNoAutoritzatDadesCorrectes() {
-        
+    public void provaAltaServeiNoAutoritzatDadesCorrectes() {
+
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProva2");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
-    	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+        peticio.put(CODI_SESSIO, "codiProva3");
+    	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
+    	dadesPeticio.put(DADES_COST_SERVEI, 30.00);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -91,17 +87,17 @@ public class GestioDepartamentsTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova donar d'alta un departament amb un usuari autoritzat i departament existent
+     * Mètode que prova donar d'alta un servei amb un usuari autoritzat i servei existent
      */
     @Test
-    public void provaAltaDepartamentAutoritzatDadesIncorrectes() {
-        
+    public void provaAltaServeiAutoritzatDadesIncorrectes() {
+
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProva1");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
-    	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+        peticio.put(CODI_SESSIO, "codiProva2");
+    	dadesPeticio.put(DADES_NOM_SERVEI, "Psicologia");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
+    	dadesPeticio.put(DADES_COST_SERVEI, 30.00);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -113,15 +109,17 @@ public class GestioDepartamentsTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova donar d'alta un departament amb amb dades incompletes
+     * Mètode que prova donar d'alta un servei amb amb dades incompletes
      */
     @Test
-    public void provaAltaDepartamentDadesIncompletes() {
-        
+    public void provaAltaServeiDadesIncompletes() {
+    	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProva1");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
+        peticio.put(CODI_SESSIO, "codiProva2");
+    	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
+    	dadesPeticio.put(DADES_COST_SERVEI, 30.00);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

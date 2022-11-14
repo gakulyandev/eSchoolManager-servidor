@@ -24,6 +24,7 @@ import com.eschoolmanager.server.model.Escola;
 import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.SessioUsuari;
 import com.eschoolmanager.server.model.Usuari;
+import com.eschoolmanager.server.model.Servei;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -117,8 +118,10 @@ public class BaseTest {
 		// Creació dels departaments bàsics
         Departament departamentAdministrador = new Departament("Administrador");
 		Departament departamentAdministratiu = new Departament("Administratiu");
+		Departament departamentDocent = new Departament("Docent");
 		escola.altaDepartament(departamentAdministrador);
 		escola.altaDepartament(departamentAdministratiu);
+		escola.altaDepartament(departamentDocent);
 		
 		// Adjudicació de permisos als departaments bàsics
 		Permis permisAcces = new Permis("acces","LOGIN;LOGOUT");
@@ -150,6 +153,8 @@ public class BaseTest {
 		departamentAdministratiu.adjudicaPermis(permisSessio);
 		departamentAdministratiu.adjudicaPermis(permisInforme);
 		
+		departamentDocent.adjudicaPermis(permisSessio);
+		
         // Creació d'empleats d'exemple
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date parsed = null;
@@ -160,15 +165,19 @@ public class BaseTest {
 		}
 		Empleat empleatAdministrador = new Empleat("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4");
 		Empleat empleatAdministratiu = new Empleat("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5");
+		Empleat empleatDocent = new Empleat("45628915M", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1");
 		
 		departamentAdministrador.altaEmpleat(empleatAdministrador);
 		departamentAdministratiu.altaEmpleat(empleatAdministratiu);
+		departamentDocent.altaEmpleat(empleatDocent);
 		
         // Creació d'usuaris d'exemple
 		Usuari usuariAdministrador = new Usuari("p.gomez", "passtest1");
 		Usuari usuariAdministratiu = new Usuari("c.carrillo", "passtest2");
+		Usuari usuariDocent = new Usuari("b.roig", "passtest3");
 		empleatAdministrador.assignaUsuari(usuariAdministrador);
 		empleatAdministratiu.assignaUsuari(usuariAdministratiu);
+		empleatDocent.assignaUsuari(usuariDocent);
 		
 		gestorSessionsUsuari.desaSessio(
 				new SessioUsuari(
@@ -188,10 +197,23 @@ public class BaseTest {
 						usuariAdministratiu.getEmpleat().getDepartament().getPermisos()
 				)
 		);
+		gestorSessionsUsuari.desaSessio(
+				new SessioUsuari(
+						"codiProva3", 
+						usuariDocent, 
+						usuariDocent.getEmpleat().getNom(), 
+						usuariDocent.getEmpleat().getDepartament().getNom(), 
+						usuariDocent.getEmpleat().getDepartament().getPermisos()
+				)
+		);
 
 		escola.altaUsuari(usuariAdministrador);
 		escola.altaUsuari(usuariAdministratiu);
-    	
+		escola.altaUsuari(usuariDocent);
+
+        // Creació de serveis d'exemple
+		Servei servei = new Servei("Psicologia", 25.00, 1);
+		escola.altaServei(servei);
 		
 		insertaDades(escola);
     }

@@ -50,8 +50,7 @@ public class Servei {
      * @param cost del servei que es presta
      * @param durada del servei que es presta
      */
-	public Servei(Escola escola, String nom, double cost, int durada) {
-		this.setEscola(escola);
+	public Servei(String nom, double cost, int durada) {
 		this.setNom(nom);
 		this.setCost(cost);
 		this.setDurada(durada);
@@ -83,7 +82,7 @@ public class Servei {
 	 * Obté l'escola a on es presta el servei
 	 * @return escola a on es presta el servei
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="escola_codi", nullable=false)
 	public Escola getEscola() {
 		return escola;
@@ -152,7 +151,7 @@ public class Servei {
 	 * Llista les beques adjudicades per el servei
 	 * @return beques per el servei
 	 */
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="servei")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="servei")
 	public List<Beca> getBeques() {
 		return this.beques;
 	}

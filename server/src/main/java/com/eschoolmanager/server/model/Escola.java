@@ -36,6 +36,7 @@ public class Escola {
 	private List<Servei> serveis;
 
 	protected final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
+	protected final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	
 
 	/**
@@ -238,13 +239,41 @@ public class Escola {
 	}
 	
 	/**
-	 * Obté un departament amb el nom indicat
-	 * @return departament trobat o null
+	 * Obté un usuari amb el nom d'usuari i contrasenya indicats
+	 * @return usuari trobat o null
 	 */
 	public Usuari trobaUsuari(String nomUsuari, String contrasenya) {
 		for(Usuari usuari : usuaris) {
 			if (usuari.getNomUsuari().equals(nomUsuari) && usuari.getContrasenya().equals(contrasenya)) {
 				return usuari;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Afegeix un servei al llistat
+	 * @param servei a afegir
+	 * @throws GestorExcepcions 
+	 */
+	public void altaServei(Servei servei) throws GestorExcepcions {
+		if (trobaServei(servei.getNom()) != null) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_SERVEI);
+        }
+
+		this.serveis.add(servei);
+		servei.setEscola(this);
+	}
+	
+	/**
+	 * Obté un servei amb el nom indicat
+	 * @return servei trobat o null
+	 */
+	public Servei trobaServei(String nom) {
+		for(Servei servei : serveis) {
+			if (servei.getNom().equals(nom)) {
+				return servei;
 			}
 		}
 		

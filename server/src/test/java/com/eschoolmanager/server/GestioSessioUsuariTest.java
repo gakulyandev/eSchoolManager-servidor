@@ -33,8 +33,9 @@ public class GestioSessioUsuariTest extends BaseTest {
      */
     @Test
     public void provaLoginDadesCorrectes() {
-        peticio.put(CRIDA, CRIDA_LOGIN);
+    	
     	//Petició del client
+        peticio.put(CRIDA, CRIDA_LOGIN);
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
     	dadesPeticio.put(DADES_CONTRASENYA, "passtest1");
     	peticio.put(DADES, dadesPeticio);
@@ -56,6 +57,7 @@ public class GestioSessioUsuariTest extends BaseTest {
      */
     @Test
     public void provaLoginDadesIncorrectes() {
+    	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LOGIN);
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
@@ -75,6 +77,7 @@ public class GestioSessioUsuariTest extends BaseTest {
      */
     @Test
     public void provaLoginDadesIncompletes() {
+    	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LOGIN);
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
@@ -93,6 +96,7 @@ public class GestioSessioUsuariTest extends BaseTest {
      */
     @Test
     public void provaLogoutDadesCorrectes() {
+    	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LOGOUT);
     	peticio.put(CODI_SESSIO, "codiProva1");
@@ -109,6 +113,7 @@ public class GestioSessioUsuariTest extends BaseTest {
      */
     @Test
     public void provaLogoutDadesIncorrectes() {
+    	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LOGOUT);
     	peticio.put(CODI_SESSIO, "codiPR");
@@ -126,6 +131,7 @@ public class GestioSessioUsuariTest extends BaseTest {
      */
     @Test
     public void provaLogoutDadesIncompletes() {
+    	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LOGOUT);
 
