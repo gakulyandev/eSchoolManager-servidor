@@ -51,7 +51,7 @@ public class GestioServeisTest extends BaseTest {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProva2");
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
     	dadesPeticio.put(DADES_COST_SERVEI, 30.00);
@@ -72,7 +72,7 @@ public class GestioServeisTest extends BaseTest {
 
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProva3");
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
     	dadesPeticio.put(DADES_COST_SERVEI, 30.00);
@@ -94,7 +94,7 @@ public class GestioServeisTest extends BaseTest {
 
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProva2");
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Psicologia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
     	dadesPeticio.put(DADES_COST_SERVEI, 30.00);
@@ -109,14 +109,14 @@ public class GestioServeisTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova donar d'alta un servei amb amb dades incompletes
+     * Mètode que prova donar d'alta un servei amb dades incompletes
      */
     @Test
     public void provaAltaServeiDadesIncompletes() {
     	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProva2");
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
     	peticio.put(DADES, dadesPeticio);

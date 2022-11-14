@@ -117,8 +117,11 @@ public class BaseTest {
         
 		// Creació dels departaments bàsics
         Departament departamentAdministrador = new Departament("Administrador");
+        departamentAdministrador.setCodi(1);
 		Departament departamentAdministratiu = new Departament("Administratiu");
+		departamentAdministratiu.setCodi(2);
 		Departament departamentDocent = new Departament("Docent");
+		departamentDocent.setCodi(3);
 		escola.altaDepartament(departamentAdministrador);
 		escola.altaDepartament(departamentAdministratiu);
 		escola.altaDepartament(departamentDocent);
@@ -181,7 +184,7 @@ public class BaseTest {
 		
 		gestorSessionsUsuari.desaSessio(
 				new SessioUsuari(
-						"codiProva1", 
+						"codiProvaAdministrador", 
 						usuariAdministrador, 
 						usuariAdministrador.getEmpleat().getNom(), 
 						usuariAdministrador.getEmpleat().getDepartament().getNom(), 
@@ -190,7 +193,7 @@ public class BaseTest {
 		);
 		gestorSessionsUsuari.desaSessio(
 				new SessioUsuari(
-						"codiProva2", 
+						"codiProvaAdministratiu", 
 						usuariAdministratiu, 
 						usuariAdministratiu.getEmpleat().getNom(), 
 						usuariAdministratiu.getEmpleat().getDepartament().getNom(), 
@@ -199,7 +202,7 @@ public class BaseTest {
 		);
 		gestorSessionsUsuari.desaSessio(
 				new SessioUsuari(
-						"codiProva3", 
+						"codiProvaDocent", 
 						usuariDocent, 
 						usuariDocent.getEmpleat().getNom(), 
 						usuariDocent.getEmpleat().getDepartament().getNom(), 

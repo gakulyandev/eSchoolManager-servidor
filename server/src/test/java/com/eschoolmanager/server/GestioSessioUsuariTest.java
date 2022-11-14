@@ -99,7 +99,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LOGOUT);
-    	peticio.put(CODI_SESSIO, "codiProva1");
+    	peticio.put(CODI_SESSIO, "codiProvaAdministrador");
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
@@ -116,7 +116,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LOGOUT);
-    	peticio.put(CODI_SESSIO, "codiPR");
+    	peticio.put(CODI_SESSIO, "codiProva");
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
