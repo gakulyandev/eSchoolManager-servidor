@@ -119,7 +119,6 @@ public class GestioServeisTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProva2");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
-    	dadesPeticio.put(DADES_COST_SERVEI, 30.00);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

@@ -21,13 +21,15 @@ import com.eschoolmanager.server.model.SessioUsuari;
  */
 public class GestorPeticions {
 
-	private GestorDepartament gestorDepartament;
 	private GestorSessioUsuari gestorSessioUsuari;
+	private GestorDepartament gestorDepartament;
+	private GestorServei gestorServei;
 	
 	private final static String CRIDA = "crida";
 	private final static String CRIDA_LOGIN = "LOGIN";
 	private final static String CRIDA_LOGOUT = "LOGOUT";
 	private final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
+	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_OK = "OK";
@@ -36,9 +38,12 @@ public class GestorPeticions {
 	private final static String DADES = "dades";
 	private final static String DADES_NOM_USUARI = "usuari";
 	private final static String DADES_CONTRASENYA = "contrasenya";
-	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_CODI_SESSIO = "codiSessio";
-	private final static String DADES_NOM = "nom";
+	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
+	private final static String DADES_NOM_SERVEI = "nom";
+	private final static String DADES_DURADA_SERVEI = "durada";
+	private final static String DADES_COST_SERVEI = "cost";
+	private final static String DADES_NOM_EMPLEAT = "nom";
 	private final static String DADES_PERMISOS = "permisos";
 	private final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
 	private final static String ERROR_GENERIC = "S'ha produit un error";
@@ -52,6 +57,7 @@ public class GestorPeticions {
 	public GestorPeticions(EntityManager entityManager, GestorSessionsUsuari gestorSessionsUsuari) throws GestorExcepcions {
 		this.gestorSessioUsuari = new GestorSessioUsuari(gestorSessionsUsuari, entityManager);
 		this.gestorDepartament = new GestorDepartament(entityManager);
+		this.gestorServei = new GestorServei(entityManager);
 	}
 
 	/**
@@ -87,7 +93,7 @@ public class GestorPeticions {
 					
 					// Genera resposta
 					dadesResposta.put(DADES_CODI_SESSIO, sessio.getCodi());
-					dadesResposta.put(DADES_NOM, sessio.getNomEmpleat());
+					dadesResposta.put(DADES_NOM_EMPLEAT, sessio.getNomEmpleat());
 					dadesResposta.put(DADES_NOM_DEPARTAMENT, sessio.getNomDepartament());
 					
 					JSONObject dadesRespostaPermisos = new JSONObject();
@@ -124,6 +130,19 @@ public class GestorPeticions {
 					}
 					
 					gestorDepartament.alta(dadesPeticio.getString(DADES_NOM_DEPARTAMENT), permisos);
+
+					// Genera resposta
+					return generaRespostaOK(dadesResposta);	
+					
+				case CRIDA_ALTA_SERVEI:
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					gestorServei.alta(
+							dadesPeticio.getString(DADES_NOM_SERVEI),
+							dadesPeticio.getDouble(DADES_COST_SERVEI),
+							dadesPeticio.getInt(DADES_DURADA_SERVEI)
+					);
 
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
