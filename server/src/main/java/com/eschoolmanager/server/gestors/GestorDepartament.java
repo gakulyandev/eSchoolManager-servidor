@@ -18,8 +18,9 @@ import com.eschoolmanager.server.model.Permis;
  */
 public class GestorDepartament extends GestorEscola {
 
-	private final static String DEPARTAMENT_ADMINISTRADOR= "Administrador";   
-	private final static String DADES_NOM_DEPARTAMENT= "nomDepartament";   
+	private final static String DEPARTAMENT_ADMINISTRADOR= "Administrador";  
+	private final static String DADES_CODI_DEPARTAMENT= "codiDepartament";  
+	private final static String DADES_NOM_DEPARTAMENT= "nomDepartament";     
 	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";   
 	private final static String PERMIS_ACCES= "acces";  
 
@@ -88,6 +89,7 @@ public class GestorDepartament extends GestorEscola {
     	}
         
         HashMap<String, Object> dadesDepartament = new HashMap<String, Object>();
+        dadesDepartament.put(DADES_CODI_DEPARTAMENT, departament.getCodi());
         dadesDepartament.put(DADES_NOM_DEPARTAMENT, departament.getNom());
         dadesDepartament.put(DADES_PERMISOS_DEPARTAMENT, permisos);
         

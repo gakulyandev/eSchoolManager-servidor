@@ -146,6 +146,7 @@ public class GestorPeticions {
 
 					// Genera resposta
 					dadesResposta.put(DADES_NOM_DEPARTAMENT, dadesDepartament.get(DADES_NOM_DEPARTAMENT));
+					dadesResposta.put(DADES_CODI_DEPARTAMENT, dadesDepartament.get(DADES_CODI_DEPARTAMENT));
 					
 					dadesRespostaPermisos = new JSONObject();
 					

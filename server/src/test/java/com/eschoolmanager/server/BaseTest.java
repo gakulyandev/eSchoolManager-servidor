@@ -42,6 +42,8 @@ public class BaseTest {
 	
 	protected final static String CODI_SESSIO = "codiSessio";
 	protected final static String DADES = "dades";
+	protected final static String DADES_CAMP = "camp";
+	protected final static String DADES_ORDRE = "ordre";
 	protected final static String RESPOSTA = "resposta";
 	protected final static String RESPOSTA_OK = "OK";
 	protected final static String RESPOSTA_NOK = "NOK";

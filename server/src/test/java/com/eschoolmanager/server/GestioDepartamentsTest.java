@@ -20,6 +20,7 @@ public class GestioDepartamentsTest extends BaseTest {
 
 	private final static String CRIDA_ALTA = "ALTA DEPARTAMENT";
 	private final static String CRIDA_CONSULTA = "CONSULTA DEPARTAMENT";
+	private final static String CRIDA_LLISTA = "LLISTA DEPARTAMENTS";
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
 	private final static String DADES_PERMISOS = "permisos";
@@ -28,7 +29,8 @@ public class GestioDepartamentsTest extends BaseTest {
 	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	private final static String ERROR_DUPLICAT = "Ja existeix un departament amb el mateix nom";
 	private final static String ERROR_INEXISTENT = "No existeix el departament indicat";
-	private final static String ERROR_DADES = "Falten dades";
+	private final static String ERROR_CAMP = "No existeix el valor indicat";
+	private final static String ERROR_FALTEN_DADES = "Falten dades";
 	
 	private JSONObject dadesPeticioPermisos;
 	
@@ -133,9 +135,8 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_DADES, resposta.get(MISSATGE));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
-
 
 	/**
      * Mètode que prova consultar un departament amb un usuari autoritzat i departament existent
@@ -215,7 +216,91 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_DADES, resposta.get(MISSATGE));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova llistar departaments amb un usuari autoritzat
+     */
+    @Test
+    public void provaLlistaDepartamentsAutoritzat() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CAMP, "nom");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Administrador", dadesResposta.getJSONObject("0").get(DADES_NOM_DEPARTAMENT));
+    }
+    
+    /**
+     * Mètode que prova llistar departaments amb un usuari no autoritzat
+     */
+    @Test
+    public void provaLlistaDepartamentsNoAutoritzat() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CAMP, "nom");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova llistar departaments amb un usuari autoritzat i dades incorrectes
+     */
+    @Test
+    public void provaLlistaDepartamentsAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CAMP, "nomS");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_CAMP, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova llistar departaments amb dades incompletes
+     */
+    @Test
+    public void provaLlistaDepartamentsDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
 
 }
