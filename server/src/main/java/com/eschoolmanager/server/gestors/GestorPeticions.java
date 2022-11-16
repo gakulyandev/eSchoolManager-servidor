@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,7 @@ public class GestorPeticions {
 	private final static String CRIDA_LOGOUT = "LOGOUT";
 	private final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
 	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
+	private final static String CRIDA_CONSULTA_DEPARTAMENT = "CONSULTA DEPARTAMENT";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_OK = "OK";
@@ -39,12 +41,13 @@ public class GestorPeticions {
 	private final static String DADES_NOM_USUARI = "usuari";
 	private final static String DADES_CONTRASENYA = "contrasenya";
 	private final static String DADES_CODI_SESSIO = "codiSessio";
+	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_NOM_SERVEI = "nom";
 	private final static String DADES_DURADA_SERVEI = "durada";
 	private final static String DADES_COST_SERVEI = "cost";
 	private final static String DADES_NOM_EMPLEAT = "nom";
-	private final static String DADES_PERMISOS = "permisos";
+	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";
 	private final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
 	private final static String ERROR_GENERIC = "S'ha produit un error";
 	private final static String ERROR_DADES = "Falten dades";
@@ -106,7 +109,8 @@ public class GestorPeticions {
 							}
 						}
 					}
-					dadesResposta.put(DADES_PERMISOS, dadesRespostaPermisos);
+					
+					dadesResposta.put(DADES_PERMISOS_DEPARTAMENT, dadesRespostaPermisos);
 
 					return generaRespostaOK(dadesResposta);	
 				
@@ -122,7 +126,7 @@ public class GestorPeticions {
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
 				    HashMap<String, Boolean> permisos = new HashMap<String, Boolean>();
-					JSONObject dadesPeticioPermisos = dadesPeticio.getJSONObject(DADES_PERMISOS);
+					JSONObject dadesPeticioPermisos = dadesPeticio.getJSONObject(DADES_PERMISOS_DEPARTAMENT);
 					Iterator<?> keysPermisosPeticio = dadesPeticioPermisos.keys();
 					while(keysPermisosPeticio.hasNext()) {
 					    String key = (String) keysPermisosPeticio.next();
@@ -132,6 +136,30 @@ public class GestorPeticions {
 					gestorDepartament.alta(dadesPeticio.getString(DADES_NOM_DEPARTAMENT), permisos);
 
 					// Genera resposta
+					return generaRespostaOK(dadesResposta);	
+					
+				case CRIDA_CONSULTA_DEPARTAMENT:
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					HashMap<String, Object> dadesDepartament = gestorDepartament.consulta(dadesPeticio.getInt(DADES_CODI_DEPARTAMENT));
+
+					// Genera resposta
+					dadesResposta.put(DADES_NOM_DEPARTAMENT, dadesDepartament.get(DADES_NOM_DEPARTAMENT));
+					
+					dadesRespostaPermisos = new JSONObject();
+					
+					List<String> permisosDepartament = (List<String>) dadesDepartament.get(DADES_PERMISOS_DEPARTAMENT);
+					for (String permisNom : PERMISOS_NOMS) {
+						dadesRespostaPermisos.put(permisNom, false);
+						for (String permisDepartament : permisosDepartament) {
+							if(permisDepartament.equals(permisNom)) {
+								dadesRespostaPermisos.put(permisNom, true);
+							}
+						}
+					}
+					dadesResposta.put(DADES_PERMISOS_DEPARTAMENT, dadesRespostaPermisos);
+					
 					return generaRespostaOK(dadesResposta);	
 					
 				case CRIDA_ALTA_SERVEI:

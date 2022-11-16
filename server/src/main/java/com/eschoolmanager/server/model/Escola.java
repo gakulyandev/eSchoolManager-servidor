@@ -216,6 +216,20 @@ public class Escola {
 	}
 	
 	/**
+	 * Obté un departament amb el codi indicat
+	 * @return departament trobat o null
+	 */
+	public Departament trobaDepartament(int codi) {
+		for(Departament departament : departaments) {
+			if (departament.getCodi() == codi) {
+				return departament;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Obté un departament amb el nom indicat
 	 * @return departament trobat o null
 	 */

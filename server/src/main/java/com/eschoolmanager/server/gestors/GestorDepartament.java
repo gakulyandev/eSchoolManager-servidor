@@ -3,6 +3,7 @@
  */
 package com.eschoolmanager.server.gestors;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,7 +19,11 @@ import com.eschoolmanager.server.model.Permis;
 public class GestorDepartament extends GestorEscola {
 
 	private final static String DEPARTAMENT_ADMINISTRADOR= "Administrador";   
+	private final static String DADES_NOM_DEPARTAMENT= "nomDepartament";   
+	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";   
 	private final static String PERMIS_ACCES= "acces";  
+
+	private final static String DEPARTAMENT_INEXISTENT = "No existeix el departament indicat";
     
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -29,7 +34,7 @@ public class GestorDepartament extends GestorEscola {
 	}
 	
 	/**
-     * Afeigeix un nou departament a la base de dades
+     * Dona d'alta un nou departament a l'escola
      * @param departament el departament que s'ha de desar a la base de dades
      * @throws GestorExcepcions
      */
@@ -59,5 +64,33 @@ public class GestorDepartament extends GestorEscola {
         entityManager.getTransaction().begin();
         entityManager.merge(departament);
         entityManager.getTransaction().commit();
+    }
+	
+	/**
+     * Obté les dades d'un departament de l'escola
+     * @param codi del departament a cercar
+     * @throws GestorExcepcions
+     */
+	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
+        
+		// Troba el departament
+        Departament departament = escola.trobaDepartament(codi);
+        if (departament == null) {
+			throw new GestorExcepcions(DEPARTAMENT_INEXISTENT);
+		}
+        
+        // Llista els permisos del departament
+        List<String> permisos = new ArrayList<String>();   
+        for (Permis permisDepartament : departament.getPermisos()) {
+        	if(!permisDepartament.getNom().equals(PERMIS_ACCES)) {
+        		permisos.add(permisDepartament.getNom());
+        	}		
+    	}
+        
+        HashMap<String, Object> dadesDepartament = new HashMap<String, Object>();
+        dadesDepartament.put(DADES_NOM_DEPARTAMENT, departament.getNom());
+        dadesDepartament.put(DADES_PERMISOS_DEPARTAMENT, permisos);
+        
+        return dadesDepartament;
     }
 }

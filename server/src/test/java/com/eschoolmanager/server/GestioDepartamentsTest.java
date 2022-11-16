@@ -27,7 +27,7 @@ public class GestioDepartamentsTest extends BaseTest {
 	
 	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	private final static String ERROR_DUPLICAT = "Ja existeix un departament amb el mateix nom";
-	private final static String ERROR_INEXISTENT = "No existeix cap departament amb aquest codi";
+	private final static String ERROR_INEXISTENT = "No existeix el departament indicat";
 	private final static String ERROR_DADES = "Falten dades";
 	
 	private JSONObject dadesPeticioPermisos;
@@ -60,7 +60,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Docent");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	dadesPeticioPermisos.put(PERMIS, true);
     	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
@@ -125,7 +125,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
