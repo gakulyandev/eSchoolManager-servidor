@@ -1,7 +1,10 @@
 package com.eschoolmanager.server.gestors;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Escola;
 
@@ -16,7 +19,11 @@ public class GestorEscola {
     
     private final static int CODI_ESCOLA = 1;
 	private final static String ERROR_GENERIC = "S'ha produit un error";
-    
+	
+	protected final static String[] DADES_ORDENACIONS = {"ASC","DESC"};
+
+	protected final static String ERROR_CAMP = "No existeix el valor indicat";
+	
     /**
      * Constructor que associa el gestor a un EntityManager
      * @param entityManager EntityManager al qual s'associa el gestor

@@ -31,6 +31,7 @@ public class GestorPeticions {
 	private final static String CRIDA_LOGOUT = "LOGOUT";
 	private final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
 	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
+	private final static String CRIDA_LLISTA_DEPARTAMENT = "LLISTA DEPARTAMENTS";
 	private final static String CRIDA_CONSULTA_DEPARTAMENT = "CONSULTA DEPARTAMENT";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
@@ -38,6 +39,8 @@ public class GestorPeticions {
 	private final static String RESPOSTA_NOK = "NOK";
 	private final static String MISSATGE = "missatge";
 	private final static String DADES = "dades";
+	private final static String DADES_CAMP = "camp";
+	private final static String DADES_ORDRE = "ordre";
 	private final static String DADES_NOM_USUARI = "usuari";
 	private final static String DADES_CONTRASENYA = "contrasenya";
 	private final static String DADES_CODI_SESSIO = "codiSessio";
@@ -138,6 +141,24 @@ public class GestorPeticions {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 					
+				case CRIDA_LLISTA_DEPARTAMENT:
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					HashMap<Integer, Object> dadesDepartaments = gestorDepartament.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+
+					// Genera resposta
+					dadesResposta = new JSONObject();
+					
+					for (Integer key : dadesDepartaments.keySet()) {
+						JSONObject dadesRespostaDepartament = new JSONObject();
+						dadesRespostaDepartament.put(DADES_CODI_DEPARTAMENT, ((HashMap<String,Object>) dadesDepartaments.get(key)).get(DADES_CODI_DEPARTAMENT));
+						dadesRespostaDepartament.put(DADES_NOM_DEPARTAMENT, ((HashMap<String,Object>) dadesDepartaments.get(key)).get(DADES_NOM_DEPARTAMENT));
+						dadesResposta.put(String.valueOf(key), dadesRespostaDepartament);
+					}
+					
+					return generaRespostaOK(dadesResposta);	
+				
 				case CRIDA_CONSULTA_DEPARTAMENT:
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
