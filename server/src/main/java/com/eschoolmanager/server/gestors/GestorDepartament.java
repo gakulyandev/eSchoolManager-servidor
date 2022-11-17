@@ -85,10 +85,11 @@ public class GestorDepartament extends GestorEscola {
 	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
                 
         // Llista els permisos del departament
-		if (Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) {
+		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
+			 camp.length() == 0 && ordre.length() == 0) {
 			List<Departament> departaments;
 			
-			if (camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) {
+			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
 				departaments = escola.getDepartaments();
 			} else {
 				String consulta = "SELECT d FROM Departament d ORDER BY d." + camp + " " + ordre;
