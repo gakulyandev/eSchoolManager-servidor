@@ -29,6 +29,7 @@ public class GestorPeticions {
 	private final static String CRIDA_LLISTA_DEPARTAMENT = "LLISTA DEPARTAMENTS";
 	private final static String CRIDA_CONSULTA_DEPARTAMENT = "CONSULTA DEPARTAMENT";
 	private final static String CRIDA_MODI_DEPARTAMENT = "MODI DEPARTAMENT";
+	private final static String CRIDA_BAIXA_DEPARTAMENT = "BAIXA DEPARTAMENT";
 	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
@@ -196,6 +197,15 @@ public class GestorPeticions {
 							permisos);
 
 					// Genera resposta
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_BAIXA_DEPARTAMENT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					gestorDepartament.baixa(dadesPeticio.getInt(DADES_CODI_DEPARTAMENT));
+
+					// Genera resposta					
 					return generaRespostaOK(dadesResposta);	
 				}
 				case CRIDA_ALTA_SERVEI: {

@@ -6,6 +6,7 @@ package com.eschoolmanager.server.model;
 import java.sql.Date;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -129,7 +130,7 @@ public class Beca {
 	 * Obté l'estudiant a qui s'adjudica la beca
 	 * @return estudiant a qui s'adjudica la beca
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="estudiant_codi", nullable=false)
 	public Estudiant getEstudiant() {
 		return estudiant;
@@ -147,7 +148,7 @@ public class Beca {
 	 * Obté el servei sobre el que s'adjudica la beca
 	 * @return servei sobre el que s'adjudica la beca
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="servei_codi", nullable=false)
 	public Servei getServei() {
 		return servei;

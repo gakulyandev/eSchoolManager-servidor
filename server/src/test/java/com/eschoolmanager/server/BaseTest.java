@@ -50,6 +50,8 @@ public class BaseTest {
 	protected final static String RESPOSTA_OK = "OK";
 	protected final static String RESPOSTA_NOK = "NOK";
 	protected final static String MISSATGE = "missatge";
+	
+	protected final static String ERROR_FALTEN_DADES = "Falten dades";
     
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -159,10 +161,12 @@ public class BaseTest {
 		Departament departamentAdministrador = escola.altaDepartament("Administrador", permisosAdministrador);
 		Departament departamentAdministratiu = escola.altaDepartament("Administratiu", permisosAdministratiu);
 		Departament departamentDocent = escola.altaDepartament("Docent", permisosDocent);
+		Departament departamentDocentBuit = escola.altaDepartament("DocentBuit", permisosDocent);
 
         departamentAdministrador.setCodi(1);
 		departamentAdministratiu.setCodi(2);
 		departamentDocent.setCodi(3);
+		departamentDocentBuit.setCodi(4);
 		
         // Creació d'empleats d'exemple
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

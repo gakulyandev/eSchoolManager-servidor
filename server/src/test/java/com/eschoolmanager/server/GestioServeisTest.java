@@ -24,7 +24,6 @@ public class GestioServeisTest extends BaseTest {
 	
 	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	private final static String ERROR_DUPLICAT = "Ja existeix un servei amb el mateix nom";
-	private final static String ERROR_FALTEN_DADES = "Falten dades";
 	
 	/**
      * Neteja la base de dades i l'omple amb dades de prova

@@ -6,6 +6,7 @@ package com.eschoolmanager.server.model;
 import java.sql.Date;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -104,7 +105,7 @@ public class Informe {
 	 * Obté l'administratiu que ha generat l'informe
 	 * @return administratiu que ha generat l'informe
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="administratiu_codi", nullable=false)
 	public Administratiu getAdministratiu() {
 		return administratiu;

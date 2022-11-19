@@ -50,7 +50,7 @@ public class Administratiu extends Empleat {
 	 * Llista els informes creats per l'administratiu
 	 * @return informes creats per l'administratiu
 	 */
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="administratiu")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="administratiu")
 	public List<Informe> getInformes() {
 		return this.informes;
 	}

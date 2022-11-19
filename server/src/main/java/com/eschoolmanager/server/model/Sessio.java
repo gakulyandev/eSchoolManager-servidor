@@ -5,6 +5,7 @@ package com.eschoolmanager.server.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -72,7 +73,7 @@ public class Sessio {
 	 * Obté el professor que presta el servei a la sessió
 	 * @return professor que presta el servei a la sessió
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="professor_codi", nullable=false)
 	public Professor getProfessor() {
 		return professor;
@@ -90,7 +91,7 @@ public class Sessio {
 	 * Obté l'estudiant a qui es presta el servei a la sessió
 	 * @return estudiant a qui es presta el servei a la sessió
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="estudiant_codi", nullable=false)
 	public Estudiant getEstudiant() {
 		return estudiant;
@@ -108,7 +109,7 @@ public class Sessio {
 	 * Obté el servei que es presta a la sessió
 	 * @return servei que es presta a la sessió
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="servei_codi", nullable=false)
 	public Servei getServei() {
 		return servei;

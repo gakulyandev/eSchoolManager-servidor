@@ -22,6 +22,7 @@ public class GestioDepartamentsTest extends BaseTest {
 	private final static String CRIDA_LLISTA = "LLISTA DEPARTAMENTS";
 	private final static String CRIDA_CONSULTA = "CONSULTA DEPARTAMENT";
 	private final static String CRIDA_MODI = "MODI DEPARTAMENT";
+	private final static String CRIDA_BAIXA = "BAIXA DEPARTAMENT";
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
 	private final static String DADES_PERMISOS = "permisos";
@@ -31,7 +32,7 @@ public class GestioDepartamentsTest extends BaseTest {
 	private final static String ERROR_DUPLICAT = "Ja existeix un departament amb el mateix nom";
 	private final static String ERROR_INEXISTENT = "No existeix el departament indicat";
 	private final static String ERROR_CAMP = "No existeix el valor indicat";
-	private final static String ERROR_FALTEN_DADES = "Falten dades";
+	private final static String ERROR_ELEMENTS_RELACIONATS = "Existeixen altres elements relacionats amb el departament";
 	
 	private JSONObject dadesPeticioPermisos;
 	
@@ -274,7 +275,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 4);
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 10);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -314,7 +315,7 @@ public class GestioDepartamentsTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_MODI);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "DocentModificat");
     	dadesPeticioPermisos.put(PERMIS, true);
     	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
@@ -404,6 +405,105 @@ public class GestioDepartamentsTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_MODI);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+    
+	/**
+     * Mètode que donar de baixa un departament amb un usuari autoritzat i departament existent
+     */
+    @Test
+    public void provaBaixaDepartamentAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 4);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que donar de baixa un departament amb un usuari no autoritzat i departament existent
+     */
+    @Test
+    public void provaBaixaDepartamentNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 4);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa un departament amb un usuari autoritzat i departament inexistent
+     */
+    @Test
+    public void provaBaixaDepartamentAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT, resposta.get(MISSATGE));
+    }
+
+    /**
+     * Mètode que donar de baixa un departament amb un usuari autoritzat i altres entitats relacionades al departament
+     */
+    @Test
+    public void provaBaixaDepartamentAutoritzatDadesRelacionades() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 3);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_ELEMENTS_RELACIONATS, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa un departament amb dades incompletes
+     */
+    @Test
+    public void provaBaixaDepartamentDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

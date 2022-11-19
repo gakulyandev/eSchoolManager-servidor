@@ -119,7 +119,7 @@ public class Departament {
 	 * Llista els empleats donats d'alta al departament
 	 * @return empleats del departament
 	 */
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="departament")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="departament")
 	public List<Empleat> getEmpleats() {
 		return this.empleats;
 	}
@@ -136,7 +136,7 @@ public class Departament {
 	 * Llista els permisos dels empleats del departament 
 	 * @return permisos del departament
 	 */
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinTable(
 			name="departaments_permisos",
 			joinColumns=@JoinColumn(name="departament"),
@@ -201,6 +201,14 @@ public class Departament {
 	public void actualitza(String nom, List<Permis> permisos) {
 		this.setNom(nom);
 		this.setPermisos(permisos);
+	}
+	
+	/**
+	 * Indica si el departament té o no empleats
+	 * @return true o false segons si té o no empleats
+	 */
+	public Boolean isBuit() {
+		return this.empleats.isEmpty();
 	}
 	
 }

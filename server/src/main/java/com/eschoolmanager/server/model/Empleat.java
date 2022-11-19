@@ -77,7 +77,7 @@ public class Empleat extends Persona {
 	 * Obté l'usuari de l'empleat
 	 * @return usuari de l'empleat
 	 */
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE}, optional=false, mappedBy="empleat", fetch=FetchType.LAZY)
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, optional=false, mappedBy="empleat", fetch=FetchType.LAZY)
 	public Usuari getUsuari() {
 		return usuari;
 	}

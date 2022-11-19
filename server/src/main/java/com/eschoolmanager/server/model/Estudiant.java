@@ -61,7 +61,7 @@ public class Estudiant extends Persona {
 	 * Obté l'escola de l'estudiant
 	 * @return escola de l'estudiant
 	 */
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="escola_codi", nullable=false)
 	public Escola getEscola() {
 		return escola;

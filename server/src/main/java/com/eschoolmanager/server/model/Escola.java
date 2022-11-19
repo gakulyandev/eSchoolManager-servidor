@@ -35,9 +35,9 @@ public class Escola {
 	private List<Estudiant> estudiants;
 	private List<Servei> serveis;
 
-	protected final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
-	protected final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
-	private final static String ERROR_DEPARTAMENT_INEXISTENT = "No existeix el departament indicat";
+	private final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
+	private final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
+	private final static String ERROR_ELEMENTS_RELACIONATS = "Existeixen altres elements relacionats amb el departament";
 	
 
 	/**
@@ -138,7 +138,7 @@ public class Escola {
 	 * Obté els usuaris de l'escola
 	 * @return usuaris de l'escola
 	 */
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="escola")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="escola")
 	public List<Usuari> getUsuaris() {
 		return usuaris;
 	}
@@ -155,7 +155,7 @@ public class Escola {
 	 * Obté els departaments de l'escola
 	 * @return departaments de l'escola
 	 */
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="escola")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="escola")
 	public List<Departament> getDepartaments() {
 		return departaments;
 	}
@@ -172,7 +172,7 @@ public class Escola {
 	 * Obté els estudiants de l'escola
 	 * @return estudiants de l'escola
 	 */
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="escola")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="escola")
 	public List<Estudiant> getEstudiants() {
 		return estudiants;
 	}
@@ -189,7 +189,7 @@ public class Escola {
 	 * Obté els serveis de l'escola
 	 * @return serveis de l'escola
 	 */
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="escola")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="escola")
 	public List<Servei> getServeis() {
 		return serveis;
 	}
@@ -242,7 +242,7 @@ public class Escola {
 	 * @return departament trobat o null
 	 */
 	public Departament trobaDepartament(int codi) {
-		for(Departament departament : departaments) {
+		for(Departament departament : this.departaments) {
 			if (departament.getCodi() == codi) {
 				return departament;
 			}
@@ -256,13 +256,25 @@ public class Escola {
 	 * @return departament trobat o null
 	 */
 	public Departament trobaDepartament(String nom) {
-		for(Departament departament : departaments) {
+		for(Departament departament : this.departaments) {
 			if (departament.getNom().equals(nom)) {
 				return departament;
 			}
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Dona de baixa un departament
+	 * @return departament trobat o null
+	 * @throws GestorExcepcions 
+	 */
+	public void baixaDepartament(Departament departament) throws GestorExcepcions {
+		if (!departament.isBuit()) {
+			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS);
+		}
+		this.departaments.remove(departament);
 	}
 	
 	/**
