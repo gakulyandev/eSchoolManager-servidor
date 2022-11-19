@@ -19,8 +19,9 @@ import org.json.JSONObject;
 public class GestioDepartamentsTest extends BaseTest {
 
 	private final static String CRIDA_ALTA = "ALTA DEPARTAMENT";
-	private final static String CRIDA_CONSULTA = "CONSULTA DEPARTAMENT";
 	private final static String CRIDA_LLISTA = "LLISTA DEPARTAMENTS";
+	private final static String CRIDA_CONSULTA = "CONSULTA DEPARTAMENT";
+	private final static String CRIDA_MODI = "MODI DEPARTAMENT";
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
 	private final static String DADES_PERMISOS = "permisos";
@@ -100,7 +101,7 @@ public class GestioDepartamentsTest extends BaseTest {
      * Mètode que prova donar d'alta un departament amb un usuari autoritzat i departament existent
      */
     @Test
-    public void provaAltaDepartamentAutoritzatDadesIncorrectes() {
+    public void provaAltaDepartamentAutoritzatDadesDuplicades() {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
@@ -293,6 +294,116 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar un departament amb un usuari autoritzat i departament existent
+     */
+    @Test
+    public void provaModiDepartamentAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
+    	dadesPeticioPermisos.put(PERMIS, true);
+    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar un departament amb un usuari no autoritzat
+     */
+    @Test
+    public void provaModiDepartamentNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
+    	dadesPeticioPermisos.put(PERMIS, true);
+    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar un departament amb un usuari autoritzat i departament inexistent
+     */
+    @Test
+    public void provaModiDepartamentAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "10");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
+    	dadesPeticioPermisos.put(PERMIS, true);
+    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar un departament amb un usuari autoritzat i departament existent amb el mateix nom
+     */
+    @Test
+    public void provaModiDepartamentAutoritzatDadesDuplicades() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
+    	dadesPeticioPermisos.put(PERMIS, true);
+    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_DUPLICAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar un departament amb dades incompletes
+     */
+    @Test
+    public void provaModiDepartamentDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

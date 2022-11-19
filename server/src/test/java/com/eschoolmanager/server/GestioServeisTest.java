@@ -90,7 +90,7 @@ public class GestioServeisTest extends BaseTest {
      * Mètode que prova donar d'alta un servei amb un usuari autoritzat i servei existent
      */
     @Test
-    public void provaAltaServeiAutoritzatDadesIncorrectes() {
+    public void provaAltaServeiAutoritzatDadesDuplicades() {
 
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);

@@ -36,7 +36,7 @@ public class GestorServei extends GestorEscola {
 
         // Persisteix el departament
         entityManager.getTransaction().begin();
-        entityManager.persist(servei);
+        entityManager.merge(servei);
         entityManager.getTransaction().commit();
     }
 }
