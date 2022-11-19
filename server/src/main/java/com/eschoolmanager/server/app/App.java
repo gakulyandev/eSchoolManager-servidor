@@ -123,7 +123,7 @@ public class App
 		
 		// Creació de serveis d'exemple
 		escola.altaServei("Psicologia", 25.00, 1);
-		escola.altaServei("Psicoterapia", 35.00, 2);
+		escola.altaServei("Psicopedagogia", 35.00, 2);
 		
 		// Persistencia
 		entityManager.getTransaction().begin();

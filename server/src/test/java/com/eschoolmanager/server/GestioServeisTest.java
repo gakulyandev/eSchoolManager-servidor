@@ -4,6 +4,7 @@
 package com.eschoolmanager.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,12 +20,15 @@ public class GestioServeisTest extends BaseTest {
 
 	private final static String CRIDA_ALTA = "ALTA SERVEI";
 	private final static String CRIDA_LLISTA = "LLISTA SERVEIS";
+	private final static String CRIDA_CONSULTA = "CONSULTA SERVEI";
+	private final static String DADES_CODI_SERVEI = "codiServei";
 	private final static String DADES_NOM_SERVEI = "nomServei";
 	private final static String DADES_DURADA_SERVEI = "durada";
 	private final static String DADES_COST_SERVEI = "cost";
 	
 	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	private final static String ERROR_DUPLICAT = "Ja existeix un servei amb el mateix nom";
+	private final static String ERROR_INEXISTENT = "No existeix el servei indicat";
 	
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -203,6 +207,86 @@ public class GestioServeisTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_LLISTA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar un servei amb un usuari autoritzat i servei existent
+     */
+    @Test
+    public void provaConsultaServeiAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 1);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Psicologia", dadesResposta.get(DADES_NOM_SERVEI));
+    }
+    
+    /**
+     * Mètode que prova consultar un servei amb un usuari no autoritzat i servei existent
+     */
+    @Test
+    public void provaConsultaServeiNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 1);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar un servei amb un usuari autoritzat i servei inexistent
+     */
+    @Test
+    public void provaConsultaServeiAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 10);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar un servei amb dades incompletes
+     */
+    @Test
+    public void provaConsultaServeiDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

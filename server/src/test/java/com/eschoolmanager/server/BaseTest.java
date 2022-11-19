@@ -226,8 +226,10 @@ public class BaseTest {
 		escola.altaUsuari(usuariDocent);
 
         // Creació de serveis d'exemple
-		escola.altaServei("Psicologia", 25.00, 1);
-		escola.altaServei("Psicoterapia", 35.00, 2);
+		Servei serveiPsicologia = escola.altaServei("Psicologia", 25.00, 1);
+		serveiPsicologia.setCodi(1);
+		Servei serveiPsicopedagogia = escola.altaServei("Psicopedagogia", 35.00, 2);
+		serveiPsicologia.setCodi(2);
 		
 		insertaDades(escola);
     }
