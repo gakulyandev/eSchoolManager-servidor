@@ -121,6 +121,10 @@ public class App
 		escola.altaUsuari(usuariAdministratiu);
 		escola.altaUsuari(usuariDocent);
 		
+		// Creació de serveis d'exemple
+		escola.altaServei("Psicologia", 25.00, 1);
+		escola.altaServei("Psicoterapia", 35.00, 2);
+		
 		// Persistencia
 		entityManager.getTransaction().begin();
         entityManager.persist(escola);

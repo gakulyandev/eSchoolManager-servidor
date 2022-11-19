@@ -52,6 +52,7 @@ public class BaseTest {
 	protected final static String MISSATGE = "missatge";
 	
 	protected final static String ERROR_FALTEN_DADES = "Falten dades";
+	protected final static String ERROR_CAMP = "No existeix el valor indicat";
     
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -225,8 +226,8 @@ public class BaseTest {
 		escola.altaUsuari(usuariDocent);
 
         // Creació de serveis d'exemple
-		Servei servei = new Servei("Psicologia", 25.00, 1);
-		escola.altaServei(servei);
+		escola.altaServei("Psicologia", 25.00, 1);
+		escola.altaServei("Psicoterapia", 35.00, 2);
 		
 		insertaDades(escola);
     }

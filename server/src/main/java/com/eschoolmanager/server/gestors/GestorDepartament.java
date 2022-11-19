@@ -30,7 +30,7 @@ public class GestorDepartament extends GestorEscola {
 	private final static String DADES_ORDRE_ASC = "ASC";  
 
 	private final static String ERROR_DEPARTAMENT_INEXISTENT = "No existeix el departament indicat";
-	protected final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
+	private final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 
 	private final static String[] DADES_CAMPS = {"nom","codi"};
 	
@@ -75,7 +75,7 @@ public class GestorDepartament extends GestorEscola {
     }
 	
 	/**
-     * Obté llistat dels departament de l'escola
+     * Obté llistat dels departaments de l'escola
      * @param camp de dades per ordenar
      * @param ordre que ha de mostrar
      * @return llista de departaments
@@ -107,8 +107,8 @@ public class GestorDepartament extends GestorEscola {
 			int i = 0;
 	        for (Departament departament : departaments) {
 	        	HashMap<String,Object> dadesDepartament = new HashMap<String, Object>();
-	        	dadesDepartament.put(DADES_NOM_DEPARTAMENT, departament.getNom());
 	        	dadesDepartament.put(DADES_CODI_DEPARTAMENT, departament.getCodi());
+	        	dadesDepartament.put(DADES_NOM_DEPARTAMENT, departament.getNom());
 	        	dadesDepartaments.put(i, dadesDepartament);
 	        	i++;
 	    	}

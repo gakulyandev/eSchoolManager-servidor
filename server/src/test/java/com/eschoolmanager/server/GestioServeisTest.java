@@ -19,7 +19,7 @@ public class GestioServeisTest extends BaseTest {
 
 	private final static String CRIDA_ALTA = "ALTA SERVEI";
 	private final static String CRIDA_LLISTA = "LLISTA SERVEIS";
-	private final static String DADES_NOM_SERVEI = "nom";
+	private final static String DADES_NOM_SERVEI = "nomServei";
 	private final static String DADES_DURADA_SERVEI = "durada";
 	private final static String DADES_COST_SERVEI = "cost";
 	
@@ -148,7 +148,7 @@ public class GestioServeisTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
-        assertEquals("Logopedia", dadesResposta.getJSONObject("0").get(DADES_NOM_SERVEI));
+        assertEquals("Psicologia", dadesResposta.getJSONObject("0").get(DADES_NOM_SERVEI));
     }
     
     /**
@@ -190,7 +190,7 @@ public class GestioServeisTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_DUPLICAT, resposta.get(MISSATGE));
+        assertEquals(ERROR_CAMP, resposta.get(MISSATGE));
     }
     
     /**

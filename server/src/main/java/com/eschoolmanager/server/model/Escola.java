@@ -203,7 +203,7 @@ public class Escola {
 	}
 	
 	/**
-	 * Afegeix un departament al llistat
+	 * Dona d'alta un departament a l'escola
 	 * @param nom del nou departament
 	 * @param permisos del nou departament
 	 * @return departament donat d'alta
@@ -301,17 +301,22 @@ public class Escola {
 	}
 	
 	/**
-	 * Afegeix un servei al llistat
-	 * @param servei a afegir
-	 * @throws GestorExcepcions 
+	 * Dona d'alta un servei a l'escola
+     * @param nom del servei
+     * @param cost del servei
+     * @durada durada del servei
+     * @throws GestorExcepcions
 	 */
-	public void altaServei(Servei servei) throws GestorExcepcions {
-		if (trobaServei(servei.getNom()) != null) {
+	public Servei altaServei(String nom, Double cost, int durada) throws GestorExcepcions {
+		if (trobaServei(nom) != null) {
             throw new GestorExcepcions(ERROR_EXISTEIX_SERVEI);
         }
 
+		Servei servei = new Servei(nom, cost, durada);
 		this.serveis.add(servei);
 		servei.setEscola(this);
+		
+		return servei;
 	}
 	
 	/**

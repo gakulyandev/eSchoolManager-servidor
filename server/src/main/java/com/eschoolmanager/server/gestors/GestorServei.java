@@ -3,8 +3,14 @@
  */
 package com.eschoolmanager.server.gestors;
 
-import javax.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Servei;
 
 /**
@@ -12,6 +18,15 @@ import com.eschoolmanager.server.model.Servei;
  * Classe que gestiona les altes, baixes, modificacions i consultes de departaments
  */
 public class GestorServei extends GestorEscola {
+
+	private final static String DADES_CODI_SERVEI = "codiServei";  
+	private final static String DADES_NOM_SERVEI = "nomServei";
+	private final static String DADES_DURADA_SERVEI = "durada";
+	private final static String DADES_COST_SERVEI = "cost";
+	private final static String DADES_CAMP_CODI = "codi";  
+	private final static String DADES_ORDRE_ASC = "ASC";  
+	
+	private final static String[] DADES_CAMPS = {"nom","codi","durada","cost"};
     
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -23,20 +38,66 @@ public class GestorServei extends GestorEscola {
 	
 	/**
      * Afeigeix un nou departament a la base de dades
-     * @param departament el departament que s'ha de desar a la base de dades
+     * @param nom del servei
+     * @param cost del servei
+     * @durada durada del servei
      * @throws GestorExcepcions
      */
 	public void alta(String nom, Double cost, int durada) throws GestorExcepcions {
         
-		// Inicialitza el servei
-        Servei servei = new Servei(nom, cost, durada);
-
         // Dona d'alta el servei a l'escola
-        escola.altaServei(servei);
+        Servei servei = escola.altaServei(nom, cost, durada);
 
         // Persisteix el departament
         entityManager.getTransaction().begin();
         entityManager.merge(servei);
         entityManager.getTransaction().commit();
+    }
+	
+	/**
+     * Obté llistat dels serveis de l'escola
+     * @param camp de dades per ordenar
+     * @param ordre que ha de mostrar
+     * @return llista de serveis
+     * @throws GestorExcepcions
+     */
+	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
+                
+        // Llista els permisos del departament
+		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
+			 camp.length() == 0 && ordre.length() == 0) {
+			List<Servei> serveis;
+			
+			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
+				serveis = escola.getServeis();
+			} else {
+				String consulta = "SELECT s FROM Servei s ORDER BY s." + camp + " " + ordre;
+	
+				entityManager.getTransaction().begin();   
+				
+	    		Query query = (Query) entityManager.createQuery(consulta);
+	    		serveis = query.getResultList();  
+	    		
+	            entityManager.getTransaction().commit();
+			}
+	
+			
+	        HashMap<Integer, Object> dadesServeis = new HashMap<Integer, Object>();
+	        
+			int i = 0;
+	        for (Servei servei : serveis) {
+	        	HashMap<String,Object> dadesServei = new HashMap<String, Object>();
+	        	dadesServei.put(DADES_CODI_SERVEI, servei.getCodi());
+	        	dadesServei.put(DADES_NOM_SERVEI, servei.getNom());
+	        	dadesServei.put(DADES_DURADA_SERVEI, servei.getDurada());
+	        	dadesServei.put(DADES_COST_SERVEI, servei.getCost());
+	        	dadesServeis.put(i, dadesServei);
+	        	i++;
+	    	}
+	        
+	        return dadesServeis;		
+		}
+		
+		throw new GestorExcepcions(ERROR_CAMP);
     }
 }

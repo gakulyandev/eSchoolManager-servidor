@@ -26,11 +26,12 @@ public class GestorPeticions {
 	private final static String CRIDA_LOGIN = "LOGIN";
 	private final static String CRIDA_LOGOUT = "LOGOUT";
 	private final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
-	private final static String CRIDA_LLISTA_DEPARTAMENT = "LLISTA DEPARTAMENTS";
+	private final static String CRIDA_LLISTA_DEPARTAMENTS = "LLISTA DEPARTAMENTS";
 	private final static String CRIDA_CONSULTA_DEPARTAMENT = "CONSULTA DEPARTAMENT";
 	private final static String CRIDA_MODI_DEPARTAMENT = "MODI DEPARTAMENT";
 	private final static String CRIDA_BAIXA_DEPARTAMENT = "BAIXA DEPARTAMENT";
 	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
+	private final static String CRIDA_LLISTA_SERVEIS = "LLISTA SERVEIS";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_OK = "OK";
@@ -44,7 +45,8 @@ public class GestorPeticions {
 	private final static String DADES_CODI_SESSIO = "codiSessio";
 	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
-	private final static String DADES_NOM_SERVEI = "nom";
+	private final static String DADES_CODI_SERVEI = "codiServei";
+	private final static String DADES_NOM_SERVEI = "nomServei";
 	private final static String DADES_DURADA_SERVEI = "durada";
 	private final static String DADES_COST_SERVEI = "cost";
 	private final static String DADES_NOM_EMPLEAT = "nom";
@@ -137,7 +139,7 @@ public class GestorPeticions {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
-				case CRIDA_LLISTA_DEPARTAMENT: {
+				case CRIDA_LLISTA_DEPARTAMENTS: {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
@@ -219,6 +221,26 @@ public class GestorPeticions {
 					);
 
 					// Genera resposta
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_LLISTA_SERVEIS: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					HashMap<Integer, Object> dadesServeis = gestorServei.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+
+					// Genera resposta
+					dadesResposta = new JSONObject();
+					
+					for (Integer key : dadesServeis.keySet()) {
+						JSONObject dadesRespostaServei = new JSONObject();
+						dadesRespostaServei.put(DADES_CODI_SERVEI, ((HashMap<String,Object>) dadesServeis.get(key)).get(DADES_CODI_SERVEI));
+						dadesRespostaServei.put(DADES_NOM_SERVEI, ((HashMap<String,Object>) dadesServeis.get(key)).get(DADES_NOM_SERVEI));
+						dadesRespostaServei.put(DADES_DURADA_SERVEI, ((HashMap<String,Object>) dadesServeis.get(key)).get(DADES_DURADA_SERVEI));
+						dadesRespostaServei.put(DADES_COST_SERVEI, ((HashMap<String,Object>) dadesServeis.get(key)).get(DADES_COST_SERVEI));
+						dadesResposta.put(String.valueOf(key), dadesRespostaServei);
+					}
+					
 					return generaRespostaOK(dadesResposta);	
 				}
 				default: {
