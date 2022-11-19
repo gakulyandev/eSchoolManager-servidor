@@ -59,8 +59,8 @@ public class Factura {
 	}
 
 	/**
-	 * Actualitza el codi identificador de l'factura
-	 * @param codi nou valor pel codi identificador de l'factura
+	 * Actualitza el codi identificador de la factura
+	 * @param codi actualitzat de la factura
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -76,16 +76,16 @@ public class Factura {
 	}
 
 	/**
-	 * Actualitza les dades de l'factura
-	 * @param dades nou valor per les dades de l'factura
+	 * Actualitza les dades de la factura
+	 * @param dades actualitzades de la factura
 	 */
 	public void setDades(String dades) {
 		this.dades = dades;
 	}
 
 	/**
-	 * Obté la data en que es genera l'factura
-	 * @return dataGeneracio de l'factura
+	 * Obté la data en que es genera la factura
+	 * @return dataGeneracio de la factura
 	 */
 	@Column(name="data_generacio")
 	public Date getDataGeneracio() {
@@ -93,16 +93,16 @@ public class Factura {
 	}
 
 	/**
-	 * Actualitza la data de generació de l'factura
-	 * @param dataGeneracio nou valor per la data en que es genera l'factura
+	 * Actualitza la data de generació de la factura
+	 * @param dataGeneracio actualitzada de la factura
 	 */
 	public void setDataGeneracio(Date dataGeneracio) {
 		this.dataGeneracio = dataGeneracio;
 	}
 
 	/**
-	 * Obté l'estudiant per qui s'ha generat l'factura
-	 * @return estudiant per qui s'ha generat l'factura
+	 * Obté l'estudiant per qui s'ha generat la factura
+	 * @return estudiant per qui s'ha generat la factura
 	 */
 	@ManyToOne
     @JoinColumn(name="estudiant_codi", nullable=false)
@@ -111,8 +111,8 @@ public class Factura {
 	}
 
 	/**
-	 * Actualitza l'estudiant per qui s'ha generat l'factura
-	 * @param estudiant nou valor per l'estudiant per qui s'ha generat l'factura
+	 * Actualitza l'estudiant per qui s'ha generat la factura
+	 * @param estudiant actualitzat de la factura
 	 */
 	public void setEstudiant(Estudiant estudiant) {
 		this.estudiant = estudiant;

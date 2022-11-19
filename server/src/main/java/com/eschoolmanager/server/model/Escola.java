@@ -37,6 +37,7 @@ public class Escola {
 
 	protected final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	protected final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
+	private final static String ERROR_DEPARTAMENT_INEXISTENT = "No existeix el departament indicat";
 	
 
 	/**
@@ -76,7 +77,7 @@ public class Escola {
 
 	/**
 	 * Actualitza el codi identificador de l'escola
-	 * @param codi nou valor pel codi identificador de l'escola
+	 * @param codi actualitzat de l'escola
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -93,7 +94,7 @@ public class Escola {
 
 	/**
 	 * Actualitza el nom de l'escola
-	 * @param nom nou valor pel nom de l'escola
+	 * @param nom actualitzat de l'escola
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -110,7 +111,7 @@ public class Escola {
 
 	/**
 	 * Actualitza l'adreça de l'escola
-	 * @param adreca nou valor per l'adreça de l'escola
+	 * @param adreca actualitzada de l'escola
 	 */
 	public void setAdreca(String adreca) {
 		this.adreca = adreca;
@@ -127,7 +128,7 @@ public class Escola {
 
 	/**
 	 * Actualitza el telèfon de l'escola
-	 * @param telefon nou valor pel telèfon de l'escola
+	 * @param telefon actualitzat de l'escola
 	 */
 	public void setTelefon(String telefon) {
 		this.telefon = telefon;
@@ -144,7 +145,7 @@ public class Escola {
 
 	/**
 	 * Actualitza els usuaris de l'escola
-	 * @param usuaris nou valor pels usuaris de l'escola
+	 * @param usuaris actualitzats de l'escola
 	 */
 	public void setUsuaris(List<Usuari> usuaris) {
 		this.usuaris = usuaris;
@@ -161,7 +162,7 @@ public class Escola {
 
 	/**
 	 * Actualitza els departaments de l'escola
-	 * @param departaments nou valor pels departaments de l'escola
+	 * @param departaments actualitzats de l'escola
 	 */
 	public void setDepartaments(List<Departament> departaments) {
 		this.departaments = departaments;
@@ -178,7 +179,7 @@ public class Escola {
 
 	/**
 	 * Actualitza els estudiants de l'escola
-	 * @param estudiants nou valor pels estudiants de l'escola
+	 * @param estudiants actualitzats de l'escola
 	 */
 	public void setEstudiants(List<Estudiant> estudiants) {
 		this.estudiants = estudiants;
@@ -195,7 +196,7 @@ public class Escola {
 
 	/**
 	 * Actualitza els serveis de l'escola
-	 * @param serveis nou valor pels serveis de l'escola
+	 * @param serveis actualitzats de l'escola
 	 */
 	public void setServeis(List<Servei> serveis) {
 		this.serveis = serveis;
@@ -203,16 +204,37 @@ public class Escola {
 	
 	/**
 	 * Afegeix un departament al llistat
-	 * @param departament a afegir
+	 * @param nom del nou departament
+	 * @param permisos del nou departament
+	 * @return departament donat d'alta
 	 * @throws GestorExcepcions 
 	 */
-	public void altaDepartament(Departament departament) throws GestorExcepcions {
-		if (trobaDepartament(departament.getNom()) != null) {
+	public Departament altaDepartament(String nom, List<Permis> permisos) throws GestorExcepcions {
+		if (trobaDepartament(nom) != null) {
             throw new GestorExcepcions(ERROR_EXISTEIX_DEPARTAMENT);
         }
 
+		Departament departament = new Departament(nom, permisos);
 		this.departaments.add(departament);
 		departament.setEscola(this);
+		
+		return departament;
+	}
+	
+	/**
+	 * Actualitza un departament del llistat
+	 * @param departament a actualitzar
+	 * @param nom actualitzat del departament
+	 * @param permisos actualitzats del departament
+	 * @throws GestorExcepcions 
+	 */
+	
+	public void actualitzaDepartament(Departament departament, String nom, List<Permis> permisos) throws GestorExcepcions {
+		if (trobaDepartament(nom) != null) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_DEPARTAMENT);
+        }
+		
+		departament.actualitza(nom, permisos);
 	}
 	
 	/**

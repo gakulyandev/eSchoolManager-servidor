@@ -60,7 +60,7 @@ public class Professor extends Empleat {
 	
 	/**
 	 * Actualitza els serveis prestats pel professor (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param serveis nou valor dels serveis prestats pel professor
+	 * @param serveis actualitzats del professor
 	 */
 	public void setServeis(List<Servei> serveis) {
 		this.serveis = serveis;
@@ -77,7 +77,7 @@ public class Professor extends Empleat {
 	
 	/**
 	 * Actualitza les sessions realitzades pel professor (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param sessions nou valor per les sessions realitzades pel professor
+	 * @param sessions actualitzades del professor
 	 */
 	public void setSessions(List<Sessio> sessions) {
 		this.sessions = sessions;

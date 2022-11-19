@@ -60,7 +60,7 @@ public class Informe {
 
 	/**
 	 * Actualitza el codi identificador de l'informe
-	 * @param codi nou valor pel codi identificador de l'informe
+	 * @param codi actualitzat de l'informe
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -77,7 +77,7 @@ public class Informe {
 
 	/**
 	 * Actualitza les dades de l'informe
-	 * @param dades nou valor per les dades de l'informe
+	 * @param dades actualitzades de l'informe
 	 */
 	public void setDades(String dades) {
 		this.dades = dades;
@@ -94,7 +94,7 @@ public class Informe {
 
 	/**
 	 * Actualitza la data de generació de l'informe
-	 * @param dataGeneracio nou valor per la data en que es genera l'informe
+	 * @param dataGeneracio actualitzada de l'informe
 	 */
 	public void setDataGeneracio(Date dataGeneracio) {
 		this.dataGeneracio = dataGeneracio;
@@ -112,7 +112,7 @@ public class Informe {
 
 	/**
 	 * Actualitza l'administratiu que ha generat l'informe
-	 * @param administratiu nou valor per l'administratiu que ha generat l'informe
+	 * @param administratiu actualitzat de l'informe
 	 */
 	public void setAdministratiu(Administratiu administratiu) {
 		this.administratiu = administratiu;

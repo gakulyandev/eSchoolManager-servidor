@@ -6,6 +6,8 @@ package com.eschoolmanager.server;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -117,18 +119,7 @@ public class BaseTest {
     	// Creació de l'escola
 		Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");		
         
-		// Creació dels departaments bàsics
-        Departament departamentAdministrador = new Departament("Administrador");
-        departamentAdministrador.setCodi(1);
-		Departament departamentAdministratiu = new Departament("Administratiu");
-		departamentAdministratiu.setCodi(2);
-		Departament departamentDocent = new Departament("Docent");
-		departamentDocent.setCodi(3);
-		escola.altaDepartament(departamentAdministrador);
-		escola.altaDepartament(departamentAdministratiu);
-		escola.altaDepartament(departamentDocent);
-		
-		// Adjudicació de permisos als departaments bàsics
+		// Creació de permisos
 		Permis permisAcces = new Permis("acces","LOGIN;LOGOUT");
 		Permis permisEscola = new Permis("escola","MODI ESCOLA");
 		Permis permisDepartament = new Permis("departament","ALTA DEPARTAMENT;BAIXA DEPARTAMENT;MODI DEPARTAMENT;LLISTA DEPARTAMENTS;CONSULTA DEPARTAMENT");
@@ -139,26 +130,39 @@ public class BaseTest {
 		Permis permisSessio = new Permis("sessio","ALTA SESSIO;BAIXA SESSIO;MODI SESSIO;LLISTA SESSIONS;CONSULTA SESSIO");
 		Permis permisInforme = new Permis("informe","LLISTA DADES");
 		
-		departamentAdministrador.adjudicaPermis(permisAcces);
-		departamentAdministratiu.adjudicaPermis(permisAcces);
+		List<Permis> permisosAdministrador = new ArrayList<Permis>();
+		List<Permis> permisosAdministratiu = new ArrayList<Permis>();
+		List<Permis> permisosDocent = new ArrayList<Permis>();
 		
-		departamentAdministrador.adjudicaPermis(permisEscola);
-		departamentAdministrador.adjudicaPermis(permisDepartament);
-		departamentAdministrador.adjudicaPermis(permisEmpleat);
-		departamentAdministrador.adjudicaPermis(permisServei);
-		departamentAdministrador.adjudicaPermis(permisEstudiant);
-		departamentAdministrador.adjudicaPermis(permisBeca);
-		departamentAdministrador.adjudicaPermis(permisSessio);
-		departamentAdministrador.adjudicaPermis(permisInforme);
+		permisosAdministrador.add(permisAcces);
+		permisosAdministrador.add(permisEscola);
+		permisosAdministrador.add(permisDepartament);
+		permisosAdministrador.add(permisEmpleat);
+		permisosAdministrador.add(permisServei);
+		permisosAdministrador.add(permisEstudiant);
+		permisosAdministrador.add(permisBeca);
+		permisosAdministrador.add(permisSessio);
+		permisosAdministrador.add(permisInforme);
 		
-		departamentAdministratiu.adjudicaPermis(permisEmpleat);
-		departamentAdministratiu.adjudicaPermis(permisServei);
-		departamentAdministratiu.adjudicaPermis(permisEstudiant);
-		departamentAdministratiu.adjudicaPermis(permisBeca);
-		departamentAdministratiu.adjudicaPermis(permisSessio);
-		departamentAdministratiu.adjudicaPermis(permisInforme);
+		permisosAdministratiu.add(permisAcces);
+		permisosAdministratiu.add(permisEmpleat);
+		permisosAdministratiu.add(permisServei);
+		permisosAdministratiu.add(permisEstudiant);
+		permisosAdministratiu.add(permisBeca);
+		permisosAdministratiu.add(permisSessio);
+		permisosAdministratiu.add(permisInforme);
 		
-		departamentDocent.adjudicaPermis(permisSessio);
+		permisosDocent.add(permisAcces);
+		permisosDocent.add(permisSessio);
+
+		// Creació dels departaments bàsics
+		Departament departamentAdministrador = escola.altaDepartament("Administrador", permisosAdministrador);
+		Departament departamentAdministratiu = escola.altaDepartament("Administratiu", permisosAdministratiu);
+		Departament departamentDocent = escola.altaDepartament("Docent", permisosDocent);
+
+        departamentAdministrador.setCodi(1);
+		departamentAdministratiu.setCodi(2);
+		departamentDocent.setCodi(3);
 		
         // Creació d'empleats d'exemple
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

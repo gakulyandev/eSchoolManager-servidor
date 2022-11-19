@@ -72,7 +72,7 @@ public class Servei {
 
 	/**
 	 * Actualitza el codi identificador del servei
-	 * @param codi identificador del servei
+	 * @param codi actualitzat del servei
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -90,7 +90,7 @@ public class Servei {
 
 	/**
 	 * Actualitza l'escola a on es presta el servei
-	 * @param escola nou valor per l'escola a on es presta el servei
+	 * @param escola actualitzada del servei
 	 */
 	public void setEscola(Escola escola) {
 		this.escola = escola;
@@ -107,7 +107,7 @@ public class Servei {
 
 	/**
 	 * Actualitza el nom del servei prestat a l'escola
-	 * @param nom nou valor pel nom del servei prestat a l'escola
+	 * @param nom actualitzat del servei
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -124,7 +124,7 @@ public class Servei {
 
 	/**
 	 * Actualitza el cost del servei prestat a l'escola
-	 * @param cost nou valor pel cost del servei prestat a l'escola
+	 * @param cost actualitzat del servei
 	 */
 	public void setCost(double cost) {
 		this.cost = cost;
@@ -141,7 +141,7 @@ public class Servei {
 
 	/**
 	 * Actualitza la durada del servei prestat a l'escola
-	 * @param durada nou valor per la durada del servei prestat a l'escola
+	 * @param durada actualitzada del servei
 	 */
 	public void setDurada(int durada) {
 		this.durada = durada;
@@ -158,7 +158,7 @@ public class Servei {
 	
 	/**
 	 * Actualitza les beques adjudicades per el servei (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param beques nou valor per les beques adjudicades per el servei
+	 * @param beques actualitzades del servei
 	 */
 	public void setBeques(List<Beca> beques) {
 		this.beques = beques;
@@ -180,7 +180,7 @@ public class Servei {
 	
 	/**
 	 * Actualitza professors que presten el servei (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param professors no valor pels professors que presten el servei
+	 * @param professors actualitzats del servei
 	 */
 	public void setProfessors(List<Professor> professors) {
 		this.professors = professors;
@@ -197,7 +197,7 @@ public class Servei {
 	
 	/**
 	 * Actualitza les sessions realitzades del servei (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param sessions nou valor per les sessions realitzades del servei
+	 * @param sessions actualitzades del servei
 	 */
 	public void setSessions(List<Sessio> sessions) {
 		this.sessions = sessions;

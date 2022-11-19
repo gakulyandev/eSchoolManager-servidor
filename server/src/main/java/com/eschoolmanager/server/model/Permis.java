@@ -59,7 +59,7 @@ public class Permis {
 
 	/**
 	 * Actualitza el codi identificador del permis
-	 * @param codi nou valor pel codi identificador del permis
+	 * @param codi actualitzat del permis
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -76,7 +76,7 @@ public class Permis {
 
 	/**
 	 * Actualitza el nom del permis
-	 * @param nom nou valor per el nom del permis
+	 * @param nom actualitzat del permis
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -93,7 +93,7 @@ public class Permis {
 
 	/**
 	 * Actualitza les crides a les que s'aplica el permis
-	 * @param crides nou valor per les crides a les que s'aplica el permis
+	 * @param crides actualitzades del permis
 	 */
 	public void setCrides(String crides) {
 		this.crides = crides;
@@ -110,7 +110,7 @@ public class Permis {
 	
 	/**
 	 * Actualitza els departaments als que s'associa el permis
-	 * @param departaments nou valor pels departaments als que s'associa el permis
+	 * @param departaments actualitzats del permis
 	 */
 	public void setDepartaments(List<Departament> departaments) {
 		this.departaments = departaments;

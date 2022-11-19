@@ -57,7 +57,7 @@ public class Administratiu extends Empleat {
 	
 	/**
 	 * Actualitza els informes creats per l'administratiu (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param serveis nou valor pels informes creats per l'administratiu
+	 * @param informes actualitzats de l'administratiu
 	 */
 	public void setInformes(List<Informe> informes) {
 		this.informes = informes;

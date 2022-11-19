@@ -67,7 +67,7 @@ public class Usuari {
     
     /**
      * Actualitza el codi de l'usuari
-     * @param codi nou valor pel codi de l'usuari
+     * @param codi actualitzat de l'usuari
      */
     public void setCodi(int codi) {
         this.codi = codi;
@@ -85,7 +85,7 @@ public class Usuari {
 
 	/**
 	 * Actualitza l'escola a on està donat d'alta l'usuari
-	 * @param escola nou valor per l'escola a on està donat d'alta l'usuari
+	 * @param escola actualitzatda de l'usuari
 	 */
 	public void setEscola(Escola escola) {
 		this.escola = escola;
@@ -102,7 +102,7 @@ public class Usuari {
     
     /**
      * Actualitza el nom d'usuari
-     * @param nomUsuari nou valor pel nom d'usuari
+     * @param nomUsuari actualitzat de l'usuari
      */
     public void setNomUsuari(String nomUsuari) {
         this.nomUsuari = nomUsuari;
@@ -119,7 +119,7 @@ public class Usuari {
     
     /**
      * Actualitza la contrasenya
-     * @param contrasenya nou valor per la contrasenya
+     * @param contrasenya actualitzada de l'usuari
      */
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
@@ -137,7 +137,7 @@ public class Usuari {
 	
 	/**
 	 * Actualitza l'empleat a qui s'assigna l'usuari
-	 * @param empleat nou valor d'empleat a qui s'assigna l'usuari
+	 * @param empleat actualitzat de l'usuari
 	 */
 	public void setEmpleat(Empleat empleat) {
 		this.empleat = empleat;

@@ -67,7 +67,7 @@ public class Empleat extends Persona {
 
 	/**
 	 * Actualitza l'estat de l'empleat
-	 * @param actiu nou valor de l'estat actual de l'empleat
+	 * @param estat actualitzat de l'empleat
 	 */
 	public void setActiu(boolean actiu) {
 		this.actiu = actiu;
@@ -84,7 +84,7 @@ public class Empleat extends Persona {
 	
 	/**
 	 * Actualitza l'usuari de l'empleat
-	 * @param usuari nou valor per l'usuari de l'empleat
+	 * @param usuari actualitzat de l'empleat
 	 */
 	public void setUsuari(Usuari usuari) {
 		this.usuari = usuari;
@@ -102,7 +102,7 @@ public class Empleat extends Persona {
 	
 	/**
 	 * Actualitza el departament de l'empleat
-	 * @param departament nou valor pel departament de l'empleat
+	 * @param departament actualitzat de l'empleat
 	 */
 	public void setDepartament(Departament departament) {
 		this.departament = departament;

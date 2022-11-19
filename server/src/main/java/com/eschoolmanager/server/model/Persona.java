@@ -80,7 +80,7 @@ public abstract class Persona {
 
 	/**
 	 * Actualitza el codi identificador de la persona
-	 * @param codi nou valor pel codi identificador de la persona
+	 * @param codi actualitzat de la persona
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -97,7 +97,7 @@ public abstract class Persona {
 
 	/**
 	 * Actualitza el DNI de la persona
-	 * @param dni nou valor pel DNI de la persona
+	 * @param dni actualitzat de la persona
 	 */
 	public void setDni(String dni) {
 		this.dni = dni;
@@ -114,7 +114,7 @@ public abstract class Persona {
 
 	/**
 	 * Actualitza el nom de la persona
-	 * @param nom nou valor pel nom de la persona
+	 * @param nom actualitzat de la persona
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -131,7 +131,7 @@ public abstract class Persona {
 
 	/**
 	 * Actualitza els cognoms de la persona
-	 * @param cognoms nou valor pels cognoms de la persona
+	 * @param cognoms actualitzats de la persona
 	 */
 	public void setCognoms(String cognoms) {
 		this.cognoms = cognoms;
@@ -148,7 +148,7 @@ public abstract class Persona {
 
 	/**
 	 * Actualitza la data de naixement de la persona
-	 * @param dataNaixement nou valor per la data de naixement de la persona
+	 * @param dataNaixement actualitzada de la persona
 	 */
 	public void setDataNaixement(Date dataNaixement) {
 		this.dataNaixement = dataNaixement;
@@ -165,7 +165,7 @@ public abstract class Persona {
 
 	/**
 	 * Actualitza el telèfon de contacte
-	 * @param telefon nou valor pel telèfon de contacte de la persona
+	 * @param telefon actualitzat de la persona
 	 */
 	public void setTelefon(String telefon) {
 		this.telefon = telefon;
@@ -182,7 +182,7 @@ public abstract class Persona {
 
 	/**
 	 * Actualitza l'email de contacte
-	 * @param email nou valor per l'email de contacte de la persona
+	 * @param email actualitzat de la persona
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -199,7 +199,7 @@ public abstract class Persona {
 
 	/**
 	 * Actualitza l'adreça de la persona
-	 * @param adreca nou valor per l'adreça de la persona
+	 * @param adreca actualitzada de la persona
 	 */
 	public void setAdreca(String adreca) {
 		this.adreca = adreca;

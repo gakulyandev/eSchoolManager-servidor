@@ -26,9 +26,10 @@ public class GestorPeticions {
 	private final static String CRIDA_LOGIN = "LOGIN";
 	private final static String CRIDA_LOGOUT = "LOGOUT";
 	private final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
-	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
 	private final static String CRIDA_LLISTA_DEPARTAMENT = "LLISTA DEPARTAMENTS";
 	private final static String CRIDA_CONSULTA_DEPARTAMENT = "CONSULTA DEPARTAMENT";
+	private final static String CRIDA_MODI_DEPARTAMENT = "MODI DEPARTAMENT";
+	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_OK = "OK";
@@ -85,7 +86,7 @@ public class GestorPeticions {
 			JSONObject dadesResposta = new JSONObject();
 			
 			switch (crida) {
-				case CRIDA_LOGIN:
+				case CRIDA_LOGIN: {
 					// Processa la petició i obté una sessió d'usuari
 					dadesPeticio = peticio.getJSONObject(DADES);
 					HashMap<String, Object> dadesSessio = gestorSessioUsuari.iniciaSessio(
@@ -110,15 +111,15 @@ public class GestorPeticions {
 					dadesResposta.put(DADES_PERMISOS_DEPARTAMENT, dadesRespostaPermisos);
 
 					return generaRespostaOK(dadesResposta);	
-				
-				case CRIDA_LOGOUT:
+				}
+				case CRIDA_LOGOUT: {
 					// Processa la petició
 					gestorSessioUsuari.tancaSessio(peticio.getString(CODI_SESSIO));
 					
 					// Genera resposta
 					return generaRespostaOK(null);
-					
-				case CRIDA_ALTA_DEPARTAMENT:
+				}
+				case CRIDA_ALTA_DEPARTAMENT: {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
@@ -134,8 +135,8 @@ public class GestorPeticions {
 
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
-					
-				case CRIDA_LLISTA_DEPARTAMENT:
+				}
+				case CRIDA_LLISTA_DEPARTAMENT: {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
@@ -152,8 +153,8 @@ public class GestorPeticions {
 					}
 					
 					return generaRespostaOK(dadesResposta);	
-				
-				case CRIDA_CONSULTA_DEPARTAMENT:
+				}
+				case CRIDA_CONSULTA_DEPARTAMENT: {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
@@ -163,9 +164,8 @@ public class GestorPeticions {
 					dadesResposta.put(DADES_NOM_DEPARTAMENT, dadesDepartament.get(DADES_NOM_DEPARTAMENT));
 					dadesResposta.put(DADES_CODI_DEPARTAMENT, dadesDepartament.get(DADES_CODI_DEPARTAMENT));
 					
-					dadesRespostaPermisos = new JSONObject();
-					
-					permisosDepartament = (List<String>) dadesDepartament.get(DADES_PERMISOS_DEPARTAMENT);
+					JSONObject dadesRespostaPermisos = new JSONObject();
+					List<String> permisosDepartament = (List<String>) dadesDepartament.get(DADES_PERMISOS_DEPARTAMENT);
 					for (String permisNom : PERMISOS_NOMS) {
 						dadesRespostaPermisos.put(permisNom, false);
 						for (String permisDepartament : permisosDepartament) {
@@ -177,8 +177,28 @@ public class GestorPeticions {
 					dadesResposta.put(DADES_PERMISOS_DEPARTAMENT, dadesRespostaPermisos);
 					
 					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_MODI_DEPARTAMENT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
 					
-				case CRIDA_ALTA_SERVEI:
+				    HashMap<String, Boolean> permisos = new HashMap<String, Boolean>();
+					JSONObject dadesPeticioPermisos = dadesPeticio.getJSONObject(DADES_PERMISOS_DEPARTAMENT);
+					Iterator<?> keysPermisosPeticio = dadesPeticioPermisos.keys();
+					while(keysPermisosPeticio.hasNext()) {
+					    String key = (String) keysPermisosPeticio.next();
+					    permisos.put(key, dadesPeticioPermisos.getBoolean(key));
+					}
+
+					gestorDepartament.actualitza(
+							dadesPeticio.getInt(DADES_CODI_DEPARTAMENT), 
+							dadesPeticio.getString(DADES_NOM_DEPARTAMENT), 
+							permisos);
+
+					// Genera resposta
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_ALTA_SERVEI: {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
@@ -190,10 +210,11 @@ public class GestorPeticions {
 
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
-					
-				default:
+				}
+				default: {
 					// Genera resposta
-					return generaRespostaNOK(ERROR_GENERIC);	
+					return generaRespostaNOK(ERROR_GENERIC);
+				}
 			}
 		
 		} catch (JSONException ex) {

@@ -68,7 +68,7 @@ public class Beca {
 	}
 
 	/**Actualitza el codi identificador de la beca
-	 * @param codi identificador de la beca
+	 * @param codi actualitzat de la beca
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -85,7 +85,7 @@ public class Beca {
 
 	/**
 	 * Actualitza el nom de l'adjudicant de la beca
-	 * @param adjudicant nou valor per l'adjudicant de la beca
+	 * @param adjudicant actualitzat de la beca
 	 */
 	public void setAdjudicant(String adjudicant) {
 		this.adjudicant = adjudicant;
@@ -102,7 +102,7 @@ public class Beca {
 
 	/**
 	 * Actualitza l'import inicial de la beca
-	 * @param importInicial nou valor per l'import inicial de la beca
+	 * @param importInicial actualitzat de la beca
 	 */
 	public void setImportInicial(double importInicial) {
 		this.importInicial = importInicial;
@@ -119,7 +119,7 @@ public class Beca {
 
 	/**
 	 * Actualitza l'import pendent de consumir de la beca
-	 * @param importRestant nou valor per l'import pendent de la beca
+	 * @param importRestant actualitzat de la beca
 	 */
 	public void setImportRestant(double importRestant) {
 		this.importRestant = importRestant;
@@ -137,7 +137,7 @@ public class Beca {
 
 	/**
 	 * Actualitza l'estudiant a qui s'adjudica la beca
-	 * @param estudiant nou valor per l'estudiant a qui s'adjudica la beca
+	 * @param estudiant actualitzat de la beca
 	 */
 	public void setEstudiant(Estudiant estudiant) {
 		this.estudiant = estudiant;
@@ -155,7 +155,7 @@ public class Beca {
 
 	/**
 	 * Actualitza el servei sobre el que s'adjudica la beca
-	 * @param servei nou valor pel servei sobre el que s'adjudica la beca
+	 * @param servei actualitzat de la beca
 	 */
 	public void setServei(Servei servei) {
 		this.servei = servei;
@@ -172,7 +172,7 @@ public class Beca {
 
 	/**
 	 * Actualitza la data d'adjudicació de la beca
-	 * @param dataAdjudicacio nou valor per la data en que s'adjudica la beca
+	 * @param dataAdjudicacio actualitzada de la beca
 	 */
 	public void setDataAdjudicacio(Date dataAdjudicacio) {
 		this.dataAdjudicacio = dataAdjudicacio;
@@ -189,7 +189,7 @@ public class Beca {
 
 	/**
 	 * Obté l'estat actual de la beca
-	 * @param finalitzada nou valor de l'estat de la beca
+	 * @param estat actualitzat de la beca
 	 */
 	public void setFinalitzada(boolean finalitzada) {
 		this.finalitzada = finalitzada;

@@ -20,6 +20,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.eschoolmanager.server.gestors.GestorExcepcions;
+
 /**
  * @author Gayané Akulyan Akulyan
  * Classe persistent per emmagatzemar els departaments de l'escola
@@ -37,6 +39,8 @@ public class Departament {
 	private List<Empleat> empleats;
 	private List<Permis> permisos;
 
+	protected final static String ERROR_PERMISOS_INEXISTENTS = "Els permisos son incorrectes";
+	
 	/**
 	 * Constructor per defecte sense paràmetres
 	 * necessari per el correcte funcionament de l'ORM EclipseLink
@@ -48,11 +52,12 @@ public class Departament {
      * Constructor parametritzat: construeix un nou departament amb els paràmetres especificats
      * @param escola a on és el departament
      * @param nom del departament
+     * @param permisos del departament
      */
-	public Departament(String nom) {
+	public Departament(String nom, List<Permis> permisos) {
         this.setNom(nom);
         this.setEmpleats(new ArrayList<Empleat>());
-    	this.setPermisos(new ArrayList<Permis>());
+    	this.setPermisos(permisos);
         
 	}
 	
@@ -69,7 +74,7 @@ public class Departament {
 
 	/**
 	 * Actualitza el codi identificador del departament
-	 * @param codi nou valor pel codi identificador del departament
+	 * @param codi actualitzat del departament
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -87,7 +92,7 @@ public class Departament {
 
 	/**
 	 * Actualitza l'escola a on és el departament
-	 * @param escola nou valor per l'escola a on és el departament
+	 * @param escola actualitzada del departament
 	 */
 	public void setEscola(Escola escola) {
 		this.escola = escola;
@@ -104,7 +109,7 @@ public class Departament {
 
 	/**
 	 * Actualitza el nom del departament
-	 * @param nom nou valor pel nom del departament
+	 * @param nom actualitzat del departament
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -121,7 +126,7 @@ public class Departament {
 	
 	/**
 	 * Actualitza els empleats donats d'alta al departament (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param empleats nou valor d'empleats del departament
+	 * @param empleats actualitzats del departament
 	 */
 	public void setEmpleats(List<Empleat> empleats) {
 		this.empleats = empleats;
@@ -143,7 +148,7 @@ public class Departament {
 	
 	/**
 	 * Actualitza els permisos dels empleats del departament (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param permisos nou valor pels permisos del departament
+	 * @param permisos actualitzats del departament
 	 */
 	public void setPermisos(List<Permis> permisos) {
 		this.permisos = permisos;
@@ -154,7 +159,9 @@ public class Departament {
 	 * @param permis a afegir
 	 */
 	public void adjudicaPermis(Permis permis) {
-		this.permisos.add(permis);
+		if(!permisos.contains(permis)) {
+			permisos.add(permis);
+		}
 		permis.afegeixDepartament(this);
 	}
 	
@@ -164,7 +171,7 @@ public class Departament {
 	 * @return true o false segons si la crida està entre els permisos del departament
 	 */
 	public boolean confirmaPermis(String cridaPeticio) {
-		for (Permis permis : this.permisos) {
+		for (Permis permis : permisos) {
 			String[] crides = permis.getCrides().split(";");
 			
 			for(String crida : crides) {
@@ -185,4 +192,15 @@ public class Departament {
 		this.empleats.add(empleat);
 		empleat.setDepartament(this);
 	}
+
+	/**
+	 * Actualitza les dades del Departament
+	 * @param nom actualitzat del departament
+	 * @param permisos actualitzats del departament
+	 */
+	public void actualitza(String nom, List<Permis> permisos) {
+		this.setNom(nom);
+		this.setPermisos(permisos);
+	}
+	
 }

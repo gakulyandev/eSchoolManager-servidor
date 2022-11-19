@@ -44,34 +44,33 @@ public class GestorDepartament extends GestorEscola {
 	
 	/**
      * Dona d'alta un nou departament a l'escola
-     * @param departament el departament que s'ha de desar a la base de dades
+     * @param nom del nou departament
+     * @param permisos del nou departament
      * @throws GestorExcepcions
      */
 	public void alta(String nom, HashMap<String,Boolean>permisosPeticio) throws GestorExcepcions {
         
-		// Inicialitza el departament
-        Departament departament = new Departament(nom);
-        
-        // Adjudica permisos al departament a partir dels permisos d'administrador, els màxims
+        // Crea llistat de permisos al departament a partir dels permisos d'administrador, els màxims
         List<Permis> permisos = escola.trobaDepartament(DEPARTAMENT_ADMINISTRADOR).getPermisos();
+        List<Permis> permisosDepartament = new ArrayList<Permis>();
         for(Permis permis : permisos) {
         	if(permis.getNom().equals(PERMIS_ACCES)) {
-        		departament.adjudicaPermis(permis);
+        		permisosDepartament.add(permis);
         	}
         	
         	for (String permisNom: permisosPeticio.keySet()) {
             	if(permis.getNom().equals(permisNom)) {
-            		departament.adjudicaPermis(permis);
+            		permisosDepartament.add(permis);
             	}        		
         	}
         }       
 
         // Dona d'alta el departament a l'escola
-        escola.altaDepartament(departament);
+        Departament departament = escola.altaDepartament(nom, permisosDepartament);
 
         // Persisteix el departament
         entityManager.getTransaction().begin();
-        entityManager.merge(departament);
+        entityManager.persist(departament);
         entityManager.getTransaction().commit();
     }
 	
@@ -148,5 +147,42 @@ public class GestorDepartament extends GestorEscola {
         dadesDepartament.put(DADES_PERMISOS_DEPARTAMENT, permisos);
         
         return dadesDepartament;
+    }
+	
+	/**
+     * Dona d'alta un nou departament a l'escola
+     * @param codi del departament a actualitzar
+     * @param nom actualitzat del departament
+     * @param permisos actualitzats del nou departament
+     * @throws GestorExcepcions
+     */
+	public void actualitza(Integer codi, String nom, HashMap<String,Boolean>permisosPeticio) throws GestorExcepcions {
+        
+		// Troba el departament
+		Departament departament = escola.trobaDepartament(codi);
+        if (departament == null) {
+			throw new GestorExcepcions(ERROR_DEPARTAMENT_INEXISTENT);
+		}
+
+        // Actualitza els permisos
+        List<Permis> permisos = new ArrayList<Permis>();
+        for(Permis permis : departament.getPermisos()) {
+        	if(permis.getNom().equals(PERMIS_ACCES)) {
+        		permisos.add(permis);
+        	}
+        	
+        	for (String permisNom: permisosPeticio.keySet()) {
+            	if(permis.getNom().equals(permisNom)) {
+            		permisos.add(permis);
+            	}        		
+        	}
+        }     
+        // Dona d'alta el departament a l'escola
+        escola.actualitzaDepartament(departament, nom, permisos);
+
+        // Actualitza el departament
+        entityManager.getTransaction().begin();
+        entityManager.merge(departament);
+        entityManager.getTransaction().commit();
     }
 }

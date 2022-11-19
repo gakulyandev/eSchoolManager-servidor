@@ -61,8 +61,8 @@ public class Sessio {
 	}
 
 	/**
-	 * Actualitza el codi identificador de l'factura
-	 * @param codi nou valor pel codi identificador de l'factura
+	 * Actualitza el codi identificador de la sessió
+	 * @param codi actualitzat de la sessió
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
@@ -80,7 +80,7 @@ public class Sessio {
 
 	/**
 	 * Actualitza el professor que presta el servei a la sessió
-	 * @param professor nou valor pel professor que presta el servei a la sessió
+	 * @param professor actualitzat de la sessió
 	 */
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
@@ -98,7 +98,7 @@ public class Sessio {
 
 	/**
 	 * Actualitza l'estudiant a qui es presta el servei a la sessió
-	 * @param estudiant nou valor per l'estudiant a qui es presta el servei a la sessió
+	 * @param estudiant actualitzat de la sessió
 	 */
 	public void setEstudiant(Estudiant estudiant) {
 		this.estudiant = estudiant;
@@ -116,7 +116,7 @@ public class Sessio {
 
 	/**
 	 * Actualitza el servei que es presta a la sessió
-	 * @param servei nou valor pel servei que es presta a la sessió
+	 * @param servei actualitzat de la sessió
 	 */
 	public void setServei(Servei servei) {
 		this.servei = servei;
@@ -133,7 +133,7 @@ public class Sessio {
 
 	/**
 	 * Actualitza la data i hora a la que es realitza la sessió
-	 * @param dataIHora nou valor per la data i hora a la que es realitza la sessió
+	 * @param dataIHora actualitzada de la sessió
 	 */
 	public void setDataIHora(Timestamp dataIHora) {
 		this.dataIHora = dataIHora;

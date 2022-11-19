@@ -69,7 +69,7 @@ public class Estudiant extends Persona {
 
 	/**
 	 * Actualitza l'escola de l'estudiant
-	 * @param escola nou valor per l'escola de l'estudiant
+	 * @param escola actualitzada de l'estudiant
 	 */
 	public void setEscola(Escola escola) {
 		this.escola = escola;
@@ -86,7 +86,7 @@ public class Estudiant extends Persona {
 
 	/**
 	 * Actualitza l'estat de l'estudiant
-	 * @param registrat nou valor de l'estat actual de l'estudiant
+	 * @param estat actualitzat de l'estudiant
 	 */
 	public void setRegistrat(boolean registrat) {
 		this.registrat = registrat;
@@ -103,7 +103,7 @@ public class Estudiant extends Persona {
 	
 	/**
 	 * Actualitza les beques adjudicades a l'estudiant (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param beques nou valor de les beques adjudicades a l'estudiant 
+	 * @param beques actualitzades a l'estudiant 
 	 */
 	public void setBeques(List<Beca> beques) {
 		this.beques = beques;
@@ -120,7 +120,7 @@ public class Estudiant extends Persona {
 	
 	/**
 	 * Actualitza les sessions realitzades a l'estudiant (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param sessions nou valor per les sessions realitzades a l'estudiant
+	 * @param sessions actualitzades de l'estudiant
 	 */
 	public void setSessions(List<Sessio> sessions) {
 		this.sessions = sessions;
