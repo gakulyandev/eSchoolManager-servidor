@@ -230,7 +230,7 @@ public class Escola {
 	 */
 	
 	public void actualitzaDepartament(Departament departament, String nom, List<Permis> permisos) throws GestorExcepcions {
-		if (trobaDepartament(nom) != null) {
+		if ((trobaDepartament(nom) != null) && !departament.getNom().equals(nom)) {
             throw new GestorExcepcions(ERROR_EXISTEIX_DEPARTAMENT);
         }
 		
