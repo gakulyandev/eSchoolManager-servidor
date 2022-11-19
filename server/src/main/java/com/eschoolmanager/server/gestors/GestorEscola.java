@@ -18,10 +18,11 @@ public class GestorEscola {
     protected Escola escola;
     
     private final static int CODI_ESCOLA = 1;
-	private final static String ERROR_GENERIC = "S'ha produit un error";
+	protected final static String PERMIS_ACCES= "acces";  
 	
 	protected final static String[] DADES_ORDENACIONS = {"ASC","DESC"};
 
+	private final static String ERROR_GENERIC = "S'ha produit un error";
 	protected final static String ERROR_CAMP = "No existeix el valor indicat";
 	
     /**

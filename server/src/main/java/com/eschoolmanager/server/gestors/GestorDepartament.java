@@ -3,6 +3,7 @@
  */
 package com.eschoolmanager.server.gestors;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,12 +27,10 @@ public class GestorDepartament extends GestorEscola {
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";     
 	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";  
 	private final static String DADES_CAMP_CODI = "codi";  
-	private final static String DADES_CAMP_NOM = "nom";    
 	private final static String DADES_ORDRE_ASC = "ASC";  
-	private final static String DADES_ORDRE_DESC = "DESC";   
-	private final static String PERMIS_ACCES= "acces";  
 
-	private final static String DEPARTAMENT_INEXISTENT = "No existeix el departament indicat";
+	private final static String ERROR_DEPARTAMENT_INEXISTENT = "No existeix el departament indicat";
+	protected final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 
 	private final static String[] DADES_CAMPS = {"nom","codi"};
 	
@@ -72,7 +71,7 @@ public class GestorDepartament extends GestorEscola {
 
         // Persisteix el departament
         entityManager.getTransaction().begin();
-        entityManager.merge(departament);
+        entityManager.persist(departament);
         entityManager.getTransaction().commit();
     }
 	
@@ -80,6 +79,7 @@ public class GestorDepartament extends GestorEscola {
      * Obté llistat dels departament de l'escola
      * @param camp de dades per ordenar
      * @param ordre que ha de mostrar
+     * @return llista de departaments
      * @throws GestorExcepcions
      */
 	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
@@ -123,6 +123,7 @@ public class GestorDepartament extends GestorEscola {
 	/**
      * Obté les dades d'un departament de l'escola
      * @param codi del departament a cercar
+     * @return dades del departament
      * @throws GestorExcepcions
      */
 	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
@@ -130,7 +131,7 @@ public class GestorDepartament extends GestorEscola {
 		// Troba el departament
         Departament departament = escola.trobaDepartament(codi);
         if (departament == null) {
-			throw new GestorExcepcions(DEPARTAMENT_INEXISTENT);
+			throw new GestorExcepcions(ERROR_DEPARTAMENT_INEXISTENT);
 		}
         
         // Llista els permisos del departament

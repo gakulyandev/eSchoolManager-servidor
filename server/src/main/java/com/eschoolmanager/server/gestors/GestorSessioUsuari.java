@@ -4,9 +4,14 @@
 package com.eschoolmanager.server.gestors;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import com.eschoolmanager.server.model.Empleat;
+import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.SessioUsuari;
 import com.eschoolmanager.server.model.Usuari;
 
@@ -17,6 +22,11 @@ import com.eschoolmanager.server.model.Usuari;
 public class GestorSessioUsuari extends GestorEscola {
 
 	private GestorSessionsUsuari gestorSessionsUsuari;
+	
+	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";     
+	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";  
+	private final static String DADES_NOM_EMPLEAT = "nom";  
+	private final static String DADES_CODI_SESSIO = "codiSessio";
 
 	private final static String USUARI_INEXISTENT = "No existeix cap usuari amb les dades indicades";
 	private final static String USUARI_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
@@ -56,10 +66,10 @@ public class GestorSessioUsuari extends GestorEscola {
 	 * Obté dades de la sessió iniciada de l'usuari
 	 * @param nomUsuari de l'usuari que inicia sessió
 	 * @param contrasenya de l'usuari que inicia sessió
-	 * @return sessio amb dades de la sessió iniciada
+	 * @return dades de la sessió iniciada
 	 * @throws GestorExcepcions en cas que no s'hagi trobat cap usuari amb dades indicades
 	 */
-	public SessioUsuari iniciaSessio(String nomUsuari, String contrasenya) throws GestorExcepcions {
+	public HashMap<String, Object> iniciaSessio(String nomUsuari, String contrasenya) throws GestorExcepcions {
 		
 		// Troba l'usuari per nom d'usuari i contrasenya
 		Usuari usuari = escola.trobaUsuari(nomUsuari, contrasenya);
@@ -70,8 +80,22 @@ public class GestorSessioUsuari extends GestorEscola {
 		// Inicia i desa sessió
 		SessioUsuari sessio = usuari.generaSessio();
 		gestorSessionsUsuari.desaSessio(sessio);
+		
+		// Llista els permisos del departament
+        List<String> permisos = new ArrayList<String>();   
+        for (Permis permisDepartament : sessio.getPermisos()) {
+        	if(!permisDepartament.getNom().equals(PERMIS_ACCES)) {
+        		permisos.add(permisDepartament.getNom());
+        	}		
+    	}
         
-		return sessio;
+        HashMap<String, Object> dadesSessio = new HashMap<String, Object>();
+        dadesSessio.put(DADES_CODI_SESSIO, sessio.getCodi());
+        dadesSessio.put(DADES_NOM_EMPLEAT, sessio.getNomEmpleat());
+        dadesSessio.put(DADES_NOM_DEPARTAMENT, sessio.getNomDepartament());
+        dadesSessio.put(DADES_PERMISOS_DEPARTAMENT, permisos);
+        
+		return dadesSessio;
 	}
 	
 	/**

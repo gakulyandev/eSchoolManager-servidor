@@ -12,10 +12,6 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.eschoolmanager.server.model.Permis;
-import com.eschoolmanager.server.model.SessioUsuari;
-
-
 /**
  * @author Gayané Akulyan Akulyan
  * Classe que processa les diferents peticions dels clients i genera la resposta corresponent
@@ -92,27 +88,25 @@ public class GestorPeticions {
 				case CRIDA_LOGIN:
 					// Processa la petició i obté una sessió d'usuari
 					dadesPeticio = peticio.getJSONObject(DADES);
-					SessioUsuari sessio = gestorSessioUsuari.iniciaSessio(
+					HashMap<String, Object> dadesSessio = gestorSessioUsuari.iniciaSessio(
 							dadesPeticio.getString(DADES_NOM_USUARI), 
 							dadesPeticio.getString(DADES_CONTRASENYA)
 					);
-					
 					// Genera resposta
-					dadesResposta.put(DADES_CODI_SESSIO, sessio.getCodi());
-					dadesResposta.put(DADES_NOM_EMPLEAT, sessio.getNomEmpleat());
-					dadesResposta.put(DADES_NOM_DEPARTAMENT, sessio.getNomDepartament());
+					dadesResposta.put(DADES_CODI_SESSIO, dadesSessio.get(DADES_CODI_SESSIO));
+					dadesResposta.put(DADES_NOM_EMPLEAT, dadesSessio.get(DADES_NOM_EMPLEAT));
+					dadesResposta.put(DADES_NOM_DEPARTAMENT, dadesSessio.get(DADES_NOM_DEPARTAMENT));
 					
 					JSONObject dadesRespostaPermisos = new JSONObject();
-					
+					List<String> permisosDepartament = (List<String>) dadesSessio.get(DADES_PERMISOS_DEPARTAMENT);
 					for (String permisNom : PERMISOS_NOMS) {
 						dadesRespostaPermisos.put(permisNom, false);
-						for (Permis permisDepartament : sessio.getPermisos()) {
-							if(permisDepartament.getNom().equals(permisNom)) {
+						for (String permisDepartament : permisosDepartament) {
+							if(permisDepartament.equals(permisNom)) {
 								dadesRespostaPermisos.put(permisNom, true);
 							}
 						}
 					}
-					
 					dadesResposta.put(DADES_PERMISOS_DEPARTAMENT, dadesRespostaPermisos);
 
 					return generaRespostaOK(dadesResposta);	
@@ -171,7 +165,7 @@ public class GestorPeticions {
 					
 					dadesRespostaPermisos = new JSONObject();
 					
-					List<String> permisosDepartament = (List<String>) dadesDepartament.get(DADES_PERMISOS_DEPARTAMENT);
+					permisosDepartament = (List<String>) dadesDepartament.get(DADES_PERMISOS_DEPARTAMENT);
 					for (String permisNom : PERMISOS_NOMS) {
 						dadesRespostaPermisos.put(permisNom, false);
 						for (String permisDepartament : permisosDepartament) {
