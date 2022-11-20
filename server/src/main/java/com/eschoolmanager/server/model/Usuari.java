@@ -3,6 +3,7 @@
  */
 package com.eschoolmanager.server.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
 
@@ -18,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.eschoolmanager.server.gestors.GestorExcepcions;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -175,4 +178,16 @@ public class Usuari {
         		this.empleat.getDepartament().getPermisos()
         );
     }
+    
+	/**
+	 * Actualitza l'usuari
+     * @param nom d'usuari de l'empleat
+     * @param contrasenya d'usuari de l'empleat
+	 */
+	public void actualitza(String nomUsuari, String contrasenya) {
+		this.setNomUsuari(nomUsuari);
+		if (contrasenya != null) {
+			this.setContrasenya(contrasenya);
+		}
+	}
 }

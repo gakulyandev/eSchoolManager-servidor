@@ -47,6 +47,8 @@ public interface Constants {
 	public final static String DADES_DNI_EMPLEAT = "dni";
 	public final static String DADES_NOM_EMPLEAT = "nom";
 	public final static String DADES_COGNOMS_EMPLEAT = "cognoms";
+	public final static String DADES_NOM_EMPLEAT_COMPLET = "nomEmpleat";
+	public final static String DADES_COGNOMS_EMPLEAT_COMPLET = "cognomsEmpleat";
 	public final static String DADES_DATA_NAIXEMENT_EMPLEAT = "dataNaixement";
 	public final static String DADES_ADRECA_EMPLEAT = "adreca";
 	public final static String DADES_TELEFON_EMPLEAT = "telefon";

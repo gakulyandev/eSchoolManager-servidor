@@ -236,5 +236,27 @@ public abstract class Persona {
 	public void setEscola(Escola escola) {
 		this.escola = escola;
 	}
+	
+	/**
+	 * Actualitza la persona
+     * @param codi de la persona
+     * @param dni de la persona
+     * @param nom de la persona
+     * @param cognoms de la persona
+     * @param dataNaixement de la persona
+     * @param telefon de la persona
+     * @param email de la persona
+     * @param adreça de la persona
+	 * @throws GestorExcepcions 
+	 */
+	public void actualitzaPersona(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
+		this.setDni(dni);
+        this.setNom(nom); 
+        this.setCognoms(cognoms); 
+        this.setDataNaixement(dataNaixement); 
+        this.setTelefon(telefon); 
+        this.setEmail(email); 
+        this.setAdreca(adreca); 
+	}
 
 }

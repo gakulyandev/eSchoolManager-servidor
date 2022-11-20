@@ -40,7 +40,7 @@ public class GestorServei extends GestorEscola {
         // Dona d'alta el servei a l'escola
         Servei servei = escola.altaServei(nom, cost, durada);
 
-        // Persisteix el departament
+        // Persisteix el servei
         entityManager.getTransaction().begin();
         entityManager.merge(servei);
         entityManager.getTransaction().commit();
@@ -55,14 +55,14 @@ public class GestorServei extends GestorEscola {
      */
 	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
                 
-        // Llista els permisos del departament
 		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
 			 camp.length() == 0 && ordre.length() == 0) {
 			List<Servei> serveis;
 			
 			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
-				serveis = escola.getServeis();
+				serveis = escola.getServeis(); //Llista els serveis amb l'ordre per defecte
 			} else {
+				//Llista els serveis segons la petició
 				String consulta = "SELECT s FROM Servei s ORDER BY s." + camp + " " + ordre;
 	
 				entityManager.getTransaction().begin();   

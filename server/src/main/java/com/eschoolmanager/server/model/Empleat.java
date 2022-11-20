@@ -118,4 +118,25 @@ public class Empleat extends Persona {
 		this.setUsuari(usuari);
 		usuari.setEmpleat(this);
 	}
+	
+	/**
+	 * Actualitza l'empleat
+     * @param codi de l'empleat
+     * @param dni de l'empleat
+     * @param nom de l'empleat
+     * @param cognoms de l'empleat
+     * @param dataNaixement de l'empleat
+     * @param telefon de l'empleat
+     * @param email de l'empleat
+     * @param adreça de l'empleat
+     * @param estat de l'empleat
+     * @param departament de l'empleat
+	 * @throws GestorExcepcions 
+	 */
+	public void actualitza(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Boolean actiu, Departament departament) throws GestorExcepcions {
+		this.actualitzaPersona(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+		this.setDepartament(departament);
+		this.setActiu(actiu);
+		this.getUsuari().setActiu(actiu);
+	}
 }

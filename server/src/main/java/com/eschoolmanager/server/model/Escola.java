@@ -319,6 +319,22 @@ public class Escola {
 	}
 	
 	/**
+	 * Actualitza un usuari
+     * @param l'usuari
+     * @param nom d'usuari actualitzat
+     * @param contrasenya actualitzada
+	 * @throws GestorExcepcions 
+	 */
+	public void actualitzaUsuari(Usuari usuari, String nomUsuari, String contrasenya) throws GestorExcepcions {
+
+		if ((trobaUsuari(nomUsuari) != null) && !usuari.getNomUsuari().equals(nomUsuari)) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_USUARI);
+        }
+		
+		usuari.actualitza(nomUsuari, contrasenya);
+	}
+	
+	/**
 	 * Obté un usuari amb el nom d'usuari
 	 * @return usuari trobat o null
 	 */
@@ -370,6 +386,29 @@ public class Escola {
 		empleat.setEscola(this);
 		
 		return empleat;
+	}
+	
+	/**
+	 * Actualitza un empleat
+     * @param l'empleat
+     * @param dni actualitzat de l'empleat
+     * @param nom actualitzat de l'empleat
+     * @param cognoms actualitzat de l'empleat
+     * @param dataNaixement actualitzada de l'empleat
+     * @param telefon actualitzat de l'empleat
+     * @param email actualitzat de l'empleatt
+     * @param adreça actualitzada de l'empleat
+     * @param estat actualitzat de l'empleat
+     * @param departament actualitzat de l'empleat
+	 * @throws GestorExcepcions 
+	 */
+	public void actualitzaEmpleat(Empleat empleat, String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Boolean actiu, Departament departament) throws GestorExcepcions {
+
+		if ((trobaEmpleat(dni) != null) && !empleat.getDni().equals(dni)) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_EMPLEAT);
+        }
+		
+		empleat.actualitza(dni, nom, cognoms, dataNaixement, telefon, email, adreca, actiu, departament);
 	}
 	
 	/**

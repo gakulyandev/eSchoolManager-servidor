@@ -222,7 +222,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
-        assertEquals("Blas", dadesResposta.getJSONObject("0").get(DADES_NOM_EMPLEAT));
+        assertEquals("Blas", dadesResposta.getJSONObject("0").get(DADES_NOM_EMPLEAT_COMPLET));
     }
     
     /**
@@ -406,8 +406,8 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "30");
-    	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, "12");
+    	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877Addd");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
     	dadesPeticio.put(DADES_DATA_NAIXEMENT_EMPLEAT, "1991-10-28");
@@ -437,8 +437,8 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "12");
-    	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877Aas");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, "30");
+    	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
     	dadesPeticio.put(DADES_DATA_NAIXEMENT_EMPLEAT, "1991-10-28");
@@ -456,7 +456,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_DNI_INCORRECTE, resposta.get(MISSATGE));
+        assertEquals(ERROR_INEXISTENT_EMPLEAT, resposta.get(MISSATGE));
     }
     
     /**

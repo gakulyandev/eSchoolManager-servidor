@@ -78,8 +78,9 @@ public class GestorDepartament extends GestorEscola {
 			List<Departament> departaments;
 			
 			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
-				departaments = escola.getDepartaments();
+				departaments = escola.getDepartaments();//Llista els departaments amb l'ordre per defecte
 			} else {
+				//Llista els departaments segons la petició
 				String consulta = "SELECT d FROM Departament d ORDER BY d." + camp + " " + ordre;
 	
 				entityManager.getTransaction().begin();   

@@ -292,8 +292,8 @@ public class GestorPeticions implements Constants {
 					for (Integer key : dadesEmpleats.keySet()) {
 						JSONObject dadesRespostaEmpelat = new JSONObject();
 						dadesRespostaEmpelat.put(DADES_CODI_EMPLEAT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_CODI_EMPLEAT));
-						dadesRespostaEmpelat.put(DADES_NOM_EMPLEAT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_NOM_EMPLEAT));
-						dadesRespostaEmpelat.put(DADES_COGNOMS_EMPLEAT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_COGNOMS_EMPLEAT));
+						dadesRespostaEmpelat.put(DADES_NOM_EMPLEAT_COMPLET, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_NOM_EMPLEAT));
+						dadesRespostaEmpelat.put(DADES_COGNOMS_EMPLEAT_COMPLET, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_COGNOMS_EMPLEAT));
 						dadesRespostaEmpelat.put(DADES_CODI_DEPARTAMENT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_CODI_DEPARTAMENT));
 						dadesRespostaEmpelat.put(DADES_NOM_DEPARTAMENT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_NOM_DEPARTAMENT));
 						dadesResposta.put(String.valueOf(key), dadesRespostaEmpelat);
@@ -321,6 +321,35 @@ public class GestorPeticions implements Constants {
 					dadesResposta.put(DADES_NOM_USUARI, dadesEmpleat.get(DADES_NOM_USUARI));
 					dadesResposta.put(DADES_ESTAT_EMPLEAT, dadesEmpleat.get(DADES_ESTAT_EMPLEAT));
 					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_MODI_EMPLEAT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			        java.util.Date parsedDate = null;
+					try {
+						parsedDate = format.parse(dadesPeticio.getString(DADES_DATA_NAIXEMENT_EMPLEAT));
+					} catch (ParseException e) {
+						System.out.println(ERROR_GENERIC);
+					}
+					
+					gestorEmpleat.actualitza(
+							dadesPeticio.getInt(DADES_CODI_EMPLEAT),
+							dadesPeticio.getString(DADES_DNI_EMPLEAT),
+							dadesPeticio.getString(DADES_NOM_EMPLEAT),
+							dadesPeticio.getString(DADES_COGNOMS_EMPLEAT),
+							new Date(parsedDate.getTime()),
+							dadesPeticio.getString(DADES_TELEFON_EMPLEAT),
+							dadesPeticio.getString(DADES_EMAIL_EMPLEAT),
+							dadesPeticio.getString(DADES_ADRECA_EMPLEAT),
+							dadesPeticio.getInt(DADES_CODI_DEPARTAMENT),
+							dadesPeticio.getString(DADES_NOM_USUARI),
+							dadesPeticio.getString(DADES_CONTRASENYA_USUARI),
+							dadesPeticio.getBoolean(DADES_ESTAT_EMPLEAT)
+					);
+
+					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
 				default: {

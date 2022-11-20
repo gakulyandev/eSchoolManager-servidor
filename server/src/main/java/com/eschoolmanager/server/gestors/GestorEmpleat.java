@@ -35,7 +35,7 @@ public class GestorEmpleat extends GestorEscola {
 	}
 	
 	/**
-     * Dona d'alta un nou empleat al departament
+     * Dona d'alta un nou empleat a l'escola
      * @param dni del nou empleat
      * @param nom del nou empleat
      * @param cognoms del nou empleat
@@ -53,12 +53,12 @@ public class GestorEmpleat extends GestorEscola {
 		// Troba el departament
         Departament departament = escola.trobaDepartament(codiDepartament);
         
-        // Dona d'alta el departament a l'escola
+        // Dona d'alta l'empleat a l'escola
         Empleat empleat = escola.altaEmpleat(dni, nom, cognoms, dataNaixement, telefon, email, adreca, departament);
         Usuari usuari = escola.altaUsuari(nomUsuari, contrasenya);
         empleat.assignaUsuari(usuari);
         
-        // Persisteix el departament
+        // Persisteix l'empleat
         entityManager.getTransaction().begin();
         entityManager.merge(empleat);
         entityManager.getTransaction().commit();
@@ -79,8 +79,9 @@ public class GestorEmpleat extends GestorEscola {
 			List<Empleat> empleats;
 			
 			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
-				empleats = escola.getEmpleats();
+				empleats = escola.getEmpleats();//Llista els empleats amb l'ordre per defecte
 			} else {
+				//Llista els empleats segons la petició
 				String consulta = "SELECT e FROM Empleat e ORDER BY e." + camp + " " + ordre;
 	
 				entityManager.getTransaction().begin();   
@@ -141,6 +142,43 @@ public class GestorEmpleat extends GestorEscola {
         dadesEmpleat.put(DADES_ESTAT_EMPLEAT, empleat.isActiu());
         
         return dadesEmpleat;
+    }
+	
+	/**
+     * Actualitza empleat de l'escola
+     * @param codi de l'empleat
+     * @param dni de l'empleat
+     * @param nom de l'empleat
+     * @param cognoms de l'empleat
+     * @param dataNaixement de l'empleat
+     * @param telefon de l'empleat
+     * @param email de l'empleatt
+     * @param adreça de l'empleat
+     * @param codi del departament de l'empleat
+     * @param nom d'usuari de l'empleat
+     * @param contrasenya d'usuari de l'empleat
+     * @param estat de l'empleat
+     * @throws GestorExcepcions
+     */
+	public void actualitza(int codiEmpleat, String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, int codiDepartament, String nomUsuari, String contrasenya, Boolean actiu) throws GestorExcepcions {
+
+        // Troba l'empleat
+        Empleat empleat = escola.trobaEmpleat(codiEmpleat);
+        if (empleat == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_EMPLEAT);
+		}
+        
+		// Troba el departament
+        Departament departament = escola.trobaDepartament(codiDepartament);
+        
+        // Actualitza l'empleat i usuari
+        escola.actualitzaEmpleat(empleat, dni, nom, cognoms, dataNaixement, telefon, email, adreca, actiu, departament);
+        escola.actualitzaUsuari(empleat.getUsuari(), nomUsuari, contrasenya);
+        
+        // Persisteix el departament
+        entityManager.getTransaction().begin();
+        entityManager.merge(empleat);
+        entityManager.getTransaction().commit();
     }
 
 }
