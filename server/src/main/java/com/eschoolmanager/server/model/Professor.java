@@ -82,4 +82,15 @@ public class Professor extends Empleat {
 	public void setSessions(List<Sessio> sessions) {
 		this.sessions = sessions;
 	}
+	
+	/**
+	 * Afegeix un servei al llistat
+	 * @param servei a afegir
+	 */
+	public void afegeixServei(Servei servei) {
+		if(!serveis.contains(servei)) {
+			serveis.add(servei);
+		}
+		servei.assignaProfessor(this);
+	}
 }

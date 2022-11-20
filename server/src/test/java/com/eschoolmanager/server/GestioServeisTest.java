@@ -22,6 +22,7 @@ public class GestioServeisTest extends BaseTest {
 	private final static String CRIDA_LLISTA = "LLISTA SERVEIS";
 	private final static String CRIDA_CONSULTA = "CONSULTA SERVEI";
 	private final static String CRIDA_MODI = "MODI SERVEI";
+	private final static String CRIDA_BAIXA = "BAIXA SERVEI";
 	private final static String DADES_CODI_SERVEI = "codiServei";
 	private final static String DADES_NOM_SERVEI = "nomServei";
 	private final static String DADES_DURADA_SERVEI = "durada";
@@ -30,6 +31,7 @@ public class GestioServeisTest extends BaseTest {
 	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	private final static String ERROR_DUPLICAT = "Ja existeix un servei amb el mateix nom";
 	private final static String ERROR_INEXISTENT = "No existeix el servei indicat";
+	private final static String ERROR_ELEMENTS_RELACIONATS = "Existeixen altres elements relacionats amb el servei";
 	
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -400,6 +402,105 @@ public class GestioServeisTest extends BaseTest {
     	dadesPeticio.put(DADES_CODI_SERVEI, "5");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+    
+	/**
+     * Mètode que donar de baixa un servei amb un usuari autoritzat i servei existent
+     */
+    @Test
+    public void provaBaixaServeiAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que donar de baixa un servei amb un usuari no autoritzat i servei existent
+     */
+    @Test
+    public void provaBaixaServeiNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa un servei amb un usuari autoritzat i servei inexistent
+     */
+    @Test
+    public void provaBaixaServeiAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 10);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT, resposta.get(MISSATGE));
+    }
+
+    /**
+     * Mètode que donar de baixa un servei amb un usuari autoritzat i altres entitats relacionades al servei
+     */
+    @Test
+    public void provaBaixaServeiAutoritzatDadesRelacionades() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_ELEMENTS_RELACIONATS, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa un servei amb dades incompletes
+     */
+    @Test
+    public void provaBaixaServeiDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

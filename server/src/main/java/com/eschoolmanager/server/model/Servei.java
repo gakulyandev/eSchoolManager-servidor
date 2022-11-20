@@ -214,4 +214,15 @@ public class Servei {
 		this.setCost(cost);
 		this.setDurada(durada);
 	}
+	
+	/**
+	 * Assigna un professor al llistat
+	 * @param professor a assignar
+	 */
+	public void assignaProfessor(Professor professor) {
+		if(!professors.contains(professor)) {
+			professors.add(professor);
+		}
+		professor.afegeixServei(this);
+	}
 }

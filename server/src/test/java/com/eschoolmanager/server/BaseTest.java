@@ -24,6 +24,7 @@ import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Escola;
 import com.eschoolmanager.server.model.Permis;
+import com.eschoolmanager.server.model.Professor;
 import com.eschoolmanager.server.model.SessioUsuari;
 import com.eschoolmanager.server.model.Usuari;
 import com.eschoolmanager.server.model.Servei;
@@ -231,6 +232,7 @@ public class BaseTest {
 		
 		serveiPsicologia.setCodi(5);
 		serveiPsicopedagogia.setCodi(6);
+		serveiPsicopedagogia.assignaProfessor((Professor) empleatDocent);
 		
 		insertaDades(escola);
     }
