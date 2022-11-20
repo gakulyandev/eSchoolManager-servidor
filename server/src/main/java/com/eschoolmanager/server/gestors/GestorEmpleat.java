@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Permis;
+import com.eschoolmanager.server.model.Servei;
 import com.eschoolmanager.server.model.Usuari;
 
 /**
@@ -109,6 +110,37 @@ public class GestorEmpleat extends GestorEscola {
 		}
 		
 		throw new GestorExcepcions(ERROR_CAMP);
+    }
+	
+	/**
+     * Obté les dades d'un empleat de l'escola
+     * @param codi de l'empleat a cercar
+     * @return dades de l'empleat
+     * @throws GestorExcepcions
+     */
+	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
+        
+		// Troba el servei
+        Empleat empleat = escola.trobaEmpleat(codi);
+        if (empleat == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_EMPLEAT);
+		}
+        
+        HashMap<String, Object> dadesEmpleat = new HashMap<String, Object>();
+        dadesEmpleat.put(DADES_CODI_EMPLEAT, empleat.getCodi());
+        dadesEmpleat.put(DADES_DNI_EMPLEAT, empleat.getDni());
+        dadesEmpleat.put(DADES_NOM_EMPLEAT, empleat.getNom());
+        dadesEmpleat.put(DADES_COGNOMS_EMPLEAT, empleat.getCognoms());
+        dadesEmpleat.put(DADES_DATA_NAIXEMENT_EMPLEAT, empleat.getDataNaixement());
+        dadesEmpleat.put(DADES_ADRECA_EMPLEAT, empleat.getAdreca());
+        dadesEmpleat.put(DADES_TELEFON_EMPLEAT, empleat.getTelefon());
+        dadesEmpleat.put(DADES_EMAIL_EMPLEAT, empleat.getEmail());
+        dadesEmpleat.put(DADES_CODI_DEPARTAMENT, empleat.getDepartament().getCodi());
+        dadesEmpleat.put(DADES_NOM_DEPARTAMENT, empleat.getDepartament().getNom());
+        dadesEmpleat.put(DADES_NOM_USUARI, empleat.getUsuari().getNomUsuari());
+        dadesEmpleat.put(DADES_ESTAT_EMPLEAT, empleat.isActiu());
+        
+        return dadesEmpleat;
     }
 
 }

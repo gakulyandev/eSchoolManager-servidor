@@ -301,6 +301,28 @@ public class GestorPeticions implements Constants {
 					
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_CONSULTA_EMPLEAT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+
+					HashMap<String, Object> dadesEmpleat = gestorEmpleat.consulta(dadesPeticio.getInt(DADES_CODI_EMPLEAT));
+					
+					// Genera resposta
+					dadesResposta.put(DADES_CODI_EMPLEAT, dadesEmpleat.get(DADES_CODI_EMPLEAT));
+					dadesResposta.put(DADES_DNI_EMPLEAT, dadesEmpleat.get(DADES_DNI_EMPLEAT));
+					dadesResposta.put(DADES_NOM_EMPLEAT, dadesEmpleat.get(DADES_NOM_EMPLEAT));
+					dadesResposta.put(DADES_COGNOMS_EMPLEAT, dadesEmpleat.get(DADES_COGNOMS_EMPLEAT));
+					dadesResposta.put(DADES_DATA_NAIXEMENT_EMPLEAT, dadesEmpleat.get(DADES_DATA_NAIXEMENT_EMPLEAT));
+					dadesResposta.put(DADES_ADRECA_EMPLEAT, dadesEmpleat.get(DADES_ADRECA_EMPLEAT));
+					dadesResposta.put(DADES_TELEFON_EMPLEAT, dadesEmpleat.get(DADES_TELEFON_EMPLEAT));
+					dadesResposta.put(DADES_EMAIL_EMPLEAT, dadesEmpleat.get(DADES_EMAIL_EMPLEAT));
+					dadesResposta.put(DADES_CODI_DEPARTAMENT, dadesEmpleat.get(DADES_CODI_DEPARTAMENT));
+					dadesResposta.put(DADES_NOM_DEPARTAMENT, dadesEmpleat.get(DADES_NOM_DEPARTAMENT));
+					dadesResposta.put(DADES_NOM_USUARI, dadesEmpleat.get(DADES_NOM_USUARI));
+					dadesResposta.put(DADES_ESTAT_EMPLEAT, dadesEmpleat.get(DADES_ESTAT_EMPLEAT));
+					
+					return generaRespostaOK(dadesResposta);	
+				}
 				default: {
 					// Genera resposta
 					return generaRespostaNOK(ERROR_GENERIC);

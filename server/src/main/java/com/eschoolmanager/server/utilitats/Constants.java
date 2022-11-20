@@ -50,6 +50,7 @@ public interface Constants {
 	public final static String DADES_ADRECA_EMPLEAT = "adreca";
 	public final static String DADES_TELEFON_EMPLEAT = "telefon";
 	public final static String DADES_EMAIL_EMPLEAT = "email";
+	public final static String DADES_ESTAT_EMPLEAT = "actiu";
 	public final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
 	public final static String DADES_NOM_USUARI = "usuari";
 	public final static String DADES_CONTRASENYA_USUARI = "contrasenya";
@@ -68,7 +69,7 @@ public interface Constants {
 	public final static String ERROR_DUPLICAT_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
 	public final static String ERROR_USUARI_INEXISTENT = "No existeix cap usuari amb les dades indicades";
     public final static String ERROR_DNI_INCORRECTE = "El DNI és incorrecte";
-    public final static String ERROR_INEXISTENT_EMPLEAT = "No existeix l'empelat indicat";
+    public final static String ERROR_INEXISTENT_EMPLEAT = "No existeix l'empleat indicat";
 	public final static String ERROR_DUPLICAT_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_INEXISTENT_SERVEI = "No existeix el servei indicat";
 	public final static String ERROR_ELEMENTS_RELACIONATS_SERVEI = "Existeixen altres elements relacionats amb el servei";

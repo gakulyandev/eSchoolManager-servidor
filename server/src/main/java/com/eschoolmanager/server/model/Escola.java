@@ -373,6 +373,20 @@ public class Escola {
 	}
 	
 	/**
+	 * Obté un empleat amb el codi indicat
+	 * @return empleat trobat o null
+	 */
+	public Empleat trobaEmpleat(int codi) {
+		for(Empleat empleat : this.empleats) {
+			if (empleat.getCodi() == codi) {
+				return empleat;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Obté un empleat amb el dni indicat
 	 * @return empleat trobat o null
 	 */
