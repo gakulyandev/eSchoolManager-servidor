@@ -21,6 +21,7 @@ public class GestioServeisTest extends BaseTest {
 	private final static String CRIDA_ALTA = "ALTA SERVEI";
 	private final static String CRIDA_LLISTA = "LLISTA SERVEIS";
 	private final static String CRIDA_CONSULTA = "CONSULTA SERVEI";
+	private final static String CRIDA_MODI = "MODI SERVEI";
 	private final static String DADES_CODI_SERVEI = "codiServei";
 	private final static String DADES_NOM_SERVEI = "nomServei";
 	private final static String DADES_DURADA_SERVEI = "durada";
@@ -287,6 +288,118 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar un servei amb un usuari autoritzat i servei existent
+     */
+    @Test
+    public void provaModiServeiAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, "2");
+    	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
+    	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar un servei amb un usuari no autoritzat
+     */
+    @Test
+    public void provaModiServeiNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SERVEI, "2");
+    	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
+    	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar un servei amb un usuari autoritzat i servei inexistent
+     */
+    @Test
+    public void provaModiServeiAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, "10");
+    	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
+    	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar un servei amb un usuari autoritzat i servei existent amb el mateix nom
+     */
+    @Test
+    public void provaModiServeiAutoritzatDadesDuplicades() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, "2");
+    	dadesPeticio.put(DADES_NOM_SERVEI, "Psicopedagogia");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
+    	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_DUPLICAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar un servei amb dades incompletes
+     */
+    @Test
+    public void provaModiServeiDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_SERVEI, "2");
+    	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
+    	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
