@@ -98,4 +98,12 @@ public class Professor extends Empleat {
 			servei.assignaProfessor(this);			
 		}
 	}
+	
+	/**
+	 * Indica si l'empleat té o no elements relacionats
+	 * @return true o false segons si té o no elements relacionats
+	 */
+	public Boolean isBuit() {
+		return (this.sessions.isEmpty() && this.serveis.isEmpty());
+	}
 }

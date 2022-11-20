@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.eschoolmanager.server.gestors.GestorExcepcions;
+import com.eschoolmanager.server.utilitats.Constants;
 
 import static javax.persistence.InheritanceType.JOINED;
 import static javax.persistence.DiscriminatorType.STRING;
@@ -34,7 +35,7 @@ import static javax.persistence.DiscriminatorType.STRING;
 )
 @Inheritance(strategy=JOINED)
 @DiscriminatorColumn(name="tipus", discriminatorType=STRING,length=20)
-public abstract class Persona {
+public abstract class Persona implements Constants {
 
 	private int codi;
 	private String dni;

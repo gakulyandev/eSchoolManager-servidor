@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.eschoolmanager.server.gestors.GestorExcepcions;
+import com.eschoolmanager.server.utilitats.Constants;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -38,11 +39,10 @@ public class Departament {
 	private Escola escola;
 	private String nom;
 	private List<Empleat> empleats;
-	private List<Permis> permisos;
-
-	private final static String DEPARTAMENT_DOCENT = "Docent";
-	private final static String DEPARTAMENT_ADMINISTRATIU = "Administratiu";
+	private List<Permis> permisos;	
 	
+	private final static String DEPARTAMENT_DOCENT = "Docent";
+	private final static String DEPARTAMENT_ADMINISTRATIU = "Administratiu";	
 	
 	/**
 	 * Constructor per defecte sense paràmetres

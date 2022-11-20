@@ -139,4 +139,12 @@ public class Empleat extends Persona {
 		this.setActiu(actiu);
 		this.getUsuari().setActiu(actiu);
 	}
+	
+	/**
+	 * Indica si l'empleat té o no elements relacionats
+	 * @return true o false segons si té o no elements relacionats
+	 */
+	public Boolean isBuit() {
+		return true;
+	}
 }

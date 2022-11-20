@@ -180,5 +180,27 @@ public class GestorEmpleat extends GestorEscola {
         entityManager.merge(empleat);
         entityManager.getTransaction().commit();
     }
+	
+	/**
+     * Dona de baixa un empleat de l'escola
+     * @param codi del empleat a donar de baixa
+     * @throws GestorExcepcions
+     */
+	public void baixa(int codi) throws GestorExcepcions {
+        
+		// Troba el departament
+        Empleat empleat = escola.trobaEmpleat(codi);
+        if (empleat == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_DEPARTAMENT);
+		}
+        escola.baixaEmpleat(empleat);
+        escola.baixaUsuari(empleat.getUsuari());
+        
+        // Actualitza el departament
+        entityManager.getTransaction().begin();
+        entityManager.merge(escola);
+        entityManager.remove(empleat);
+        entityManager.getTransaction().commit();
+    }
 
 }

@@ -352,6 +352,15 @@ public class GestorPeticions implements Constants {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_BAIXA_EMPLEAT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					gestorEmpleat.baixa(dadesPeticio.getInt(DADES_CODI_EMPLEAT));
+
+					// Genera resposta					
+					return generaRespostaOK(dadesResposta);	
+				}
 				default: {
 					// Genera resposta
 					return generaRespostaNOK(ERROR_GENERIC);

@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 
 import com.eschoolmanager.server.gestors.GestorExcepcions;
+import com.eschoolmanager.server.utilitats.Constants;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -25,7 +26,7 @@ import com.eschoolmanager.server.gestors.GestorExcepcions;
  */
 @Entity
 @Table(name="Escola")
-public class Escola {
+public class Escola implements Constants {
 
 	private int codi;
 	private String nom;
@@ -36,13 +37,6 @@ public class Escola {
 	private List<Departament> departaments;
 	private List<Estudiant> estudiants;
 	private List<Servei> serveis;
-	
-	private final static String ERROR_EXISTEIX_EMPLEAT = "Ja existeix un empleat amb el mateix DNI";
-	private final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
-	private final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
-	private final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
-	private final static String ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT = "Existeixen altres elements relacionats amb el departament";
-	private final static String ERROR_ELEMENTS_RELACIONATS_SERVEI = "Existeixen altres elements relacionats amb el servei";
 	
 
 	/**
@@ -363,6 +357,14 @@ public class Escola {
 	}
 	
 	/**
+	 * Dona de baixa un usuari
+	 * @throws GestorExcepcions 
+	 */
+	public void baixaUsuari(Usuari usuari) throws GestorExcepcions {
+		this.usuaris.remove(usuari);
+	}
+	
+	/**
 	 * Afegeix un empleat al llistat
      * @param dni del nou empleat
      * @param nom del nou empleat
@@ -437,6 +439,17 @@ public class Escola {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Dona de baixa un empleat
+	 * @throws GestorExcepcions 
+	 */
+	public void baixaEmpleat(Empleat empleat) throws GestorExcepcions {
+		if (!empleat.isBuit()) {
+			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS_EMPLEAT);
+		}
+		this.empleats.remove(empleat);
 	}
 	
 	/**

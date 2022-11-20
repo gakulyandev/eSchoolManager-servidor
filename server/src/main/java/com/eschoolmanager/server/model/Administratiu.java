@@ -65,5 +65,13 @@ public class Administratiu extends Empleat {
 	public void setInformes(List<Informe> informes) {
 		this.informes = informes;
 	}
+	
+	/**
+	 * Indica si l'empleat té o no elements relacionats
+	 * @return true o false segons si té o no elements relacionats
+	 */
+	public Boolean isBuit() {
+		return this.informes.isEmpty();
+	}
 
 }
