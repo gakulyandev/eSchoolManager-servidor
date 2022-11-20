@@ -170,18 +170,22 @@ public class BaseTest implements Constants {
 		Empleat empleatAdministrador = escola.altaEmpleat("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4", departamentAdministrador);
 		Empleat empleatAdministratiu = escola.altaEmpleat("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5", departamentAdministratiu);
 		Professor empleatDocent = (Professor) escola.altaEmpleat("45628915M", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departamentDocent);
+		Professor empleatDocent2 = (Professor) escola.altaEmpleat("45628915L", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departamentDocent);
 		empleatAdministrador.setCodi(10);
 		empleatAdministratiu.setCodi(11);
 		empleatDocent.setCodi(12);
+		empleatDocent2.setCodi(13);
 		
         // Creació d'usuaris d'exemple
 		Usuari usuariAdministrador = escola.altaUsuari("p.gomez", "passtest1");
 		Usuari usuariAdministratiu = escola.altaUsuari("c.carrillo", "passtest2");
 		Usuari usuariDocent = escola.altaUsuari("b.roig", "passtest3");
+		Usuari usuariDocent2 = escola.altaUsuari("b.roig2", "passtest3");
 
 		empleatAdministrador.assignaUsuari(usuariAdministrador);
 		empleatAdministratiu.assignaUsuari(usuariAdministratiu);
 		empleatDocent.assignaUsuari(usuariDocent);
+		empleatDocent2.assignaUsuari(usuariDocent2);
 		
 		gestorSessionsUsuari.desaSessio(
 				new SessioUsuari(

@@ -581,4 +581,105 @@ public class GestioEmpleatsTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
+    
+
+    
+	/**
+     * Mètode que donar de baixa un empleat amb un usuari autoritzat i empleat existent
+     */
+    @Test
+    public void provaBaixaEmpleatAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 13);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que donar de baixa un empleat amb un usuari no autoritzat i empleat existent
+     */
+    @Test
+    public void provaBaixaEmpleatNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 13);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa un empleat amb un usuari autoritzat i empleat inexistent
+     */
+    @Test
+    public void provaBaixaEmpleatAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 30);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_DEPARTAMENT, resposta.get(MISSATGE));
+    }
+
+    /**
+     * Mètode que donar de baixa un empleat amb un usuari autoritzat i altres entitats relacionades a l'empleat
+     */
+    @Test
+    public void provaBaixaEmpleatAutoritzatDadesRelacionades() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_ELEMENTS_RELACIONATS_EMPLEAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa un empleat amb dades incompletes
+     */
+    @Test
+    public void provaBaixaEmpleatDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 }
