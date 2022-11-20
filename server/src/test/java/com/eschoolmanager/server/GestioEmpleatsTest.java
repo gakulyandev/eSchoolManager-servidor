@@ -14,6 +14,7 @@ import org.junit.Test;
 public class GestioEmpleatsTest extends BaseTest {
 	
 	private final static String CRIDA_ALTA = "ALTA EMPLEAT";
+	private final static String CRIDA_LLISTA = "LLISTA EMPLEAT";
 	private final static String DADES_DNI_EMPLEAT = "dni";
 	private final static String DADES_NOM_EMPLEAT = "nom";
 	private final static String DADES_COGNOMS_EMPLEAT = "cognoms";
@@ -217,4 +218,89 @@ public class GestioEmpleatsTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
+    
+    /**
+     * Mètode que prova llistar empleats amb un usuari autoritzat
+     */
+    @Test
+    public void provaLlistaEmpleatsAutoritzat() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CAMP, "nom");
+    	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Pedro", dadesResposta.getJSONObject("0").get(DADES_NOM_EMPLEAT));
+    }
+    
+    /**
+     * Mètode que prova llistar empleats amb un usuari no autoritzat
+     */
+    @Test
+    public void provaLlistaEmpleatsNoAutoritzat() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CAMP, "nom");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova llistar empleats amb un usuari autoritzat i dades incorrectes
+     */
+    @Test
+    public void provaLlistaEmpleatsAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CAMP, "nomS");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_CAMP, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova llistar empleats amb dades incompletes
+     */
+    @Test
+    public void provaLlistaEmpleatsDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+
 }
