@@ -5,6 +5,7 @@ package com.eschoolmanager.server.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -12,8 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.eschoolmanager.server.gestors.GestorExcepcions;
 
 import static javax.persistence.InheritanceType.JOINED;
 import static javax.persistence.DiscriminatorType.STRING;
@@ -39,6 +44,9 @@ public abstract class Persona {
 	private String telefon;
 	private String email;
 	private String adreca;
+	private Escola escola;
+	
+	private final static String ERROR_DNI_INCORRECTE = "El DNI és incorrecte";
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -56,8 +64,9 @@ public abstract class Persona {
      * @param telefon de contacte de la persona
      * @param email de contacte de la persona
      * @param adreca de la persona
+	 * @throws GestorExcepcions 
      */
-	public Persona(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) {
+	public Persona(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
         this.setDni(dni);
         this.setNom(nom); 
         this.setCognoms(cognoms); 
@@ -98,8 +107,12 @@ public abstract class Persona {
 	/**
 	 * Actualitza el DNI de la persona
 	 * @param dni actualitzat de la persona
+	 * @throws GestorExcepcions 
 	 */
-	public void setDni(String dni) {
+	public void setDni(String dni) throws GestorExcepcions {
+		if (dni.length() != 9) {
+			throw new GestorExcepcions(ERROR_DNI_INCORRECTE);
+		}
 		this.dni = dni;
 	}
 
@@ -205,5 +218,23 @@ public abstract class Persona {
 		this.adreca = adreca;
 	}
 
+	
+	/**
+	 * Obté l'escola
+	 * @return escola
+	 */
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="escola_codi", nullable=false)
+	public Escola getEscola() {
+		return escola;
+	}
+	
+	/**
+	 * Actualitza l'escola
+	 * @param escola actualitzat
+	 */
+	public void setEscola(Escola escola) {
+		this.escola = escola;
+	}
 
 }

@@ -5,6 +5,9 @@ package com.eschoolmanager.server.gestors;
 
 import javax.persistence.EntityManager;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +24,7 @@ public class GestorPeticions {
 	private GestorSessioUsuari gestorSessioUsuari;
 	private GestorDepartament gestorDepartament;
 	private GestorServei gestorServei;
+	private GestorEmpleat gestorEmpleat;
 	
 	private final static String CRIDA = "crida";
 	private final static String CRIDA_LOGIN = "LOGIN";
@@ -35,6 +39,7 @@ public class GestorPeticions {
 	private final static String CRIDA_CONSULTA_SERVEI = "CONSULTA SERVEI";
 	private final static String CRIDA_MODI_SERVEI = "MODI SERVEI";
 	private final static String CRIDA_BAIXA_SERVEI = "BAIXA SERVEI";
+	private final static String CRIDA_ALTA_EMPLEAT = "ALTA EMPLEAT";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_OK = "OK";
@@ -43,16 +48,23 @@ public class GestorPeticions {
 	private final static String DADES = "dades";
 	private final static String DADES_CAMP = "camp";
 	private final static String DADES_ORDRE = "ordre";
-	private final static String DADES_NOM_USUARI = "usuari";
 	private final static String DADES_CONTRASENYA = "contrasenya";
 	private final static String DADES_CODI_SESSIO = "codiSessio";
-	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
 	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	private final static String DADES_CODI_SERVEI = "codiServei";
 	private final static String DADES_NOM_SERVEI = "nomServei";
 	private final static String DADES_DURADA_SERVEI = "durada";
 	private final static String DADES_COST_SERVEI = "cost";
+	private final static String DADES_DNI_EMPLEAT = "dni";
 	private final static String DADES_NOM_EMPLEAT = "nom";
+	private final static String DADES_COGNOMS_EMPLEAT = "cognoms";
+	private final static String DADES_DATA_NAIXEMENT_EMPLEAT = "dataNaixement";
+	private final static String DADES_ADRECA_EMPLEAT = "adreca";
+	private final static String DADES_TELEFON_EMPLEAT = "telefon";
+	private final static String DADES_EMAIL_EMPLEAT = "email";
+	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
+	private final static String DADES_NOM_USUARI = "usuari";
+	private final static String DADES_CONTRASENYA_USUARI = "contrasenya";
 	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";
 	private final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
 	private final static String ERROR_GENERIC = "S'ha produit un error";
@@ -67,6 +79,7 @@ public class GestorPeticions {
 		this.gestorSessioUsuari = new GestorSessioUsuari(gestorSessionsUsuari, entityManager);
 		this.gestorDepartament = new GestorDepartament(entityManager);
 		this.gestorServei = new GestorServei(entityManager);
+		this.gestorEmpleat = new GestorEmpleat(entityManager);
 	}
 
 	/**
@@ -281,6 +294,33 @@ public class GestorPeticions {
 					gestorServei.baixa(dadesPeticio.getInt(DADES_CODI_SERVEI));
 
 					// Genera resposta					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_ALTA_EMPLEAT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			        java.util.Date parsedDate = null;
+					try {
+						parsedDate = format.parse(dadesPeticio.getString(DADES_DATA_NAIXEMENT_EMPLEAT));
+					} catch (ParseException e) {
+						System.out.println(ERROR_GENERIC);
+					}
+					
+					gestorEmpleat.alta(
+							dadesPeticio.getString(DADES_DNI_EMPLEAT),
+							dadesPeticio.getString(DADES_NOM_EMPLEAT),
+							dadesPeticio.getString(DADES_COGNOMS_EMPLEAT),
+							new Date(parsedDate.getTime()),
+							dadesPeticio.getString(DADES_TELEFON_EMPLEAT),
+							dadesPeticio.getString(DADES_EMAIL_EMPLEAT),
+							dadesPeticio.getString(DADES_ADRECA_EMPLEAT),
+							dadesPeticio.getInt(DADES_CODI_DEPARTAMENT),
+							dadesPeticio.getString(DADES_NOM_USUARI),
+							dadesPeticio.getString(DADES_CONTRASENYA_USUARI)
+					);
+
+					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
 				default: {

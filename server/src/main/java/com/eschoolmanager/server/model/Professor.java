@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.eschoolmanager.server.gestors.GestorExcepcions;
+
 /**
  * @author Gayané Akulyan Akulyan
  * Classe persistent per emmagatzemar els professors de l'escola
@@ -42,8 +44,9 @@ public class Professor extends Empleat {
      * @param telefon de contacte del professor
      * @param email de contacte del professor
      * @param adreca del professor
+	 * @throws GestorExcepcions 
      */
-	public Professor(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) {
+	public Professor(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		this.setServeis(new ArrayList<Servei>());
 		this.setSessions(new ArrayList<Sessio>());

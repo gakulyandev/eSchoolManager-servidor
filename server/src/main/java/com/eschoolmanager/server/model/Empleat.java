@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.eschoolmanager.server.gestors.GestorExcepcions;
+
 /**
  * @author Gayané Akulyan Akulyan
  * Classe persistent per emmagatzemar els empleats de l'escola
@@ -48,9 +50,9 @@ public class Empleat extends Persona {
      * @param telefon de contacte de l'empleat
      * @param email de contacte de l'empleat
      * @param adreca de l'empleat
-     * @param departament de l'empleat
+	 * @throws GestorExcepcions 
      */
-	public Empleat(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) {
+	public Empleat(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		
 		this.setActiu(true);

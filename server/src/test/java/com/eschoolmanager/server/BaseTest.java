@@ -179,18 +179,15 @@ public class BaseTest {
 		} catch (ParseException e) {
 			System.out.println("S'ha produït un error");
 		}
-		Empleat empleatAdministrador = new Empleat("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4");
-		Empleat empleatAdministratiu = new Empleat("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5");
-		Professor empleatDocent = new Professor("45628915M", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1");
-		
-		departamentAdministrador.altaEmpleat(empleatAdministrador);
-		departamentAdministratiu.altaEmpleat(empleatAdministratiu);
-		departamentDocent.altaEmpleat(empleatDocent);
+		Empleat empleatAdministrador = escola.altaEmpleat("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4", departamentAdministrador);
+		Empleat empleatAdministratiu = escola.altaEmpleat("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5", departamentAdministratiu);
+		Professor empleatDocent = (Professor) escola.altaEmpleat("45628915M", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departamentDocent);
 		
         // Creació d'usuaris d'exemple
-		Usuari usuariAdministrador = new Usuari("p.gomez", "passtest1");
-		Usuari usuariAdministratiu = new Usuari("c.carrillo", "passtest2");
-		Usuari usuariDocent = new Usuari("b.roig", "passtest3");
+		Usuari usuariAdministrador = escola.altaUsuari("p.gomez", "passtest1");
+		Usuari usuariAdministratiu = escola.altaUsuari("c.carrillo", "passtest2");
+		Usuari usuariDocent = escola.altaUsuari("b.roig", "passtest3");
+
 		empleatAdministrador.assignaUsuari(usuariAdministrador);
 		empleatAdministratiu.assignaUsuari(usuariAdministratiu);
 		empleatDocent.assignaUsuari(usuariDocent);
@@ -222,10 +219,6 @@ public class BaseTest {
 						usuariDocent.getEmpleat().getDepartament().getPermisos()
 				)
 		);
-
-		escola.altaUsuari(usuariAdministrador);
-		escola.altaUsuari(usuariAdministratiu);
-		escola.altaUsuari(usuariDocent);
 
         // Creació de serveis d'exemple
 		Servei serveiPsicologia = escola.altaServei("Psicologia", 25.00, 1);

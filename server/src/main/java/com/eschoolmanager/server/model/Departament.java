@@ -3,6 +3,7 @@
  */
 package com.eschoolmanager.server.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,9 @@ public class Departament {
 	private List<Empleat> empleats;
 	private List<Permis> permisos;
 
-	protected final static String ERROR_PERMISOS_INEXISTENTS = "Els permisos son incorrectes";
+	private final static String DEPARTAMENT_DOCENT = "Docent";
+	private final static String DEPARTAMENT_ADMINISTRATIU = "Administratiu";
+	
 	
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -183,15 +186,6 @@ public class Departament {
 		
 		return false;
 	}
-	
-	/**
-	 * Afegeix un empleat al llistat
-	 * @param empleat a afegir
-	 */
-	public void altaEmpleat(Empleat empleat) {
-		this.empleats.add(empleat);
-		empleat.setDepartament(this);
-	}
 
 	/**
 	 * Actualitza les dades del Departament
@@ -209,6 +203,45 @@ public class Departament {
 	 */
 	public Boolean isBuit() {
 		return this.empleats.isEmpty();
+	}
+	
+	/**
+	 * Afegeix un empleat al llistat
+     * @param dni del nou empleat
+     * @param nom del nou empleat
+     * @param cognoms del nou empleat
+     * @param dataNaixement del nou empleat
+     * @param telefon del nou empleat
+     * @param email del nou empleat
+     * @param adreça del nou empleat
+     * @return empleat creat
+	 * @throws GestorExcepcions 
+	 */
+	public Empleat altaEmpleat(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
+		
+		switch (this.getNom()) {
+			case DEPARTAMENT_DOCENT: {
+				Professor professor = new Professor(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+				this.empleats.add(professor);
+				professor.setDepartament(this);
+				
+				return professor;
+			}
+			case DEPARTAMENT_ADMINISTRATIU: {
+				Administratiu administratiu = new Administratiu(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+				this.empleats.add(administratiu);
+				administratiu.setDepartament(this);
+				
+				return administratiu;
+			}
+			default: {
+				Empleat empleat = new Empleat(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+				this.empleats.add(empleat);
+				empleat.setDepartament(this);
+				
+				return empleat;
+			}
+		}
 	}
 	
 }

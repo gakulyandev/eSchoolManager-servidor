@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.eschoolmanager.server.gestors.GestorExcepcions;
+
 /**
  * @author Gayané Akulyan Akulyan
  * Classe persistent per emmagatzemar els administratius de l'escola
@@ -40,8 +42,9 @@ public class Administratiu extends Empleat {
      * @param telefon de contacte de l'administratiu
      * @param email de contacte de l'administratiu
      * @param adreca de l'administratiu
+	 * @throws GestorExcepcions 
      */
-	public Administratiu(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) {
+	public Administratiu(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		this.setInformes(new ArrayList<Informe>());
 	}

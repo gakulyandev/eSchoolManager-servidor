@@ -14,7 +14,6 @@ import org.junit.Test;
 public class GestioEmpleatsTest extends BaseTest {
 	
 	private final static String CRIDA_ALTA = "ALTA EMPLEAT";
-	private final static String DADES_CODI_EMPLEAT = "codiEmpleat";
 	private final static String DADES_DNI_EMPLEAT = "dni";
 	private final static String DADES_NOM_EMPLEAT = "nom";
 	private final static String DADES_COGNOMS_EMPLEAT = "cognoms";
@@ -28,6 +27,7 @@ public class GestioEmpleatsTest extends BaseTest {
 	
 	private final static String ERROR_DUPLICAT_EMPLEAT = "Ja existeix un empleat amb el mateix DNI";
 	private final static String ERROR_DUPLICAT_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
+	private final static String ERROR_DNI_INCORRECTE = "El DNI és incorrecte";
 	
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -75,6 +75,35 @@ public class GestioEmpleatsTest extends BaseTest {
     }
     
     /**
+     * Mètode que prova donar d'alta un empleat amb un usuari autoritzat i dades incorrectes
+     */
+    @Test
+    public void provaAltaEmpleatAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877AA");
+    	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
+    	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz Mata");
+    	dadesPeticio.put(DADES_DATA_NAIXEMENT_EMPLEAT, "1991-10-28");
+    	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
+    	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
+    	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
+    	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest4");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_DNI_INCORRECTE, resposta.get(MISSATGE));
+    }
+    
+    /**
      * Mètode que prova donar d'alta un empleat amb un usuari no autoritzat
      */
     @Test
@@ -111,7 +140,7 @@ public class GestioEmpleatsTest extends BaseTest {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "22233344N");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz Mata");
@@ -140,8 +169,8 @@ public class GestioEmpleatsTest extends BaseTest {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_DNI_EMPLEAT, "22233344N");
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz Mata");
     	dadesPeticio.put(DADES_DATA_NAIXEMENT_EMPLEAT, "1991-10-28");
@@ -169,7 +198,7 @@ public class GestioEmpleatsTest extends BaseTest {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA);
-        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz Mata");
     	dadesPeticio.put(DADES_DATA_NAIXEMENT_EMPLEAT, "1991-10-28");
@@ -188,5 +217,4 @@ public class GestioEmpleatsTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
-
 }

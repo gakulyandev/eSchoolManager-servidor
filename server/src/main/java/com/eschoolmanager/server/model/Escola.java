@@ -3,6 +3,7 @@
  */
 package com.eschoolmanager.server.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +32,15 @@ public class Escola {
 	private String adreca;
 	private String telefon;
 	private List<Usuari> usuaris;
+	private List<Empleat> empleats;
 	private List<Departament> departaments;
 	private List<Estudiant> estudiants;
 	private List<Servei> serveis;
-
+	
+	private final static String ERROR_EXISTEIX_EMPLEAT = "Ja existeix un empleat amb el mateix DNI";
 	private final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	private final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
+	private final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
 	private final static String ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT = "Existeixen altres elements relacionats amb el departament";
 	private final static String ERROR_ELEMENTS_RELACIONATS_SERVEI = "Existeixen altres elements relacionats amb el servei";
 	
@@ -60,6 +64,7 @@ public class Escola {
 		this.setAdreca(adreca);
 		this.setTelefon(telefon);
 		this.setUsuaris(new ArrayList<Usuari>());
+		this.setEmpleats(new ArrayList<Empleat>());
 		this.setDepartaments(new ArrayList<Departament>());
 		this.setEstudiants(new ArrayList<Estudiant>());
 		this.setServeis(new ArrayList<Servei>());
@@ -150,6 +155,23 @@ public class Escola {
 	 */
 	public void setUsuaris(List<Usuari> usuaris) {
 		this.usuaris = usuaris;
+	}
+
+	/**
+	 * Obté els empleats de l'escola
+	 * @return empleats de l'escola
+	 */
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="escola")
+	public List<Empleat> getEmpleats() {
+		return empleats;
+	}
+
+	/**
+	 * Actualitza els empleats de l'escola
+	 * @param empleats actualitzats de l'escola
+	 */
+	public void setEmpleats(List<Empleat> empleats) {
+		this.empleats = empleats;
 	}
 
 	/**
@@ -278,12 +300,36 @@ public class Escola {
 	}
 	
 	/**
-	 * Afegeix un usuari al llistat
-	 * @param usuari a afegir
+	 * Dona d'alta un usuari al llistat
+	 * @param nom d'usuari del nou usuari
+	 * @param contrasenya del nou usuari
+	 * @return usuari creat
+	 * @throws GestorExcepcions 
 	 */
-	public void altaUsuari(Usuari usuari) {
+	public Usuari altaUsuari(String nomUsuari, String contrasenya) throws GestorExcepcions {
+		if (trobaUsuari(nomUsuari) != null) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_USUARI);
+        }
+		
+		Usuari usuari = new Usuari(nomUsuari, contrasenya);
 		this.usuaris.add(usuari);
 		usuari.setEscola(this);
+		
+		return usuari;
+	}
+	
+	/**
+	 * Obté un usuari amb el nom d'usuari
+	 * @return usuari trobat o null
+	 */
+	public Usuari trobaUsuari(String nomUsuari) {
+		for(Usuari usuari : this.usuaris) {
+			if (usuari.getNomUsuari().equals(nomUsuari)) {
+				return usuari;
+			}
+		}
+		
+		return null;
 	}
 	
 	/**
@@ -291,9 +337,49 @@ public class Escola {
 	 * @return usuari trobat o null
 	 */
 	public Usuari trobaUsuari(String nomUsuari, String contrasenya) {
-		for(Usuari usuari : usuaris) {
+		for(Usuari usuari : this.usuaris) {
 			if (usuari.getNomUsuari().equals(nomUsuari) && usuari.getContrasenya().equals(contrasenya)) {
 				return usuari;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Afegeix un empleat al llistat
+     * @param dni del nou empleat
+     * @param nom del nou empleat
+     * @param cognoms del nou empleat
+     * @param dataNaixement del nou empleat
+     * @param telefon del nou empleat
+     * @param email del nou empleat
+     * @param adreça del nou empleat
+     * @param departament a on es dona d'alta l'empleat
+     * @return empleat creat
+	 * @throws GestorExcepcions 
+	 */
+	public Empleat altaEmpleat(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Departament departament) throws GestorExcepcions {
+
+		if (trobaEmpleat(dni) != null) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_EMPLEAT);
+        }
+		
+		Empleat empleat = departament.altaEmpleat(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+		this.empleats.add(empleat);
+		empleat.setEscola(this);
+		
+		return empleat;
+	}
+	
+	/**
+	 * Obté un empleat amb el dni indicat
+	 * @return empleat trobat o null
+	 */
+	public Empleat trobaEmpleat(String dni) {
+		for(Empleat empleat : this.empleats) {
+			if (empleat.getDni().equals(dni)) {
+				return empleat;
 			}
 		}
 		

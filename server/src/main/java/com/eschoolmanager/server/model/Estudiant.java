@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.eschoolmanager.server.gestors.GestorExcepcions;
+
 /**
  * @author Gayané Akulyan Akulyan
  * Classe persistent per emmagatzemar els estudiants de l'escola
@@ -47,32 +49,15 @@ public class Estudiant extends Persona {
      * @param telefon de contacte de l'estudiant
      * @param email de contacte de l'estudiant
      * @param adreca de l'estudiant
+	 * @throws GestorExcepcions 
      */
-	public Estudiant(Escola escola, String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) {
+	public Estudiant(Escola escola, String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		
 		this.setEscola(escola);
 		this.setRegistrat(true);
 		this.setBeques(new ArrayList<Beca>());
 		this.setSessions(new ArrayList<Sessio>());
-	}
-
-	/**
-	 * Obté l'escola de l'estudiant
-	 * @return escola de l'estudiant
-	 */
-	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name="escola_codi", nullable=false)
-	public Escola getEscola() {
-		return escola;
-	}
-
-	/**
-	 * Actualitza l'escola de l'estudiant
-	 * @param escola actualitzada de l'estudiant
-	 */
-	public void setEscola(Escola escola) {
-		this.escola = escola;
 	}
 
 	/**
