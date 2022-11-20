@@ -28,7 +28,6 @@ public class GestioDepartamentsTest extends BaseTest {
 	private final static String DADES_PERMISOS = "permisos";
 	private final static String PERMIS = "departament";
 	
-	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	private final static String ERROR_DUPLICAT = "Ja existeix un departament amb el mateix nom";
 	private final static String ERROR_INEXISTENT = "No existeix el departament indicat";
 	private final static String ERROR_ELEMENTS_RELACIONATS = "Existeixen altres elements relacionats amb el departament";

@@ -3,7 +3,6 @@
  */
 package com.eschoolmanager.server.gestors;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Departament;
-import com.eschoolmanager.server.model.Escola;
 import com.eschoolmanager.server.model.Permis;
 
 /**

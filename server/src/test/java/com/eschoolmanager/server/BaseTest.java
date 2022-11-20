@@ -51,7 +51,8 @@ public class BaseTest {
 	protected final static String RESPOSTA_OK = "OK";
 	protected final static String RESPOSTA_NOK = "NOK";
 	protected final static String MISSATGE = "missatge";
-	
+
+	protected final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	protected final static String ERROR_FALTEN_DADES = "Falten dades";
 	protected final static String ERROR_CAMP = "No existeix el valor indicat";
     

@@ -3,7 +3,6 @@
  */
 package com.eschoolmanager.server.gestors;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +10,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.eschoolmanager.server.model.Departament;
-import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Servei;
 
 /**

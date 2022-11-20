@@ -28,7 +28,6 @@ public class GestioServeisTest extends BaseTest {
 	private final static String DADES_DURADA_SERVEI = "durada";
 	private final static String DADES_COST_SERVEI = "cost";
 	
-	private final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	private final static String ERROR_DUPLICAT = "Ja existeix un servei amb el mateix nom";
 	private final static String ERROR_INEXISTENT = "No existeix el servei indicat";
 	private final static String ERROR_ELEMENTS_RELACIONATS = "Existeixen altres elements relacionats amb el servei";
