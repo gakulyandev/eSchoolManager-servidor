@@ -30,7 +30,6 @@ public class GestorDepartament extends GestorEscola {
 	private final static String DADES_ORDRE_ASC = "ASC";  
 
 	private final static String ERROR_DEPARTAMENT_INEXISTENT = "No existeix el departament indicat";
-	private final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 
 	private final static String[] DADES_CAMPS = {"nom","codi"};
 	

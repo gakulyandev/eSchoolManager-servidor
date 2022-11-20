@@ -32,6 +32,7 @@ public class GestorPeticions {
 	private final static String CRIDA_BAIXA_DEPARTAMENT = "BAIXA DEPARTAMENT";
 	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
 	private final static String CRIDA_LLISTA_SERVEIS = "LLISTA SERVEIS";
+	private final static String CRIDA_CONSULTA_SERVEI = "CONSULTA SERVEI";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_OK = "OK";
@@ -240,6 +241,20 @@ public class GestorPeticions {
 						dadesRespostaServei.put(DADES_COST_SERVEI, ((HashMap<String,Object>) dadesServeis.get(key)).get(DADES_COST_SERVEI));
 						dadesResposta.put(String.valueOf(key), dadesRespostaServei);
 					}
+					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_CONSULTA_SERVEI: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+
+					HashMap<String, Object> dadesServei = gestorServei.consulta(dadesPeticio.getInt(DADES_CODI_SERVEI));
+					
+					// Genera resposta
+					dadesResposta.put(DADES_CODI_SERVEI, dadesServei.get(DADES_CODI_SERVEI));
+					dadesResposta.put(DADES_NOM_SERVEI, dadesServei.get(DADES_NOM_SERVEI));
+					dadesResposta.put(DADES_DURADA_SERVEI, dadesServei.get(DADES_DURADA_SERVEI));
+					dadesResposta.put(DADES_COST_SERVEI, dadesServei.get(DADES_COST_SERVEI));
 					
 					return generaRespostaOK(dadesResposta);	
 				}

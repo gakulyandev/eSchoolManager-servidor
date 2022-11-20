@@ -320,6 +320,20 @@ public class Escola {
 	}
 	
 	/**
+	 * Obté un servei amb el codi indicat
+	 * @return servei trobat o null
+	 */
+	public Servei trobaServei(int codi) {
+		for(Servei servei : serveis) {
+			if (servei.getCodi() == codi) {
+				return servei;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Obté un servei amb el nom indicat
 	 * @return servei trobat o null
 	 */

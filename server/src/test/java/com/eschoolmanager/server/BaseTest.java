@@ -163,8 +163,8 @@ public class BaseTest {
 		Departament departamentAdministratiu = escola.altaDepartament("Administratiu", permisosAdministratiu);
 		Departament departamentDocent = escola.altaDepartament("Docent", permisosDocent);
 		Departament departamentDocentBuit = escola.altaDepartament("DocentBuit", permisosDocent);
-
-        departamentAdministrador.setCodi(1);
+		
+		departamentAdministrador.setCodi(1);
 		departamentAdministratiu.setCodi(2);
 		departamentDocent.setCodi(3);
 		departamentDocentBuit.setCodi(4);
@@ -227,9 +227,10 @@ public class BaseTest {
 
         // Creació de serveis d'exemple
 		Servei serveiPsicologia = escola.altaServei("Psicologia", 25.00, 1);
-		serveiPsicologia.setCodi(1);
 		Servei serveiPsicopedagogia = escola.altaServei("Psicopedagogia", 35.00, 2);
-		serveiPsicologia.setCodi(2);
+		
+		serveiPsicologia.setCodi(5);
+		serveiPsicopedagogia.setCodi(6);
 		
 		insertaDades(escola);
     }

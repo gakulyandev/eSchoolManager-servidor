@@ -3,6 +3,7 @@
  */
 package com.eschoolmanager.server.gestors;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Departament;
+import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Servei;
 
 /**
@@ -27,6 +29,8 @@ public class GestorServei extends GestorEscola {
 	private final static String DADES_ORDRE_ASC = "ASC";  
 	
 	private final static String[] DADES_CAMPS = {"nom","codi","durada","cost"};
+	
+	private final static String ERROR_SERVEI_INEXISTENT = "No existeix el servei indicat";
     
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -99,5 +103,28 @@ public class GestorServei extends GestorEscola {
 		}
 		
 		throw new GestorExcepcions(ERROR_CAMP);
+    }
+	
+	/**
+     * Obté les dades d'un servei de l'escola
+     * @param codi del servei a cercar
+     * @return dades del servei
+     * @throws GestorExcepcions
+     */
+	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
+        
+		// Troba el servei
+        Servei servei = escola.trobaServei(codi);
+        if (servei == null) {
+			throw new GestorExcepcions(ERROR_SERVEI_INEXISTENT);
+		}
+        
+        HashMap<String, Object> dadesServei = new HashMap<String, Object>();
+        dadesServei.put(DADES_CODI_SERVEI, servei.getCodi());
+        dadesServei.put(DADES_NOM_SERVEI, servei.getNom());
+    	dadesServei.put(DADES_DURADA_SERVEI, servei.getDurada());
+    	dadesServei.put(DADES_COST_SERVEI, servei.getCost());
+        
+        return dadesServei;
     }
 }
