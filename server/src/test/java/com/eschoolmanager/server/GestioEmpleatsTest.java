@@ -1,6 +1,7 @@
 package com.eschoolmanager.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.json.JSONObject;
 import org.junit.After;
@@ -286,4 +287,83 @@ public class GestioEmpleatsTest extends BaseTest {
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
 
+    /**
+     * Mètode que prova consultar un empleat amb un usuari autoritzat i empleat existent
+     */
+    @Test
+    public void provaConsultaEmpleatAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 10);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Pedro", dadesResposta.get(DADES_NOM_EMPLEAT));
+    }
+    
+    /**
+     * Mètode que prova consultar un empleat amb un usuari no autoritzat i empleat existent
+     */
+    @Test
+    public void provaConsultaEmpleatNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 10);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar un empleat amb un usuari autoritzat i empleat inexistent
+     */
+    @Test
+    public void provaConsultaEmpleatAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 20);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_EMPLEAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar un empleat amb dades incompletes
+     */
+    @Test
+    public void provaConsultaEmpleatDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 }

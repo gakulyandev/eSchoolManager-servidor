@@ -24,6 +24,7 @@ public interface Constants {
 	public final static String CRIDA_BAIXA_SERVEI = "BAIXA SERVEI";
 	public final static String CRIDA_ALTA_EMPLEAT = "ALTA EMPLEAT";
 	public final static String CRIDA_LLISTA_EMPLEATS = "LLISTA EMPLEATS";
+	public final static String CRIDA_CONSULTA_EMPLEAT = "CONSULTA EMPLEAT";
 	
 	public final static String CODI_SESSIO = "codiSessio";
 	public final static String RESPOSTA = "resposta";
@@ -67,6 +68,7 @@ public interface Constants {
 	public final static String ERROR_DUPLICAT_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
 	public final static String ERROR_USUARI_INEXISTENT = "No existeix cap usuari amb les dades indicades";
     public final static String ERROR_DNI_INCORRECTE = "El DNI és incorrecte";
+    public final static String ERROR_INEXISTENT_EMPLEAT = "No existeix l'empelat indicat";
 	public final static String ERROR_DUPLICAT_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_INEXISTENT_SERVEI = "No existeix el servei indicat";
 	public final static String ERROR_ELEMENTS_RELACIONATS_SERVEI = "Existeixen altres elements relacionats amb el servei";
