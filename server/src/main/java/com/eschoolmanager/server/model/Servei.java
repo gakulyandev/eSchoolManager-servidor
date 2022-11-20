@@ -223,6 +223,16 @@ public class Servei {
 		if(!professors.contains(professor)) {
 			professors.add(professor);
 		}
-		professor.afegeixServei(this);
+		if (!professor.getServeis().contains(this)) {
+			professor.afegeixServei(this);	
+		}
+	}
+	
+	/**
+	 * Indica si el servei té o no elements relacionats
+	 * @return true o false segons si té o no elements relacionats
+	 */
+	public Boolean isBuit() {
+		return (this.professors.isEmpty() && this.beques.isEmpty() && this.sessions.isEmpty());
 	}
 }

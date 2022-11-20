@@ -34,6 +34,7 @@ public class GestorPeticions {
 	private final static String CRIDA_LLISTA_SERVEIS = "LLISTA SERVEIS";
 	private final static String CRIDA_CONSULTA_SERVEI = "CONSULTA SERVEI";
 	private final static String CRIDA_MODI_SERVEI = "MODI SERVEI";
+	private final static String CRIDA_BAIXA_SERVEI = "BAIXA SERVEI";
 	private final static String CODI_SESSIO = "codiSessio";
 	private final static String RESPOSTA = "resposta";
 	private final static String RESPOSTA_OK = "OK";
@@ -271,6 +272,15 @@ public class GestorPeticions {
 							);
 
 					// Genera resposta
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_BAIXA_SERVEI: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					gestorServei.baixa(dadesPeticio.getInt(DADES_CODI_SERVEI));
+
+					// Genera resposta					
 					return generaRespostaOK(dadesResposta);	
 				}
 				default: {

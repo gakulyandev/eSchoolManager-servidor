@@ -180,7 +180,7 @@ public class BaseTest {
 		}
 		Empleat empleatAdministrador = new Empleat("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4");
 		Empleat empleatAdministratiu = new Empleat("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5");
-		Empleat empleatDocent = new Empleat("45628915M", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1");
+		Professor empleatDocent = new Professor("45628915M", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1");
 		
 		departamentAdministrador.altaEmpleat(empleatAdministrador);
 		departamentAdministratiu.altaEmpleat(empleatAdministratiu);
@@ -232,7 +232,7 @@ public class BaseTest {
 		
 		serveiPsicologia.setCodi(5);
 		serveiPsicopedagogia.setCodi(6);
-		serveiPsicopedagogia.assignaProfessor((Professor) empleatDocent);
+		serveiPsicologia.assignaProfessor(empleatDocent);
 		
 		insertaDades(escola);
     }

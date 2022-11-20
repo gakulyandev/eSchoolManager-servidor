@@ -91,6 +91,8 @@ public class Professor extends Empleat {
 		if(!serveis.contains(servei)) {
 			serveis.add(servei);
 		}
-		servei.assignaProfessor(this);
+		if (!servei.getProfessors().contains(this)) {
+			servei.assignaProfessor(this);			
+		}
 	}
 }

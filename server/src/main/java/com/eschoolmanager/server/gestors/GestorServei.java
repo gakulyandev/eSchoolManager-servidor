@@ -152,4 +152,25 @@ public class GestorServei extends GestorEscola {
         entityManager.merge(servei);
         entityManager.getTransaction().commit();
     }
+
+	/**
+     * Dona de baixa un servei de l'escola
+     * @param codi del servei a donar de baixa
+     * @throws GestorExcepcions
+     */
+	public void baixa(int codi) throws GestorExcepcions {
+        
+		// Troba el servei
+        Servei servei = escola.trobaServei(codi);
+        if (servei == null) {
+			throw new GestorExcepcions(ERROR_SERVEI_INEXISTENT);
+		}
+        escola.baixaServei(servei);
+        
+        // Actualitza el departament
+        entityManager.getTransaction().begin();
+        entityManager.merge(escola);
+        entityManager.remove(servei);
+        entityManager.getTransaction().commit();
+    }
 }

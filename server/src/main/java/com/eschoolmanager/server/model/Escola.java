@@ -37,7 +37,8 @@ public class Escola {
 
 	private final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	private final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
-	private final static String ERROR_ELEMENTS_RELACIONATS = "Existeixen altres elements relacionats amb el departament";
+	private final static String ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT = "Existeixen altres elements relacionats amb el departament";
+	private final static String ERROR_ELEMENTS_RELACIONATS_SERVEI = "Existeixen altres elements relacionats amb el servei";
 	
 
 	/**
@@ -267,12 +268,11 @@ public class Escola {
 	
 	/**
 	 * Dona de baixa un departament
-	 * @return departament trobat o null
 	 * @throws GestorExcepcions 
 	 */
 	public void baixaDepartament(Departament departament) throws GestorExcepcions {
 		if (!departament.isBuit()) {
-			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS);
+			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT);
 		}
 		this.departaments.remove(departament);
 	}
@@ -362,5 +362,16 @@ public class Escola {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Dona de baixa un servei
+	 * @throws GestorExcepcions 
+	 */
+	public void baixaServei(Servei servei) throws GestorExcepcions {
+		if (!servei.isBuit()) {
+			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS_SERVEI);
+		}
+		this.serveis.remove(servei);
 	}
 }
