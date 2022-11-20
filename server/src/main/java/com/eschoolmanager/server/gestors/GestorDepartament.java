@@ -149,7 +149,7 @@ public class GestorDepartament extends GestorEscola {
     }
 	
 	/**
-     * Dona d'alta un nou departament a l'escola
+     * Actualitza departament de l'escola
      * @param codi del departament a actualitzar
      * @param nom actualitzat del departament
      * @param permisos actualitzats del nou departament
@@ -163,7 +163,7 @@ public class GestorDepartament extends GestorEscola {
 			throw new GestorExcepcions(ERROR_DEPARTAMENT_INEXISTENT);
 		}
 
-     // Crea llistat de permisos al departament a partir dels permisos d'administrador, els màxims
+        // Crea llistat de permisos al departament a partir dels permisos d'administrador, els màxims
         List<Permis> permisos = escola.trobaDepartament(DEPARTAMENT_ADMINISTRADOR).getPermisos();
         List<Permis> permisosDepartament = new ArrayList<Permis>();
         for(Permis permis : permisos) {

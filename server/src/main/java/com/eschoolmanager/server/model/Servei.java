@@ -202,4 +202,16 @@ public class Servei {
 	public void setSessions(List<Sessio> sessions) {
 		this.sessions = sessions;
 	}
+
+	/**
+	 * Actualitza les dades del servei
+	 * @param nom actualitzat del servei
+     * @param cost actualitzat del servei
+     * @param durada actualitzada del serveis
+	 */
+	public void actualitza(String nom, Double cost, int durada) {
+		this.setNom(nom);
+		this.setCost(cost);
+		this.setDurada(durada);
+	}
 }

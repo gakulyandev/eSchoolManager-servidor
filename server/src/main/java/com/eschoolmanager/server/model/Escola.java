@@ -320,6 +320,23 @@ public class Escola {
 	}
 	
 	/**
+	 * Actualitza un servei del llistat
+	 * @param servei a actualitzar
+	 * @param nom actualitzat del servei
+     * @param cost actualitzat del servei
+     * @param durada actualitzada del serveis
+	 * @throws GestorExcepcions 
+	 */
+	
+	public void actualitzaServei(Servei servei, String nom, Double cost, int durada) throws GestorExcepcions {
+		if ((trobaServei(nom) != null) && !servei.getNom().equals(nom)) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_SERVEI);
+        }
+		
+		servei.actualitza(nom, cost, durada);
+	}
+	
+	/**
 	 * Obté un servei amb el codi indicat
 	 * @return servei trobat o null
 	 */
