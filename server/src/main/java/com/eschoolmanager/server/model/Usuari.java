@@ -31,6 +31,7 @@ import javax.persistence.UniqueConstraint;
 public class Usuari {
 	
 	private int codi;
+	private boolean actiu = false;
 	private Escola escola;
 	private String nomUsuari;
 	private String contrasenya;
@@ -52,6 +53,7 @@ public class Usuari {
 	public Usuari(String nomUsuari, String contrasenya) {
         this.setNomUsuari(nomUsuari);
         this.setContrasenya(contrasenya);
+		this.setActiu(true);
 	}
 	
 	/**
@@ -72,6 +74,23 @@ public class Usuari {
     public void setCodi(int codi) {
         this.codi = codi;
     }
+
+	/**
+	 * Obté l'estat de l'usuari
+	 * @return actiu true | false segons l'estat actual de l'usuari
+	 */
+    @Column(name="actiu")
+	public boolean isActiu() {
+		return actiu;
+	}
+
+	/**
+	 * Actualitza l'estat de l'usuari
+	 * @param estat actualitzat de l'usuari
+	 */
+	public void setActiu(boolean actiu) {
+		this.actiu = actiu;
+	}
 
 	/**
 	 * Obté l'escola a on està donat d'alta l'usuari

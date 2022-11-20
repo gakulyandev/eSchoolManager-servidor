@@ -25,6 +25,7 @@ public interface Constants {
 	public final static String CRIDA_ALTA_EMPLEAT = "ALTA EMPLEAT";
 	public final static String CRIDA_LLISTA_EMPLEATS = "LLISTA EMPLEATS";
 	public final static String CRIDA_CONSULTA_EMPLEAT = "CONSULTA EMPLEAT";
+	public final static String CRIDA_MODI_EMPLEAT = "MODI EMPLEAT";
 	
 	public final static String CODI_SESSIO = "codiSessio";
 	public final static String RESPOSTA = "resposta";
