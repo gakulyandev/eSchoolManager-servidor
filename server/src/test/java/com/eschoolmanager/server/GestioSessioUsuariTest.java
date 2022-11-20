@@ -15,18 +15,7 @@ import org.json.JSONObject;
  * Classe per comprovar el funcionament de les peticions de login
  */
 public class GestioSessioUsuariTest extends BaseTest {
-
-	private final static String CRIDA_LOGIN = "LOGIN";
-	private final static String CRIDA_LOGOUT = "LOGOUT";
-	private final static String DADES_NOM_USUARI = "usuari";
-	private final static String DADES_CONTRASENYA = "contrasenya";
-	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
-	private final static String DADES_CODI_SESSIO = "codiSessio";
-	private final static String DADES_NOM = "nom";
-	private final static String DADES_PERMISOS = "permisos";
 	
-	private final static String ERROR_USUARI_INEXISTENT = "No existeix cap usuari amb les dades indicades";
-    
     /**
      * Mètode que prova iniciar sessió amb un usuari i contrasenya correctes
      */
@@ -46,8 +35,8 @@ public class GestioSessioUsuariTest extends BaseTest {
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
         assertEquals("Administrador", dadesResposta.get(DADES_NOM_DEPARTAMENT));
-        assertEquals("Pedro", dadesResposta.get(DADES_NOM));
-        assertTrue(dadesResposta.get(DADES_PERMISOS) != null);
+        assertEquals("Pedro", dadesResposta.get(DADES_NOM_EMPLEAT));
+        assertTrue(dadesResposta.get(DADES_PERMISOS_DEPARTAMENT) != null);
         assertTrue(dadesResposta.get(DADES_CODI_SESSIO) != null);
     }
     

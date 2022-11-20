@@ -7,23 +7,23 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Escola;
+import com.eschoolmanager.server.utilitats.Constants;
 
 /**
  * @author Gayané Akulyan Akulyan
  * Classe que gestiona les altes, baixes, modificacions i consultes d'objectes de l'escola
  */
-public class GestorEscola {
+public class GestorEscola implements Constants {
 
     protected EntityManager entityManager = null;
     protected Escola escola;
     
     private final static int CODI_ESCOLA = 1;
 	protected final static String PERMIS_ACCES= "acces";  
-	
-	protected final static String[] DADES_ORDENACIONS = {"ASC","DESC"};
 
-	protected final static String ERROR_GENERIC = "S'ha produit un error";
-	protected final static String ERROR_CAMP = "No existeix el valor indicat";
+	protected final static String DADES_CAMP_CODI = "codi";  
+	protected final static String DADES_ORDRE_ASC = "ASC";  
+	protected final static String[] DADES_ORDENACIONS = {"ASC","DESC"};
 	
     /**
      * Constructor que associa el gestor a un EntityManager

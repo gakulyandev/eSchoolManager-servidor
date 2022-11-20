@@ -4,7 +4,6 @@
 package com.eschoolmanager.server;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,20 +16,6 @@ import org.json.JSONObject;
  * Classe per comprovar el funcionament de les gestions de serveis
  */
 public class GestioServeisTest extends BaseTest {
-
-	private final static String CRIDA_ALTA = "ALTA SERVEI";
-	private final static String CRIDA_LLISTA = "LLISTA SERVEIS";
-	private final static String CRIDA_CONSULTA = "CONSULTA SERVEI";
-	private final static String CRIDA_MODI = "MODI SERVEI";
-	private final static String CRIDA_BAIXA = "BAIXA SERVEI";
-	private final static String DADES_CODI_SERVEI = "codiServei";
-	private final static String DADES_NOM_SERVEI = "nomServei";
-	private final static String DADES_DURADA_SERVEI = "durada";
-	private final static String DADES_COST_SERVEI = "cost";
-	
-	private final static String ERROR_DUPLICAT = "Ja existeix un servei amb el mateix nom";
-	private final static String ERROR_INEXISTENT = "No existeix el servei indicat";
-	private final static String ERROR_ELEMENTS_RELACIONATS = "Existeixen altres elements relacionats amb el servei";
 	
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -56,7 +41,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaAltaServeiAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
@@ -77,7 +62,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaAltaServeiNoAutoritzatDadesCorrectes() {
 
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
@@ -99,7 +84,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaAltaServeiAutoritzatDadesDuplicades() {
 
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Psicologia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
@@ -111,7 +96,7 @@ public class GestioServeisTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_DUPLICAT, resposta.get(MISSATGE));
+        assertEquals(ERROR_DUPLICAT_SERVEI, resposta.get(MISSATGE));
     }
     
     /**
@@ -121,7 +106,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaAltaServeiDadesIncompletes() {
     	
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Logopedia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 1);
@@ -142,7 +127,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaLlistaServeisAutoritzat() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_SERVEIS);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
@@ -164,7 +149,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaLlistaServeisNoAutoritzat() {
 
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_SERVEIS);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
@@ -185,7 +170,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaLlistaServeisAutoritzatDadesIncorrectes() {
 
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_SERVEIS);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "nomS");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
@@ -206,7 +191,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaLlistaServeisDadesIncompletes() {
     	
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_SERVEIS);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
     	peticio.put(DADES, dadesPeticio);
@@ -226,7 +211,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaConsultaServeiAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CRIDA, CRIDA_CONSULTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, 5);
     	peticio.put(DADES, dadesPeticio);
@@ -247,7 +232,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaConsultaServeiNoAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CRIDA, CRIDA_CONSULTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CODI_SERVEI, 5);
     	peticio.put(DADES, dadesPeticio);
@@ -267,7 +252,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaConsultaServeiAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CRIDA, CRIDA_CONSULTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, 10);
     	peticio.put(DADES, dadesPeticio);
@@ -277,7 +262,7 @@ public class GestioServeisTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_INEXISTENT, resposta.get(MISSATGE));
+        assertEquals(ERROR_INEXISTENT_SERVEI, resposta.get(MISSATGE));
     }
     
     /**
@@ -287,7 +272,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaConsultaServeiDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CRIDA, CRIDA_CONSULTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	peticio.put(DADES, dadesPeticio);
 
@@ -306,7 +291,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaModiServeiAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, "5");
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
@@ -328,7 +313,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaModiServeiNoAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CODI_SERVEI, "5");
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
@@ -351,7 +336,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaModiServeiAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, "10");
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
@@ -373,7 +358,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaModiServeiAutoritzatDadesDuplicades() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, "5");
     	dadesPeticio.put(DADES_NOM_SERVEI, "Psicopedagogia");
@@ -386,7 +371,7 @@ public class GestioServeisTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_DUPLICAT, resposta.get(MISSATGE));
+        assertEquals(ERROR_DUPLICAT_SERVEI, resposta.get(MISSATGE));
     }
     
     /**
@@ -396,7 +381,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaModiServeiDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, "5");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
@@ -418,7 +403,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaBaixaServeiAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, 6);
     	peticio.put(DADES, dadesPeticio);
@@ -438,7 +423,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaBaixaServeiNoAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CODI_SERVEI, 6);
     	peticio.put(DADES, dadesPeticio);
@@ -458,7 +443,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaBaixaServeiAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, 10);
     	peticio.put(DADES, dadesPeticio);
@@ -468,7 +453,7 @@ public class GestioServeisTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_INEXISTENT, resposta.get(MISSATGE));
+        assertEquals(ERROR_INEXISTENT_SERVEI, resposta.get(MISSATGE));
     }
 
     /**
@@ -478,7 +463,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaBaixaServeiAutoritzatDadesRelacionades() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_SERVEI, 5);
     	peticio.put(DADES, dadesPeticio);
@@ -488,7 +473,7 @@ public class GestioServeisTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_ELEMENTS_RELACIONATS, resposta.get(MISSATGE));
+        assertEquals(ERROR_ELEMENTS_RELACIONATS_SERVEI, resposta.get(MISSATGE));
     }
     
     /**
@@ -498,7 +483,7 @@ public class GestioServeisTest extends BaseTest {
     public void provaBaixaServeiDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	peticio.put(DADES, dadesPeticio);
 

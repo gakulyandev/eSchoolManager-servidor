@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.eschoolmanager.server.utilitats.Constants;
+
 import org.json.JSONObject;
 
 /**
@@ -18,19 +20,8 @@ import org.json.JSONObject;
  */
 public class GestioDepartamentsTest extends BaseTest {
 
-	private final static String CRIDA_ALTA = "ALTA DEPARTAMENT";
-	private final static String CRIDA_LLISTA = "LLISTA DEPARTAMENTS";
-	private final static String CRIDA_CONSULTA = "CONSULTA DEPARTAMENT";
-	private final static String CRIDA_MODI = "MODI DEPARTAMENT";
-	private final static String CRIDA_BAIXA = "BAIXA DEPARTAMENT";
-	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
-	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
-	private final static String DADES_PERMISOS = "permisos";
 	private final static String PERMIS = "departament";
 	
-	private final static String ERROR_DUPLICAT = "Ja existeix un departament amb el mateix nom";
-	private final static String ERROR_INEXISTENT = "No existeix el departament indicat";
-	private final static String ERROR_ELEMENTS_RELACIONATS = "Existeixen altres elements relacionats amb el departament";
 	
 	private JSONObject dadesPeticioPermisos;
 	
@@ -60,11 +51,11 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaAltaDepartamentAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -81,11 +72,11 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaAltaDepartamentNoAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -103,11 +94,11 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaAltaDepartamentAutoritzatDadesDuplicades() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
     	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -115,7 +106,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_DUPLICAT, resposta.get(MISSATGE));
+        assertEquals(ERROR_DUPLICAT_DEPARTAMENT, resposta.get(MISSATGE));
     }
     
     /**
@@ -125,7 +116,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaAltaDepartamentDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	peticio.put(DADES, dadesPeticio);
@@ -145,7 +136,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaLlistaDepartamentsAutoritzat() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_DEPARTAMENTS);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
@@ -167,7 +158,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaLlistaDepartamentsNoAutoritzat() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_DEPARTAMENTS);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
@@ -188,7 +179,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaLlistaDepartamentsAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_DEPARTAMENTS);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CAMP, "nomS");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
@@ -209,7 +200,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaLlistaDepartamentsDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_DEPARTAMENTS);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
     	peticio.put(DADES, dadesPeticio);
@@ -229,7 +220,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaConsultaDepartamentAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CRIDA, CRIDA_CONSULTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 3);
     	peticio.put(DADES, dadesPeticio);
@@ -241,7 +232,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
         assertEquals("Docent", dadesResposta.get(DADES_NOM_DEPARTAMENT));
-        assertTrue(dadesResposta.get(DADES_PERMISOS) != null);
+        assertTrue(dadesResposta.get(DADES_PERMISOS_DEPARTAMENT) != null);
     }
     
     /**
@@ -251,7 +242,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaConsultaDepartamentNoAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CRIDA, CRIDA_CONSULTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 3);
     	peticio.put(DADES, dadesPeticio);
@@ -271,7 +262,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaConsultaDepartamentAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CRIDA, CRIDA_CONSULTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 10);
     	peticio.put(DADES, dadesPeticio);
@@ -281,7 +272,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_INEXISTENT, resposta.get(MISSATGE));
+        assertEquals(ERROR_INEXISTENT_DEPARTAMENT, resposta.get(MISSATGE));
     }
     
     /**
@@ -291,7 +282,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaConsultaDepartamentDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_CONSULTA);
+        peticio.put(CRIDA, CRIDA_CONSULTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	peticio.put(DADES, dadesPeticio);
 
@@ -310,12 +301,12 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaModiDepartamentAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "DocentModificat");
     	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -332,12 +323,12 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaModiDepartamentNoAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -355,12 +346,12 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaModiDepartamentAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "10");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
     	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -377,12 +368,12 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaModiDepartamentAutoritzatDadesDuplicades() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
     	dadesPeticioPermisos.put(PERMIS, true);
-    	dadesPeticio.put(DADES_PERMISOS, dadesPeticioPermisos);
+    	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -390,7 +381,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_DUPLICAT, resposta.get(MISSATGE));
+        assertEquals(ERROR_DUPLICAT_DEPARTAMENT, resposta.get(MISSATGE));
     }
     
     /**
@@ -400,7 +391,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaModiDepartamentDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_MODI);
+        peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	peticio.put(DADES, dadesPeticio);
@@ -420,7 +411,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaBaixaDepartamentAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 4);
     	peticio.put(DADES, dadesPeticio);
@@ -440,7 +431,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaBaixaDepartamentNoAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 4);
     	peticio.put(DADES, dadesPeticio);
@@ -460,7 +451,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaBaixaDepartamentAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 5);
     	peticio.put(DADES, dadesPeticio);
@@ -470,7 +461,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_INEXISTENT, resposta.get(MISSATGE));
+        assertEquals(ERROR_INEXISTENT_DEPARTAMENT, resposta.get(MISSATGE));
     }
 
     /**
@@ -480,7 +471,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaBaixaDepartamentAutoritzatDadesRelacionades() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 3);
     	peticio.put(DADES, dadesPeticio);
@@ -490,7 +481,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_ELEMENTS_RELACIONATS, resposta.get(MISSATGE));
+        assertEquals(ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT, resposta.get(MISSATGE));
     }
     
     /**
@@ -500,7 +491,7 @@ public class GestioDepartamentsTest extends BaseTest {
     public void provaBaixaDepartamentDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_BAIXA);
+        peticio.put(CRIDA, CRIDA_BAIXA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	peticio.put(DADES, dadesPeticio);
 

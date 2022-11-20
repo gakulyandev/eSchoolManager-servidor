@@ -3,6 +3,7 @@
  */
 package com.eschoolmanager.server.gestors;
 
+import com.eschoolmanager.server.utilitats.Constants;
 import javax.persistence.EntityManager;
 
 import java.sql.Date;
@@ -19,56 +20,12 @@ import org.json.JSONObject;
  * @author Gayané Akulyan Akulyan
  * Classe que processa les diferents peticions dels clients i genera la resposta corresponent
  */
-public class GestorPeticions {
+public class GestorPeticions implements Constants {
 
 	private GestorSessioUsuari gestorSessioUsuari;
 	private GestorDepartament gestorDepartament;
 	private GestorServei gestorServei;
 	private GestorEmpleat gestorEmpleat;
-	
-	private final static String CRIDA = "crida";
-	private final static String CRIDA_LOGIN = "LOGIN";
-	private final static String CRIDA_LOGOUT = "LOGOUT";
-	private final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
-	private final static String CRIDA_LLISTA_DEPARTAMENTS = "LLISTA DEPARTAMENTS";
-	private final static String CRIDA_CONSULTA_DEPARTAMENT = "CONSULTA DEPARTAMENT";
-	private final static String CRIDA_MODI_DEPARTAMENT = "MODI DEPARTAMENT";
-	private final static String CRIDA_BAIXA_DEPARTAMENT = "BAIXA DEPARTAMENT";
-	private final static String CRIDA_ALTA_SERVEI = "ALTA SERVEI";
-	private final static String CRIDA_LLISTA_SERVEIS = "LLISTA SERVEIS";
-	private final static String CRIDA_CONSULTA_SERVEI = "CONSULTA SERVEI";
-	private final static String CRIDA_MODI_SERVEI = "MODI SERVEI";
-	private final static String CRIDA_BAIXA_SERVEI = "BAIXA SERVEI";
-	private final static String CRIDA_ALTA_EMPLEAT = "ALTA EMPLEAT";
-	private final static String CODI_SESSIO = "codiSessio";
-	private final static String RESPOSTA = "resposta";
-	private final static String RESPOSTA_OK = "OK";
-	private final static String RESPOSTA_NOK = "NOK";
-	private final static String MISSATGE = "missatge";
-	private final static String DADES = "dades";
-	private final static String DADES_CAMP = "camp";
-	private final static String DADES_ORDRE = "ordre";
-	private final static String DADES_CONTRASENYA = "contrasenya";
-	private final static String DADES_CODI_SESSIO = "codiSessio";
-	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
-	private final static String DADES_CODI_SERVEI = "codiServei";
-	private final static String DADES_NOM_SERVEI = "nomServei";
-	private final static String DADES_DURADA_SERVEI = "durada";
-	private final static String DADES_COST_SERVEI = "cost";
-	private final static String DADES_DNI_EMPLEAT = "dni";
-	private final static String DADES_NOM_EMPLEAT = "nom";
-	private final static String DADES_COGNOMS_EMPLEAT = "cognoms";
-	private final static String DADES_DATA_NAIXEMENT_EMPLEAT = "dataNaixement";
-	private final static String DADES_ADRECA_EMPLEAT = "adreca";
-	private final static String DADES_TELEFON_EMPLEAT = "telefon";
-	private final static String DADES_EMAIL_EMPLEAT = "email";
-	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
-	private final static String DADES_NOM_USUARI = "usuari";
-	private final static String DADES_CONTRASENYA_USUARI = "contrasenya";
-	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";
-	private final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
-	private final static String ERROR_GENERIC = "S'ha produit un error";
-	private final static String ERROR_DADES = "Falten dades";
 	
 	/**
      * Constructor que associa i inicialitza els diferents gestors
@@ -323,6 +280,27 @@ public class GestorPeticions {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_LLISTA_EMPLEATS: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					HashMap<Integer, Object> dadesEmpleats = gestorEmpleat.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+
+					// Genera resposta
+					dadesResposta = new JSONObject();
+					
+					for (Integer key : dadesEmpleats.keySet()) {
+						JSONObject dadesRespostaEmpelat = new JSONObject();
+						dadesRespostaEmpelat.put(DADES_CODI_EMPLEAT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_CODI_EMPLEAT));
+						dadesRespostaEmpelat.put(DADES_NOM_EMPLEAT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_NOM_EMPLEAT));
+						dadesRespostaEmpelat.put(DADES_COGNOMS_EMPLEAT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_COGNOMS_EMPLEAT));
+						dadesRespostaEmpelat.put(DADES_CODI_DEPARTAMENT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_CODI_DEPARTAMENT));
+						dadesRespostaEmpelat.put(DADES_NOM_DEPARTAMENT, ((HashMap<String,Object>) dadesEmpleats.get(key)).get(DADES_NOM_DEPARTAMENT));
+						dadesResposta.put(String.valueOf(key), dadesRespostaEmpelat);
+					}
+					
+					return generaRespostaOK(dadesResposta);	
+				}
 				default: {
 					// Genera resposta
 					return generaRespostaNOK(ERROR_GENERIC);
@@ -330,7 +308,7 @@ public class GestorPeticions {
 			}
 		
 		} catch (JSONException ex) {
-			return generaRespostaNOK(ERROR_DADES);
+			return generaRespostaNOK(ERROR_FALTEN_DADES);
 		} catch (GestorExcepcions ex) {
 			return generaRespostaNOK(ex.getMessage());
 		}

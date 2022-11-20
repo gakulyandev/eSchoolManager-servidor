@@ -17,17 +17,8 @@ import com.eschoolmanager.server.model.Servei;
  * Classe que gestiona les altes, baixes, modificacions i consultes de departaments
  */
 public class GestorServei extends GestorEscola {
-
-	private final static String DADES_CODI_SERVEI = "codiServei";  
-	private final static String DADES_NOM_SERVEI = "nomServei";
-	private final static String DADES_DURADA_SERVEI = "durada";
-	private final static String DADES_COST_SERVEI = "cost";
-	private final static String DADES_CAMP_CODI = "codi";  
-	private final static String DADES_ORDRE_ASC = "ASC";  
 	
 	private final static String[] DADES_CAMPS = {"nom","codi","durada","cost"};
-	
-	private final static String ERROR_SERVEI_INEXISTENT = "No existeix el servei indicat";
     
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -113,7 +104,7 @@ public class GestorServei extends GestorEscola {
 		// Troba el servei
         Servei servei = escola.trobaServei(codi);
         if (servei == null) {
-			throw new GestorExcepcions(ERROR_SERVEI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_SERVEI);
 		}
         
         HashMap<String, Object> dadesServei = new HashMap<String, Object>();
@@ -138,7 +129,7 @@ public class GestorServei extends GestorEscola {
 		// Troba el departament
 		Servei servei = escola.trobaServei(codi);
         if (servei == null) {
-			throw new GestorExcepcions(ERROR_SERVEI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_SERVEI);
 		}
         
         // Actualitza el servei de l'escola
@@ -160,7 +151,7 @@ public class GestorServei extends GestorEscola {
 		// Troba el servei
         Servei servei = escola.trobaServei(codi);
         if (servei == null) {
-			throw new GestorExcepcions(ERROR_SERVEI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_SERVEI);
 		}
         escola.baixaServei(servei);
         

@@ -22,14 +22,6 @@ import com.eschoolmanager.server.model.Usuari;
 public class GestorSessioUsuari extends GestorEscola {
 
 	private GestorSessionsUsuari gestorSessionsUsuari;
-	
-	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";     
-	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";  
-	private final static String DADES_NOM_EMPLEAT = "nom";  
-	private final static String DADES_CODI_SESSIO = "codiSessio";
-
-	private final static String USUARI_INEXISTENT = "No existeix cap usuari amb les dades indicades";
-	private final static String USUARI_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 
 	/**
      * Constructor que associa el gestor a un EntityManager i inicialitza el gestor d'usuaris
@@ -51,14 +43,14 @@ public class GestorSessioUsuari extends GestorEscola {
 		// Troba l'usuari pel codi de sessió
 		Usuari usuari = gestorSessionsUsuari.trobaUsuari(codiSessio);
 		if (usuari == null) {
-			throw new GestorExcepcions(USUARI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_USUARI_INEXISTENT);
 		}
 		
 		// Confirma si te permisos per la crida
 		Empleat empleat = usuari.getEmpleat();
 
 		if (!empleat.getDepartament().confirmaPermis(crida)) {
-			throw new GestorExcepcions(USUARI_NO_AUTORITZAT);
+			throw new GestorExcepcions(ERROR_NO_AUTORITZAT);
 		}
 	}
 	
@@ -74,7 +66,7 @@ public class GestorSessioUsuari extends GestorEscola {
 		// Troba l'usuari per nom d'usuari i contrasenya
 		Usuari usuari = escola.trobaUsuari(nomUsuari, contrasenya);
 		if (usuari == null) {
-			throw new GestorExcepcions(USUARI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_USUARI_INEXISTENT);
 		}
 		
 		// Inicia i desa sessió
@@ -107,7 +99,7 @@ public class GestorSessioUsuari extends GestorEscola {
 		
 		// Confirma existencia d'un usuari amb el codi de sessió
 		if (gestorSessionsUsuari.trobaUsuari(codiSessio) == null) {
-			throw new GestorExcepcions(USUARI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_USUARI_INEXISTENT);
 		}
 		
 		// Esborra la sessió desada

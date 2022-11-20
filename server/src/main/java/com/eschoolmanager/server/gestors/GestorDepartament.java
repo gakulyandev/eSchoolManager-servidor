@@ -20,15 +20,7 @@ import com.eschoolmanager.server.model.Permis;
  */
 public class GestorDepartament extends GestorEscola {
 
-	private final static String DEPARTAMENT_ADMINISTRADOR = "Administrador";  
-	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";  
-	private final static String DADES_NOM_DEPARTAMENT = "nomDepartament";     
-	private final static String DADES_PERMISOS_DEPARTAMENT = "permisos";  
-	private final static String DADES_CAMP_CODI = "codi";  
-	private final static String DADES_ORDRE_ASC = "ASC";  
-
-	private final static String ERROR_DEPARTAMENT_INEXISTENT = "No existeix el departament indicat";
-
+	private final static String DEPARTAMENT_ADMINISTRADOR = "Administrador";   
 	private final static String[] DADES_CAMPS = {"nom","codi"};
 	
 	/**
@@ -127,7 +119,7 @@ public class GestorDepartament extends GestorEscola {
 		// Troba el departament
         Departament departament = escola.trobaDepartament(codi);
         if (departament == null) {
-			throw new GestorExcepcions(ERROR_DEPARTAMENT_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_DEPARTAMENT);
 		}
         
         // Llista els permisos del departament
@@ -158,7 +150,7 @@ public class GestorDepartament extends GestorEscola {
 		// Troba el departament
 		Departament departament = escola.trobaDepartament(codi);
         if (departament == null) {
-			throw new GestorExcepcions(ERROR_DEPARTAMENT_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_DEPARTAMENT);
 		}
 
         // Crea llistat de permisos al departament a partir dels permisos d'administrador, els màxims
@@ -195,7 +187,7 @@ public class GestorDepartament extends GestorEscola {
 		// Troba el departament
         Departament departament = escola.trobaDepartament(codi);
         if (departament == null) {
-			throw new GestorExcepcions(ERROR_DEPARTAMENT_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_DEPARTAMENT);
 		}
         escola.baixaDepartament(departament);
         

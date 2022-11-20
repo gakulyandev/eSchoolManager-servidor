@@ -27,34 +27,22 @@ import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Professor;
 import com.eschoolmanager.server.model.SessioUsuari;
 import com.eschoolmanager.server.model.Usuari;
+import com.eschoolmanager.server.utilitats.Constants;
 import com.eschoolmanager.server.model.Servei;
 
 /**
  * @author Gayané Akulyan Akulyan
  * Classe base que extenen els tests amb funcionalitats genèriques
  */
-public class BaseTest {
+public class BaseTest implements Constants {
 	
 	protected EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
 	protected GestorPeticions gestorPeticions;
 	protected GestorSessionsUsuari gestorSessionsUsuari;
 	protected JSONObject peticio, dadesPeticio, resposta, dadesResposta;
-	protected final static String CRIDA = "crida";
-	protected final static String PERSISTENCE_UNIT = "eSchoolManager";
-	
-	protected final static String CODI_SESSIO = "codiSessio";
-	protected final static String DADES = "dades";
-	protected final static String DADES_CAMP = "camp";
-	protected final static String DADES_ORDRE = "ordre";
-	protected final static String RESPOSTA = "resposta";
-	protected final static String RESPOSTA_OK = "OK";
-	protected final static String RESPOSTA_NOK = "NOK";
-	protected final static String MISSATGE = "missatge";
 
-	protected final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
-	protected final static String ERROR_FALTEN_DADES = "Falten dades";
-	protected final static String ERROR_CAMP = "No existeix el valor indicat";
+	protected final static String PERSISTENCE_UNIT = "eSchoolManager";
     
 	/**
      * Neteja la base de dades i l'omple amb dades de prova

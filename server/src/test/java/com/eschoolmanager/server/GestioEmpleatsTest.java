@@ -13,23 +13,6 @@ import org.junit.Test;
  */
 public class GestioEmpleatsTest extends BaseTest {
 	
-	private final static String CRIDA_ALTA = "ALTA EMPLEAT";
-	private final static String CRIDA_LLISTA = "LLISTA EMPLEAT";
-	private final static String DADES_DNI_EMPLEAT = "dni";
-	private final static String DADES_NOM_EMPLEAT = "nom";
-	private final static String DADES_COGNOMS_EMPLEAT = "cognoms";
-	private final static String DADES_DATA_NAIXEMENT_EMPLEAT = "dataNaixement";
-	private final static String DADES_ADRECA_EMPLEAT = "adreca";
-	private final static String DADES_TELEFON_EMPLEAT = "telefon";
-	private final static String DADES_EMAIL_EMPLEAT = "email";
-	private final static String DADES_CODI_DEPARTAMENT = "codiDepartament";
-	private final static String DADES_NOM_USUARI = "usuari";
-	private final static String DADES_CONTRASENYA_USUARI = "contrasenya";
-	
-	private final static String ERROR_DUPLICAT_EMPLEAT = "Ja existeix un empleat amb el mateix DNI";
-	private final static String ERROR_DUPLICAT_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
-	private final static String ERROR_DNI_INCORRECTE = "El DNI és incorrecte";
-	
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
      * @throws Exception
@@ -54,7 +37,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaAltaEmpleatAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
@@ -82,7 +65,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaAltaEmpleatAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877AA");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
@@ -111,7 +94,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaAltaEmpleatNoAutoritzatDadesCorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
@@ -140,7 +123,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaAltaEmpleatAutoritzatDadesDuplicadesEmpleat() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "22233344N");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
@@ -169,7 +152,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaAltaEmpleatAutoritzatDadesDuplicadesUsuari() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
@@ -198,7 +181,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaAltaEmpleatDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA);
+        peticio.put(CRIDA, CRIDA_ALTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz Mata");
@@ -226,7 +209,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaLlistaEmpleatsAutoritzat() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_EMPLEATS);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
@@ -238,7 +221,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
-        assertEquals("Pedro", dadesResposta.getJSONObject("0").get(DADES_NOM_EMPLEAT));
+        assertEquals("Blas", dadesResposta.getJSONObject("0").get(DADES_NOM_EMPLEAT));
     }
     
     /**
@@ -248,7 +231,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaLlistaEmpleatsNoAutoritzat() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_EMPLEATS);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
@@ -269,7 +252,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaLlistaEmpleatsAutoritzatDadesIncorrectes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_EMPLEATS);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "nomS");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
@@ -290,7 +273,7 @@ public class GestioEmpleatsTest extends BaseTest {
     public void provaLlistaEmpleatsDadesIncompletes() {
         
     	//Petició del client
-        peticio.put(CRIDA, CRIDA_LLISTA);
+        peticio.put(CRIDA, CRIDA_LLISTA_EMPLEATS);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
     	peticio.put(DADES, dadesPeticio);
