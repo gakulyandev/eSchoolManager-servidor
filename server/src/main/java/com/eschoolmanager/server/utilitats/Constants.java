@@ -68,6 +68,7 @@ public interface Constants {
 	public final static String DADES_NOM_USUARI = "usuari";
 	public final static String DADES_CONTRASENYA_USUARI = "contrasenya";
 	public final static String DADES_PERMISOS_DEPARTAMENT = "permisos";
+	public final static String DADES_CODI_ESTUDIANT = "codiEstudiant";
 	public final static String DADES_DNI_ESTUDIANT = "dni";
 	public final static String DADES_NOM_ESTUDIANT = "nomEstudiant";
 	public final static String DADES_COGNOMS_ESTUDIANT = "cognoms";

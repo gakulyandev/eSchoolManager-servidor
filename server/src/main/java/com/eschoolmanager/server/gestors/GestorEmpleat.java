@@ -68,12 +68,11 @@ public class GestorEmpleat extends GestorEscola {
      * Obté llistat dels empleats de l'escola
      * @param camp de dades per ordenar
      * @param ordre que ha de mostrar
-     * @return llista de departaments
+     * @return llista d'empleats
      * @throws GestorExcepcions
      */
 	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
-                
-        // Llista els permisos del departament
+         
 		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
 			 camp.length() == 0 && ordre.length() == 0) {
 			List<Empleat> empleats;

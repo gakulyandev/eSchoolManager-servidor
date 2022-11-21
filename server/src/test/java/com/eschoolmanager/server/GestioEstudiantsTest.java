@@ -180,7 +180,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
-        assertEquals("Blas", dadesResposta.getJSONObject("0").get(DADES_NOM_ESTUDIANT));
+        assertEquals("Clara", dadesResposta.getJSONObject("0").get(DADES_NOM_ESTUDIANT));
     }
     
     /**
