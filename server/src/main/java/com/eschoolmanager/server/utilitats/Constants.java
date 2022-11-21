@@ -89,7 +89,6 @@ public interface Constants {
 	public final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
-    public final static String ERROR_INEXISTENT_ESCOLA = "No existeix l'escola indicada";
 
 	
 }

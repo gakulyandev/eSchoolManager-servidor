@@ -526,4 +526,16 @@ public class Escola implements Constants {
 		}
 		this.serveis.remove(servei);
 	}
+
+	/**
+	 * Actualitza les dades de l'escola
+	 * @param nom actualitzat
+	 * @param adreça actualitzada
+	 * @param telèfon actualitzat
+	 */
+	public void actualitza(String nom, String adreca, String telefon) {
+		this.setNom(nom);
+		this.setAdreca(adreca);
+		this.setTelefon(telefon);
+	}
 }

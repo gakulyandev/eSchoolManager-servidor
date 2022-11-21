@@ -56,22 +56,35 @@ public class GestorEscola implements Constants {
 	
 	/**
      * Obté les dades de l'escola
-     * @param codi de l'escola
      * @return dades de l'escola
      * @throws GestorExcepcions
      */
-	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
+	public HashMap<String, Object> consulta() throws GestorExcepcions {
         
-		// Confirma codi
-		if (escola.getCodi() != codi) {
-			throw new GestorExcepcions(ERROR_INEXISTENT_ESCOLA);
-		}
-        
-        HashMap<String, Object> dadesEscola = new HashMap<String, Object>();
+		HashMap<String, Object> dadesEscola = new HashMap<String, Object>();
         dadesEscola.put(DADES_NOM_ESCOLA, escola.getNom());
         dadesEscola.put(DADES_ADRECA_ESCOLA, escola.getAdreca());
         dadesEscola.put(DADES_TELEFON_ESCOLA, escola.getTelefon());
         
         return dadesEscola;
+    }
+	
+	/**
+     * Actualitza les dades de l'escola
+     * @param codi de l'escola
+     * @param nom actualitzat de l'escola
+     * @param adreça actualitzada de l'escola
+     * @param telefon actualitzat de l'escola
+     * @throws GestorExcepcions
+     */
+	public void actualitza(String nom, String adreca, String telefon) throws GestorExcepcions {
+		
+        // Actualitza les dades de l'escola
+        escola.actualitza(nom, adreca, telefon);
+
+        // Actualitza el departament
+        entityManager.getTransaction().begin();
+        entityManager.merge(escola);
+        entityManager.getTransaction().commit();
     }
 }

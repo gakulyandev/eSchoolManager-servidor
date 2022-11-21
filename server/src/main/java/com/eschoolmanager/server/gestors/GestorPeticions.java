@@ -102,13 +102,26 @@ public class GestorPeticions implements Constants {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 
-					HashMap<String, Object> dadesServei = gestorEscola.consulta(dadesPeticio.getInt(DADES_CODI_ESCOLA));
+					HashMap<String, Object> dadesServei = gestorEscola.consulta();
 					
 					// Genera resposta
 					dadesResposta.put(DADES_NOM_ESCOLA, dadesServei.get(DADES_NOM_ESCOLA));
 					dadesResposta.put(DADES_ADRECA_ESCOLA, dadesServei.get(DADES_ADRECA_ESCOLA));
 					dadesResposta.put(DADES_TELEFON_ESCOLA, dadesServei.get(DADES_TELEFON_ESCOLA));
 					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_MODI_ESCOLA: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+
+					gestorEscola.actualitza(
+							dadesPeticio.getString(DADES_NOM_ESCOLA), 
+							dadesPeticio.getString(DADES_ADRECA_ESCOLA), 
+							dadesPeticio.getString(DADES_TELEFON_ESCOLA)
+							);
+
+					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
 				case CRIDA_ALTA_DEPARTAMENT: {
