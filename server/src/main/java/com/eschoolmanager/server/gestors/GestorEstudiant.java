@@ -99,4 +99,31 @@ public class GestorEstudiant extends GestorEscola {
 		
 		throw new GestorExcepcions(ERROR_CAMP);
     }
+	
+	/**
+     * Obté les dades d'un estudiant de l'escola
+     * @param codi de l'estudiant a cercar
+     * @return dades de l'estudiant
+     * @throws GestorExcepcions
+     */
+	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
+        
+		Estudiant estudiant = escola.trobaEstudiant(codi);
+        if (estudiant == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_ESTUDIANT);
+		}
+        
+        HashMap<String, Object> dadesEstudiant = new HashMap<String, Object>();
+        dadesEstudiant.put(DADES_CODI_ESTUDIANT, estudiant.getCodi());
+        dadesEstudiant.put(DADES_DNI_ESTUDIANT, estudiant.getDni());
+        dadesEstudiant.put(DADES_NOM_ESTUDIANT, estudiant.getNom());
+        dadesEstudiant.put(DADES_COGNOMS_ESTUDIANT, estudiant.getCognoms());
+        dadesEstudiant.put(DADES_DATA_NAIXEMENT_ESTUDIANT, estudiant.getDataNaixement());
+        dadesEstudiant.put(DADES_ADRECA_ESTUDIANT, estudiant.getAdreca());
+        dadesEstudiant.put(DADES_TELEFON_ESTUDIANT, estudiant.getTelefon());
+        dadesEstudiant.put(DADES_EMAIL_ESTUDIANT, estudiant.getEmail());
+        dadesEstudiant.put(DADES_ESTAT_ESTUDIANT, estudiant.isRegistrat());
+        
+        return dadesEstudiant;
+    }
 }

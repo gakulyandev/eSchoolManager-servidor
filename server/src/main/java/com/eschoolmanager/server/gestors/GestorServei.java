@@ -101,7 +101,6 @@ public class GestorServei extends GestorEscola {
      */
 	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
         
-		// Troba el servei
         Servei servei = escola.trobaServei(codi);
         if (servei == null) {
 			throw new GestorExcepcions(ERROR_INEXISTENT_SERVEI);

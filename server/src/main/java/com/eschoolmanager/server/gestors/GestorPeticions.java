@@ -436,6 +436,25 @@ public class GestorPeticions implements Constants {
 					
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_CONSULTA_ESTUDIANT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+
+					HashMap<String, Object> dadesEmpleat = gestorEstudiant.consulta(dadesPeticio.getInt(DADES_CODI_ESTUDIANT));
+					
+					// Genera resposta
+					dadesResposta.put(DADES_CODI_ESTUDIANT, dadesEmpleat.get(DADES_CODI_ESTUDIANT));
+					dadesResposta.put(DADES_DNI_ESTUDIANT, dadesEmpleat.get(DADES_DNI_ESTUDIANT));
+					dadesResposta.put(DADES_NOM_ESTUDIANT, dadesEmpleat.get(DADES_NOM_ESTUDIANT));
+					dadesResposta.put(DADES_COGNOMS_ESTUDIANT, dadesEmpleat.get(DADES_COGNOMS_ESTUDIANT));
+					dadesResposta.put(DADES_DATA_NAIXEMENT_ESTUDIANT, dadesEmpleat.get(DADES_DATA_NAIXEMENT_ESTUDIANT));
+					dadesResposta.put(DADES_ADRECA_ESTUDIANT, dadesEmpleat.get(DADES_ADRECA_ESTUDIANT));
+					dadesResposta.put(DADES_TELEFON_ESTUDIANT, dadesEmpleat.get(DADES_TELEFON_ESTUDIANT));
+					dadesResposta.put(DADES_EMAIL_ESTUDIANT, dadesEmpleat.get(DADES_EMAIL_ESTUDIANT));
+					dadesResposta.put(DADES_ESTAT_ESTUDIANT, dadesEmpleat.get(DADES_ESTAT_ESTUDIANT));
+					
+					return generaRespostaOK(dadesResposta);	
+				}
 				default: {
 					// Genera resposta
 					return generaRespostaNOK(ERROR_GENERIC);

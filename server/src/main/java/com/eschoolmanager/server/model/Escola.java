@@ -577,4 +577,18 @@ public class Escola implements Constants {
 		
 		return null;
 	}
+	
+	/**
+	 * Obté un estudiant amb el codi indicat
+	 * @return estudiant trobat o null
+	 */
+	public Estudiant trobaEstudiant(int codi) {
+		for(Estudiant estudiant : this.estudiants) {
+			if (estudiant.getCodi() == codi) {
+				return estudiant;
+			}
+		}
+		
+		return null;
+	}
 }
