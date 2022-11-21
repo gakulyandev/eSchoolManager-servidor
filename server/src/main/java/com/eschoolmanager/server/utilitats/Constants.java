@@ -33,6 +33,7 @@ public interface Constants {
 	public final static String CRIDA_LLISTA_ESTUDIANTS = "LLISTA ESTUDIANTS";
 	public final static String CRIDA_CONSULTA_ESTUDIANT = "CONSULTA ESTUDIANT";
 	public final static String CRIDA_MODI_ESTUDIANT = "MODI ESTUDIANT";
+	public final static String CRIDA_BAIXA_ESTUDIANT = "BAIXA ESTUDIANT";
 
 	public final static int CODI_ESCOLA = 1;
 	public final static String CODI_SESSIO = "codiSessio";
@@ -86,22 +87,24 @@ public interface Constants {
 	public final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";
 	public final static String ERROR_FALTEN_DADES = "Falten dades";
 	public final static String ERROR_CAMP = "No existeix el valor indicat";
-	public final static String ERROR_DUPLICAT_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_INEXISTENT_DEPARTAMENT = "No existeix el departament indicat";
-	public final static String ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT = "Existeixen altres elements relacionats amb el departament";
-	public final static String ERROR_DUPLICAT_EMPLEAT = "Ja existeix un empleat amb el mateix DNI";
-	public final static String ERROR_DUPLICAT_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
-	public final static String ERROR_USUARI_INEXISTENT = "No existeix cap usuari amb les dades indicades";
     public final static String ERROR_DNI_INCORRECTE = "El DNI és incorrecte";
-    public final static String ERROR_INEXISTENT_EMPLEAT = "No existeix l'empleat indicat";
-	public final static String ERROR_DUPLICAT_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_INEXISTENT_SERVEI = "No existeix el servei indicat";
-	public final static String ERROR_ELEMENTS_RELACIONATS_SERVEI = "Existeixen altres elements relacionats amb el servei";
-	public final static String ERROR_ELEMENTS_RELACIONATS_EMPLEAT = "Existeixen altres elements relacionats amb l'empleat";
+    public final static String ERROR_INEXISTENT_EMPLEAT = "No existeix l'empleat indicat";
+	public final static String ERROR_INEXISTENT_USUARI = "No existeix cap usuari amb les dades indicades";
+    public final static String ERROR_INEXISTENT_ESTUDIANT = "No existeix l'estudiant indicat";
 	public final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
+	public final static String ERROR_DUPLICAT_SERVEI = "Ja existeix un servei amb el mateix nom";
+	public final static String ERROR_DUPLICAT_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
+	public final static String ERROR_DUPLICAT_EMPLEAT = "Ja existeix un empleat amb el mateix DNI";
 	public final static String ERROR_DUPLICAT_ESTUDIANT = "Ja existeix un estudiant amb el mateix DNI";
-    public final static String ERROR_INEXISTENT_ESTUDIANT = "No existeix l'estudiant indicat";
+	public final static String ERROR_DUPLICAT_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
+	public final static String ERROR_ELEMENTS_RELACIONATS_SERVEI = "Existeixen altres elements relacionats amb el servei";
+	public final static String ERROR_ELEMENTS_RELACIONATS_EMPLEAT = "Existeixen altres elements relacionats amb l'empleat";
+    public final static String ERROR_ELEMENTS_RELACIONATS_ESTUDIANT = "Existeixen altres elements relacionats amb l'estudiant";
+	public final static String ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT = "Existeixen altres elements relacionats amb el departament";
+	
 	
 }

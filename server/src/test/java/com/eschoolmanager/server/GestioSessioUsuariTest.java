@@ -57,7 +57,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_USUARI_INEXISTENT, resposta.get(MISSATGE));
+        assertEquals(ERROR_INEXISTENT_USUARI, resposta.get(MISSATGE));
     }
     
     /**
@@ -111,7 +111,7 @@ public class GestioSessioUsuariTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_USUARI_INEXISTENT, resposta.get(MISSATGE));
+        assertEquals(ERROR_INEXISTENT_USUARI, resposta.get(MISSATGE));
     }
     
     /**

@@ -43,7 +43,7 @@ public class GestorSessioUsuari extends GestorEscola {
 		// Troba l'usuari pel codi de sessió
 		Usuari usuari = gestorSessionsUsuari.trobaUsuari(codiSessio);
 		if (usuari == null) {
-			throw new GestorExcepcions(ERROR_USUARI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_USUARI);
 		}
 		
 		// Confirma si te permisos per la crida
@@ -66,7 +66,7 @@ public class GestorSessioUsuari extends GestorEscola {
 		// Troba l'usuari per nom d'usuari i contrasenya
 		Usuari usuari = escola.trobaUsuari(nomUsuari, contrasenya);
 		if (usuari == null) {
-			throw new GestorExcepcions(ERROR_USUARI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_USUARI);
 		}
 		
 		// Inicia i desa sessió
@@ -99,7 +99,7 @@ public class GestorSessioUsuari extends GestorEscola {
 		
 		// Confirma existencia d'un usuari amb el codi de sessió
 		if (gestorSessionsUsuari.trobaUsuari(codiSessio) == null) {
-			throw new GestorExcepcions(ERROR_USUARI_INEXISTENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_USUARI);
 		}
 		
 		// Esborra la sessió desada
