@@ -12,6 +12,7 @@ public interface Constants {
 	public final static String CRIDA = "crida";
 	public final static String CRIDA_LOGIN = "LOGIN";
 	public final static String CRIDA_LOGOUT = "LOGOUT";
+	public final static String CRIDA_CONSULTA_ESCOLA = "CONSULTA ESCOLA";
 	public final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
 	public final static String CRIDA_LLISTA_DEPARTAMENTS = "LLISTA DEPARTAMENTS";
 	public final static String CRIDA_CONSULTA_DEPARTAMENT = "CONSULTA DEPARTAMENT";
@@ -39,6 +40,10 @@ public interface Constants {
 	public final static String DADES_ORDRE = "ordre";
 	public final static String DADES_CONTRASENYA = "contrasenya";
 	public final static String DADES_CODI_SESSIO = "codiSessio";
+	public final static String DADES_CODI_ESCOLA = "codiEscola";
+	public final static String DADES_NOM_ESCOLA = "nomEscola";
+	public final static String DADES_ADRECA_ESCOLA = "adreca";
+	public final static String DADES_TELEFON_ESCOLA = "telefon";
 	public final static String DADES_NOM_DEPARTAMENT = "nomDepartament";
 	public final static String DADES_CODI_SERVEI = "codiServei";
 	public final static String DADES_NOM_SERVEI = "nomServei";
@@ -82,6 +87,7 @@ public interface Constants {
 	public final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
+    public final static String ERROR_INEXISTENT_ESCOLA = "No existeix l'escola indicada";
 
 	
 }
