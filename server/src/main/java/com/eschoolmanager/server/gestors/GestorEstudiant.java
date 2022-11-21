@@ -70,7 +70,7 @@ public class GestorEstudiant extends GestorEscola {
 			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
 				estudiants = escola.getEstudiants();//Llista els estudiants amb l'ordre per defecte
 			} else {
-				//Llista els empleats segons la petició
+				//Llista els estudiants segons la petició
 				String consulta = "SELECT e FROM Estudiant e ORDER BY e." + camp + " " + ordre;
 	
 				entityManager.getTransaction().begin();   
@@ -125,5 +125,35 @@ public class GestorEstudiant extends GestorEscola {
         dadesEstudiant.put(DADES_ESTAT_ESTUDIANT, estudiant.isRegistrat());
         
         return dadesEstudiant;
+    }
+	
+	/**
+     * Actualitza estudiant de l'escola
+     * @param codi de l'estudiant
+     * @param dni de l'estudiant
+     * @param nom de l'estudiant
+     * @param cognoms de l'estudiant
+     * @param dataNaixement de l'estudiant
+     * @param telefon de l'estudiant
+     * @param email de l'estudiantt
+     * @param adreça de l'estudiant
+     * @param estat de l'estudiant
+     * @throws GestorExcepcions
+     */
+	public void actualitza(int codiEstudiant, String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Boolean registrat) throws GestorExcepcions {
+
+        // Troba l'estudiant
+        Estudiant estudiant = escola.trobaEstudiant(codiEstudiant);
+        if (estudiant == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_ESTUDIANT);
+		}
+        
+        // Actualitza l'estudiant
+        escola.actualitzaEstudiant(estudiant, dni, nom, cognoms, dataNaixement, telefon, email, adreca, registrat);
+       
+        // Persisteix el departament
+        entityManager.getTransaction().begin();
+        entityManager.merge(estudiant);
+        entityManager.getTransaction().commit();
     }
 }

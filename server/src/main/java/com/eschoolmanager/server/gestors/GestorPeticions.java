@@ -455,6 +455,32 @@ public class GestorPeticions implements Constants {
 					
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_MODI_ESTUDIANT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			        java.util.Date parsedDate = null;
+					try {
+						parsedDate = format.parse(dadesPeticio.getString(DADES_DATA_NAIXEMENT_ESTUDIANT));
+					} catch (ParseException e) {
+						System.out.println(ERROR_GENERIC);
+					}
+					
+					gestorEstudiant.actualitza(
+							dadesPeticio.getInt(DADES_CODI_ESTUDIANT),
+							dadesPeticio.getString(DADES_DNI_ESTUDIANT),
+							dadesPeticio.getString(DADES_NOM_ESTUDIANT),
+							dadesPeticio.getString(DADES_COGNOMS_ESTUDIANT),
+							new Date(parsedDate.getTime()),
+							dadesPeticio.getString(DADES_TELEFON_ESTUDIANT),
+							dadesPeticio.getString(DADES_EMAIL_ESTUDIANT),
+							dadesPeticio.getString(DADES_ADRECA_ESTUDIANT),
+							dadesPeticio.getBoolean(DADES_ESTAT_ESTUDIANT)
+					);
+
+					// Genera resposta
+					return generaRespostaOK(dadesResposta);	
+				}
 				default: {
 					// Genera resposta
 					return generaRespostaNOK(ERROR_GENERIC);

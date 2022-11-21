@@ -380,7 +380,7 @@ public class Escola implements Constants {
 	public Empleat altaEmpleat(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Departament departament) throws GestorExcepcions {
 
 		if (trobaEmpleat(dni) != null) {
-            throw new GestorExcepcions(ERROR_EXISTEIX_EMPLEAT);
+            throw new GestorExcepcions(ERROR_DUPLICAT_EMPLEAT);
         }
 		
 		Empleat empleat = departament.altaEmpleat(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
@@ -407,7 +407,7 @@ public class Escola implements Constants {
 	public void actualitzaEmpleat(Empleat empleat, String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Boolean actiu, Departament departament) throws GestorExcepcions {
 
 		if ((trobaEmpleat(dni) != null) && !empleat.getDni().equals(dni)) {
-            throw new GestorExcepcions(ERROR_EXISTEIX_EMPLEAT);
+            throw new GestorExcepcions(ERROR_DUPLICAT_EMPLEAT);
         }
 		
 		empleat.actualitza(dni, nom, cognoms, dataNaixement, telefon, email, adreca, actiu, departament);
@@ -562,6 +562,28 @@ public class Escola implements Constants {
 		estudiant.setEscola(this);
 		
 		return estudiant;
+	}
+	
+	/**
+	 * Actualitza un estudiant
+     * @param l'estudiant
+     * @param dni actualitzat de l'estudiant
+     * @param nom actualitzat de l'estudiant
+     * @param cognoms actualitzat de l'estudiant
+     * @param dataNaixement actualitzada de l'estudiant
+     * @param telefon actualitzat de l'estudiant
+     * @param email actualitzat de l'estudiant
+     * @param adreça actualitzada de l'estudiant
+     * @param estat actualitzat de l'estudiant
+	 * @throws GestorExcepcions 
+	 */
+	public void actualitzaEstudiant(Estudiant estudiant, String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Boolean registrat) throws GestorExcepcions {
+
+		if ((trobaEstudiant(dni) != null) && !estudiant.getDni().equals(dni)) {
+            throw new GestorExcepcions(ERROR_DUPLICAT_ESTUDIANT);
+        }
+		
+		estudiant.actualitza(dni, nom, cognoms, dataNaixement, telefon, email, adreca, registrat);
 	}
 	
 	/**

@@ -98,7 +98,6 @@ public interface Constants {
 	public final static String ERROR_INEXISTENT_SERVEI = "No existeix el servei indicat";
 	public final static String ERROR_ELEMENTS_RELACIONATS_SERVEI = "Existeixen altres elements relacionats amb el servei";
 	public final static String ERROR_ELEMENTS_RELACIONATS_EMPLEAT = "Existeixen altres elements relacionats amb l'empleat";
-	public final static String ERROR_EXISTEIX_EMPLEAT = "Ja existeix un empleat amb el mateix DNI";
 	public final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";

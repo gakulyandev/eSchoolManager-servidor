@@ -106,4 +106,22 @@ public class Estudiant extends Persona {
 	public void setSessions(List<Sessio> sessions) {
 		this.sessions = sessions;
 	}
+	
+	/**
+	 * Actualitza l'estudiant
+     * @param codi de l'estudiant
+     * @param dni de l'estudiant
+     * @param nom de l'estudiant
+     * @param cognoms de l'estudiant
+     * @param dataNaixement de l'estudiant
+     * @param telefon de l'estudiant
+     * @param email de l'estudiant
+     * @param adreça de l'estudiant
+     * @param estat de l'estudiant
+	 * @throws GestorExcepcions 
+	 */
+	public void actualitza(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Boolean registrat) throws GestorExcepcions {
+		this.actualitzaPersona(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+		this.setRegistrat(registrat);
+	}
 }
