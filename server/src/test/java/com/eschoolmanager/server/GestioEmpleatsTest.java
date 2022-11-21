@@ -375,7 +375,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "12");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -397,15 +397,15 @@ public class GestioEmpleatsTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova actualitzar un empleat amb un usuari autoritzat i empleat no existent
+     * Mètode que prova actualitzar un empleat amb un usuari autoritzat i dades incorrectes
      */
     @Test
-    public void provaModiEmpleatAutoritzatDadesIncorrectesEmpleat() {
+    public void provaModiEmpleatAutoritzatDadesIncorrectes() {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "12");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877Addd");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -428,15 +428,15 @@ public class GestioEmpleatsTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova actualitzar un empleat amb un usuari autoritzat i dades incorrectes
+     * Mètode que prova actualitzar un empleat amb un usuari autoritzat i empleat no existent
      */
     @Test
-    public void provaModiEmpleatAutoritzatDadesIncorrectes() {
+    public void provaModiEmpleatAutoritzatDadesIncorrectesEmpleat() {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "30");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 30);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -467,7 +467,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "12");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -498,7 +498,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "12");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "22233344N");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -529,7 +529,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "12");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -560,7 +560,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, "12");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
     	dadesPeticio.put(DADES_DATA_NAIXEMENT_EMPLEAT, "1991-10-28");
@@ -580,8 +580,6 @@ public class GestioEmpleatsTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
-    
-
     
 	/**
      * Mètode que donar de baixa un empleat amb un usuari autoritzat i empleat existent

@@ -301,7 +301,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 3);
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "DocentModificat");
     	dadesPeticioPermisos.put(PERMIS, true);
     	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
@@ -323,7 +323,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 3);
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
     	dadesPeticioPermisos.put(PERMIS, true);
     	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
@@ -346,7 +346,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "10");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 10);
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
     	dadesPeticioPermisos.put(PERMIS, true);
     	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
@@ -368,7 +368,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "3");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 3);
     	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Administratiu");
     	dadesPeticioPermisos.put(PERMIS, true);
     	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);

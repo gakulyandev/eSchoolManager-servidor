@@ -293,7 +293,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, "5");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
@@ -315,7 +315,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_SERVEI, "5");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
@@ -338,7 +338,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, "10");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 10);
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
@@ -360,7 +360,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, "5");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
     	dadesPeticio.put(DADES_NOM_SERVEI, "Psicopedagogia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
@@ -383,7 +383,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, "5");
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
     	peticio.put(DADES, dadesPeticio);
