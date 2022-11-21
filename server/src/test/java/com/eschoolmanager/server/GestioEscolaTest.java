@@ -55,7 +55,7 @@ public class GestioEscolaTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova consultar un servei amb un usuari no autoritzat i servei existent
+     * Mètode que prova consultar un escola amb un usuari no autoritzat i escola existent
      */
     @Test
     public void provaConsultaEscolaNoAutoritzatDadesCorrectes() {
@@ -75,7 +75,7 @@ public class GestioEscolaTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova consultar un servei amb un usuari autoritzat i servei inexistent
+     * Mètode que prova consultar un escola amb un usuari autoritzat i escola inexistent
      */
     @Test
     public void provaConsultaEscolaAutoritzatDadesIncorrectes() {
@@ -95,7 +95,7 @@ public class GestioEscolaTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova consultar un servei amb dades incompletes
+     * Mètode que prova consultar un escola amb dades incompletes
      */
     @Test
     public void provaConsultaEscolaDadesIncompletes() {
@@ -103,6 +103,95 @@ public class GestioEscolaTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_ESCOLA);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar les dades de l'escola amb un usuari autoritzat i escola existent
+     */
+    @Test
+    public void provaModiEscolaAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_ESCOLA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CODI_ESCOLA, CODI_ESCOLA);
+    	dadesPeticio.put(DADES_NOM_ESCOLA, "Escola Prova modificada");
+    	dadesPeticio.put(DADES_ADRECA_ESCOLA, "c/Prova, 1 modificada");
+    	dadesPeticio.put(DADES_TELEFON_ESCOLA, "934445556");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar les dades de l'escola amb un usuari no autoritzat
+     */
+    @Test
+    public void provaModiEscolaNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_ESCOLA);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_ESCOLA, CODI_ESCOLA);
+    	dadesPeticio.put(DADES_NOM_ESCOLA, "Escola Prova modificada");
+    	dadesPeticio.put(DADES_ADRECA_ESCOLA, "c/Prova, 1 modificada");
+    	dadesPeticio.put(DADES_TELEFON_ESCOLA, "934445556");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar les dades de l'escola amb un usuari autoritzat i escola inexistent
+     */
+    @Test
+    public void provaModiEscolaAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_ESCOLA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_CODI_ESCOLA, "10");
+    	dadesPeticio.put(DADES_NOM_ESCOLA, "Escola Prova modificada");
+    	dadesPeticio.put(DADES_ADRECA_ESCOLA, "c/Prova, 1 modificada");
+    	dadesPeticio.put(DADES_TELEFON_ESCOLA, "934445556");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar les dades de l'escola amb dades incompletes
+     */
+    @Test
+    public void provaModiEscolaDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_ESCOLA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministrador");
+    	dadesPeticio.put(DADES_NOM_ESCOLA, "Escola Prova modificada");
+    	dadesPeticio.put(DADES_ADRECA_ESCOLA, "c/Prova, 1 modificada");
+    	dadesPeticio.put(DADES_TELEFON_ESCOLA, "934445556");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

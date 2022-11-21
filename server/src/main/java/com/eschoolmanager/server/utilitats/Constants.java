@@ -13,6 +13,7 @@ public interface Constants {
 	public final static String CRIDA_LOGIN = "LOGIN";
 	public final static String CRIDA_LOGOUT = "LOGOUT";
 	public final static String CRIDA_CONSULTA_ESCOLA = "CONSULTA ESCOLA";
+	public final static String CRIDA_MODI_ESCOLA = "MODI ESCOLA";
 	public final static String CRIDA_ALTA_DEPARTAMENT = "ALTA DEPARTAMENT";
 	public final static String CRIDA_LLISTA_DEPARTAMENTS = "LLISTA DEPARTAMENTS";
 	public final static String CRIDA_CONSULTA_DEPARTAMENT = "CONSULTA DEPARTAMENT";
