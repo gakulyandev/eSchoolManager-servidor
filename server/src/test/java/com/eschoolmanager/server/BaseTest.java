@@ -193,6 +193,7 @@ public class BaseTest implements Constants {
 				new SessioUsuari(
 						"codiProvaAdministrador", 
 						usuariAdministrador, 
+						usuariAdministrador.getEmpleat().getCodi(), 
 						usuariAdministrador.getEmpleat().getNom(), 
 						usuariAdministrador.getEmpleat().getDepartament().getNom(), 
 						usuariAdministrador.getEmpleat().getDepartament().getPermisos()
@@ -202,6 +203,7 @@ public class BaseTest implements Constants {
 				new SessioUsuari(
 						"codiProvaAdministratiu", 
 						usuariAdministratiu, 
+						usuariAdministratiu.getEmpleat().getCodi(), 
 						usuariAdministratiu.getEmpleat().getNom(), 
 						usuariAdministratiu.getEmpleat().getDepartament().getNom(), 
 						usuariAdministratiu.getEmpleat().getDepartament().getPermisos()
@@ -211,6 +213,7 @@ public class BaseTest implements Constants {
 				new SessioUsuari(
 						"codiProvaDocent", 
 						usuariDocent, 
+						usuariDocent.getEmpleat().getCodi(), 
 						usuariDocent.getEmpleat().getNom(), 
 						usuariDocent.getEmpleat().getDepartament().getNom(), 
 						usuariDocent.getEmpleat().getDepartament().getPermisos()

@@ -75,6 +75,7 @@ public class GestorPeticions implements Constants {
 					);
 					// Genera resposta
 					dadesResposta.put(DADES_CODI_SESSIO, dadesSessio.get(DADES_CODI_SESSIO));
+					dadesResposta.put(DADES_CODI_EMPLEAT, dadesSessio.get(DADES_CODI_EMPLEAT));
 					dadesResposta.put(DADES_NOM_EMPLEAT, dadesSessio.get(DADES_NOM_EMPLEAT));
 					dadesResposta.put(DADES_NOM_DEPARTAMENT, dadesSessio.get(DADES_NOM_DEPARTAMENT));
 					

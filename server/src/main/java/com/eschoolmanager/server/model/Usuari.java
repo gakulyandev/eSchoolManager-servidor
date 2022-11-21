@@ -170,6 +170,7 @@ public class Usuari {
         return new SessioUsuari(
         		(this.nomUsuari + Timestamp.from(Instant.now())).replaceAll("\\s+",""), 
         		this,
+        		this.empleat.getCodi(), 
         		this.empleat.getNom(), 
         		this.empleat.getDepartament().getNom(), 
         		this.empleat.getDepartament().getPermisos()

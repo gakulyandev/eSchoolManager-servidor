@@ -13,6 +13,7 @@ public class SessioUsuari {
 	
 	private String codi;
 	private Usuari usuari;
+	private int codiEmpleat;
 	private String nomEmpleat;
 	private String nomDepartament;
 	private List<Permis> permisos;
@@ -23,9 +24,10 @@ public class SessioUsuari {
      * @param nomEmpleat de l'usuari
      * @param codiDepartament de l'usuari
      */
-	public SessioUsuari(String codiSessio, Usuari usuari, String nomEmpleat, String nomDepartament, List<Permis> permisos) {
+	public SessioUsuari(String codiSessio, Usuari usuari, int codiEmpleat, String nomEmpleat, String nomDepartament, List<Permis> permisos) {
 		this.codi = codiSessio;
 		this.usuari = usuari;
+		this.codiEmpleat = codiEmpleat;
 		this.nomEmpleat = nomEmpleat;
 		this.nomDepartament = nomDepartament;
 		this.permisos = permisos;
@@ -45,6 +47,14 @@ public class SessioUsuari {
 	 */
 	public Usuari getUsuari() {
 		return usuari;
+	}
+
+	/**
+	 * Obté el codi de l'empleat
+	 * @return codiEmpleat de l'empleat
+	 */
+	public String getCodiEmpleat() {
+		return nomEmpleat;
 	}
 
 	/**

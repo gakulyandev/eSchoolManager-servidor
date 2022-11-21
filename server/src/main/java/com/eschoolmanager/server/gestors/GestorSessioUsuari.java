@@ -83,6 +83,7 @@ public class GestorSessioUsuari extends GestorEscola {
         
         HashMap<String, Object> dadesSessio = new HashMap<String, Object>();
         dadesSessio.put(DADES_CODI_SESSIO, sessio.getCodi());
+        dadesSessio.put(DADES_CODI_EMPLEAT, sessio.getCodiEmpleat());
         dadesSessio.put(DADES_NOM_EMPLEAT, sessio.getNomEmpleat());
         dadesSessio.put(DADES_NOM_DEPARTAMENT, sessio.getNomDepartament());
         dadesSessio.put(DADES_PERMISOS_DEPARTAMENT, permisos);
