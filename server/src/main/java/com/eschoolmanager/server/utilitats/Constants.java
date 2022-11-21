@@ -28,7 +28,8 @@ public interface Constants {
 	public final static String CRIDA_CONSULTA_EMPLEAT = "CONSULTA EMPLEAT";
 	public final static String CRIDA_MODI_EMPLEAT = "MODI EMPLEAT";
 	public final static String CRIDA_BAIXA_EMPLEAT = "BAIXA EMPLEAT";
-	
+
+	public final static int CODI_ESCOLA = 1;
 	public final static String CODI_SESSIO = "codiSessio";
 	public final static String RESPOSTA = "resposta";
 	public final static String RESPOSTA_OK = "OK";

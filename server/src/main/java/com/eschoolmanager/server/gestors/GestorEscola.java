@@ -1,5 +1,6 @@
 package com.eschoolmanager.server.gestors;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Escola;
+import com.eschoolmanager.server.model.Servei;
 import com.eschoolmanager.server.utilitats.Constants;
 
 /**
@@ -18,7 +20,6 @@ public class GestorEscola implements Constants {
     protected EntityManager entityManager = null;
     protected Escola escola;
     
-    private final static int CODI_ESCOLA = 1;
 	protected final static String PERMIS_ACCES= "acces";  
 
 	protected final static String DADES_CAMP_CODI = "codi";  
@@ -52,4 +53,25 @@ public class GestorEscola implements Constants {
         	throw new GestorExcepcions(ERROR_GENERIC);
         }
 	}
+	
+	/**
+     * Obté les dades de l'escola
+     * @param codi de l'escola
+     * @return dades de l'escola
+     * @throws GestorExcepcions
+     */
+	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
+        
+		// Confirma codi
+		if (escola.getCodi() != codi) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_ESCOLA);
+		}
+        
+        HashMap<String, Object> dadesEscola = new HashMap<String, Object>();
+        dadesEscola.put(DADES_NOM_ESCOLA, escola.getNom());
+        dadesEscola.put(DADES_ADRECA_ESCOLA, escola.getAdreca());
+        dadesEscola.put(DADES_TELEFON_ESCOLA, escola.getTelefon());
+        
+        return dadesEscola;
+    }
 }

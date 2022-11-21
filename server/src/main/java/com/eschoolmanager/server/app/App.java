@@ -18,13 +18,13 @@ import com.eschoolmanager.server.model.Escola;
 import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Professor;
 import com.eschoolmanager.server.model.Usuari;
+import com.eschoolmanager.server.utilitats.Constants;
 
 /**
  * @author Gayané Akulyan Akulyan
  * Classe que executa l'aplicació servidor
  */
-public class App 
-{
+public class App implements Constants {
 	public static void main( String[] args ) {
     	
     	// Executa el servidor a espera de clients
@@ -50,11 +50,12 @@ public class App
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
 		// Creació de l'escola
-		Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");		
+		Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");	
+		escola.setCodi(CODI_ESCOLA);
 		
 		// Creació de permisos
 		Permis permisAcces = new Permis("acces","LOGIN;LOGOUT");
-		Permis permisEscola = new Permis("escola","MODI ESCOLA");
+		Permis permisEscola = new Permis("escola","CONSULTA ESCOLA;MODI ESCOLA");
 		Permis permisDepartament = new Permis("departament","ALTA DEPARTAMENT;BAIXA DEPARTAMENT;MODI DEPARTAMENT;LLISTA DEPARTAMENTS;CONSULTA DEPARTAMENT");
 		Permis permisEmpleat = new Permis("empleat","ALTA EMPLEAT;BAIXA EMPLEAT;MODI EMPLEAT;LLISTA EMPLEATS;CONSULTA EMPLEAT");
 		Permis permisServei = new Permis("servei","ALTA SERVEI;BAIXA SERVEI;MODI SERVEI;LLISTA SERVEIS;CONSULTA SERVEI");

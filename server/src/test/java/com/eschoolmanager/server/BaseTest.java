@@ -114,7 +114,7 @@ public class BaseTest implements Constants {
         
 		// Creació de permisos
 		Permis permisAcces = new Permis("acces","LOGIN;LOGOUT");
-		Permis permisEscola = new Permis("escola","MODI ESCOLA");
+		Permis permisEscola = new Permis("escola","CONSULTA ESCOLA;MODI ESCOLA");
 		Permis permisDepartament = new Permis("departament","ALTA DEPARTAMENT;BAIXA DEPARTAMENT;MODI DEPARTAMENT;LLISTA DEPARTAMENTS;CONSULTA DEPARTAMENT");
 		Permis permisEmpleat = new Permis("empleat","ALTA EMPLEAT;BAIXA EMPLEAT;MODI EMPLEAT;LLISTA EMPLEATS;CONSULTA EMPLEAT");
 		Permis permisServei = new Permis("servei","ALTA SERVEI;BAIXA SERVEI;MODI SERVEI;LLISTA SERVEIS;CONSULTA SERVEI");

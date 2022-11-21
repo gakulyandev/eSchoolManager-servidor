@@ -42,7 +42,7 @@ public class GestioEscolaTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_ESCOLA);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_CODI_ESCOLA, 1);
+    	dadesPeticio.put(DADES_CODI_ESCOLA, CODI_ESCOLA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -51,7 +51,7 @@ public class GestioEscolaTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
-        assertEquals("Psicologia", dadesResposta.get(DADES_NOM_ESCOLA));
+        assertEquals("Escola Prova", dadesResposta.get(DADES_NOM_ESCOLA));
     }
     
     /**
@@ -63,7 +63,7 @@ public class GestioEscolaTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_ESCOLA);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_ESCOLA, 1);
+    	dadesPeticio.put(DADES_CODI_ESCOLA, CODI_ESCOLA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

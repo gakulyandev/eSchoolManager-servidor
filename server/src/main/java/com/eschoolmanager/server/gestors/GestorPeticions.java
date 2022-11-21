@@ -22,6 +22,7 @@ import org.json.JSONObject;
  */
 public class GestorPeticions implements Constants {
 
+	private GestorEscola gestorEscola;
 	private GestorSessioUsuari gestorSessioUsuari;
 	private GestorDepartament gestorDepartament;
 	private GestorServei gestorServei;
@@ -33,6 +34,7 @@ public class GestorPeticions implements Constants {
 	 * @throws GestorExcepcions 
      */
 	public GestorPeticions(EntityManager entityManager, GestorSessionsUsuari gestorSessionsUsuari) throws GestorExcepcions {
+		this.gestorEscola = new GestorEscola(entityManager);
 		this.gestorSessioUsuari = new GestorSessioUsuari(gestorSessionsUsuari, entityManager);
 		this.gestorDepartament = new GestorDepartament(entityManager);
 		this.gestorServei = new GestorServei(entityManager);
@@ -94,6 +96,20 @@ public class GestorPeticions implements Constants {
 					
 					// Genera resposta
 					return generaRespostaOK(null);
+				}
+
+				case CRIDA_CONSULTA_ESCOLA: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+
+					HashMap<String, Object> dadesServei = gestorEscola.consulta(dadesPeticio.getInt(DADES_CODI_ESCOLA));
+					
+					// Genera resposta
+					dadesResposta.put(DADES_NOM_ESCOLA, dadesServei.get(DADES_NOM_ESCOLA));
+					dadesResposta.put(DADES_ADRECA_ESCOLA, dadesServei.get(DADES_ADRECA_ESCOLA));
+					dadesResposta.put(DADES_TELEFON_ESCOLA, dadesServei.get(DADES_TELEFON_ESCOLA));
+					
+					return generaRespostaOK(dadesResposta);	
 				}
 				case CRIDA_ALTA_DEPARTAMENT: {
 					// Processa la petició
