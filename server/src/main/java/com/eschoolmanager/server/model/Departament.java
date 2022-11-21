@@ -22,7 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.eschoolmanager.server.gestors.GestorExcepcions;
-import com.eschoolmanager.server.utilitats.Constants;
 
 /**
  * @author Gayané Akulyan Akulyan

@@ -11,8 +11,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,7 +25,6 @@ import com.eschoolmanager.server.gestors.GestorExcepcions;
 @DiscriminatorValue("ES")
 public class Estudiant extends Persona {
 	
-	private Escola escola;
 	private boolean registrat = false;
 	private List<Beca> beques;
 	private List<Sessio> sessions;

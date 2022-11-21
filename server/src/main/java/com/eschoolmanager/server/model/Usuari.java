@@ -3,7 +3,6 @@
  */
 package com.eschoolmanager.server.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
 
@@ -19,8 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import com.eschoolmanager.server.gestors.GestorExcepcions;
 
 /**
  * @author Gayané Akulyan Akulyan

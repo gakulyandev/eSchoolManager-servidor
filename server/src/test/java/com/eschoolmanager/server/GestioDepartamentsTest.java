@@ -10,8 +10,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.eschoolmanager.server.utilitats.Constants;
-
 import org.json.JSONObject;
 
 /**

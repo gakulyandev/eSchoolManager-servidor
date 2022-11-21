@@ -29,6 +29,7 @@ public interface Constants {
 	public final static String CRIDA_CONSULTA_EMPLEAT = "CONSULTA EMPLEAT";
 	public final static String CRIDA_MODI_EMPLEAT = "MODI EMPLEAT";
 	public final static String CRIDA_BAIXA_EMPLEAT = "BAIXA EMPLEAT";
+	public final static String CRIDA_ALTA_ESTUDIANT = "ALTA EMPLEAT";
 
 	public final static int CODI_ESCOLA = 1;
 	public final static String CODI_SESSIO = "codiSessio";
@@ -66,6 +67,14 @@ public interface Constants {
 	public final static String DADES_NOM_USUARI = "usuari";
 	public final static String DADES_CONTRASENYA_USUARI = "contrasenya";
 	public final static String DADES_PERMISOS_DEPARTAMENT = "permisos";
+	public final static String DADES_DNI_ESTUDIANT = "dni";
+	public final static String DADES_NOM_ESTUDIANT = "nomEstudiant";
+	public final static String DADES_COGNOMS_ESTUDIANT = "cognoms";
+	public final static String DADES_DATA_NAIXEMENT_ESTUDIANT = "dataNaixement";
+	public final static String DADES_ADRECA_ESTUDIANT = "adreca";
+	public final static String DADES_TELEFON_ESTUDIANT = "telefon";
+	public final static String DADES_EMAIL_ESTUDIANT = "email";
+	public final static String DADES_ESTAT_ESTUDIANT = "registrat";
 	
 	public final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
 	
@@ -89,6 +98,6 @@ public interface Constants {
 	public final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
-
+	public final static String ERROR_DUPLICAT_ESTUDIANT = "Ja existeix un estudiant amb el mateix DNI";
 	
 }
