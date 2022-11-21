@@ -244,4 +244,84 @@ public class GestioEstudiantsTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
+    
+    /**
+     * Mètode que prova consultar un estudiant amb un usuari autoritzat i estudiant existent
+     */
+    @Test
+    public void provaConsultaEstudiantAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_ESTUDIANT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Clara", dadesResposta.get(DADES_NOM_ESTUDIANT));
+    }
+    
+    /**
+     * Mètode que prova consultar un estudiant amb un usuari no autoritzat i estudiant existent
+     */
+    @Test
+    public void provaConsultaEstudiantNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_ESTUDIANT);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar un estudiant amb un usuari autoritzat i estudiant inexistent
+     */
+    @Test
+    public void provaConsultaEstudiantAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_ESTUDIANT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 30);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_ESTUDIANT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar un estudiant amb dades incompletes
+     */
+    @Test
+    public void provaConsultaEstudiantDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_ESTUDIANT);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 }

@@ -31,6 +31,7 @@ public interface Constants {
 	public final static String CRIDA_BAIXA_EMPLEAT = "BAIXA EMPLEAT";
 	public final static String CRIDA_ALTA_ESTUDIANT = "ALTA ESTUDIANT";
 	public final static String CRIDA_LLISTA_ESTUDIANTS = "LLISTA ESTUDIANTS";
+	public final static String CRIDA_CONSULTA_ESTUDIANT = "CONSULTA ESTUDIANT";
 
 	public final static int CODI_ESCOLA = 1;
 	public final static String CODI_SESSIO = "codiSessio";
@@ -101,5 +102,6 @@ public interface Constants {
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";
 	public final static String ERROR_DUPLICAT_ESTUDIANT = "Ja existeix un estudiant amb el mateix DNI";
+    public final static String ERROR_INEXISTENT_ESTUDIANT = "No existeix l'estudiant indicat";
 	
 }
