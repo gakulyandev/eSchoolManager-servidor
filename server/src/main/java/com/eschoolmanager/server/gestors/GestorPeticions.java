@@ -27,6 +27,7 @@ public class GestorPeticions implements Constants {
 	private GestorDepartament gestorDepartament;
 	private GestorServei gestorServei;
 	private GestorEmpleat gestorEmpleat;
+	private GestorEstudiant gestorEstudiant;
 	
 	/**
      * Constructor que associa i inicialitza els diferents gestors
@@ -39,6 +40,7 @@ public class GestorPeticions implements Constants {
 		this.gestorDepartament = new GestorDepartament(entityManager);
 		this.gestorServei = new GestorServei(entityManager);
 		this.gestorEmpleat = new GestorEmpleat(entityManager);
+		this.gestorEstudiant = new GestorEstudiant(entityManager);
 	}
 
 	/**
@@ -388,6 +390,30 @@ public class GestorPeticions implements Constants {
 					gestorEmpleat.baixa(dadesPeticio.getInt(DADES_CODI_EMPLEAT));
 
 					// Genera resposta					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_ALTA_ESTUDIANT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			        java.util.Date parsedDate = null;
+					try {
+						parsedDate = format.parse(dadesPeticio.getString(DADES_DATA_NAIXEMENT_ESTUDIANT));
+					} catch (ParseException e) {
+						System.out.println(ERROR_GENERIC);
+					}
+					
+					gestorEstudiant.alta(
+							dadesPeticio.getString(DADES_DNI_ESTUDIANT),
+							dadesPeticio.getString(DADES_NOM_ESTUDIANT),
+							dadesPeticio.getString(DADES_COGNOMS_ESTUDIANT),
+							new Date(parsedDate.getTime()),
+							dadesPeticio.getString(DADES_TELEFON_ESTUDIANT),
+							dadesPeticio.getString(DADES_EMAIL_ESTUDIANT),
+							dadesPeticio.getString(DADES_ADRECA_ESTUDIANT)
+					);
+
+					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
 				default: {

@@ -23,6 +23,7 @@ import com.eschoolmanager.server.gestors.GestorSessionsUsuari;
 import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Escola;
+import com.eschoolmanager.server.model.Estudiant;
 import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Professor;
 import com.eschoolmanager.server.model.SessioUsuari;
@@ -222,6 +223,11 @@ public class BaseTest implements Constants {
 		serveiPsicologia.setCodi(5);
 		serveiPsicopedagogia.setCodi(6);
 		serveiPsicologia.assignaProfessor(empleatDocent);
+		
+		//Creació d'estudiants d'exemple
+		Estudiant estudiant1 = escola.altaEstudiant("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5");
+		Estudiant estudiant2 = escola.altaEstudiant("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4");
+		
 		
 		insertaDades(escola);
     }

@@ -538,4 +538,43 @@ public class Escola implements Constants {
 		this.setAdreca(adreca);
 		this.setTelefon(telefon);
 	}
+	
+	/**
+	 * Afegeix un estudiant al llistat
+     * @param dni del nou estudiant
+     * @param nom del nou estudiant
+     * @param cognoms del nou estudiant
+     * @param dataNaixement del nou estudiant
+     * @param telefon del nou estudiant
+     * @param email del nou estudiant
+     * @param adreça del nou estudiant
+     * @return estudiant creat
+	 * @throws GestorExcepcions 
+	 */
+	public Estudiant altaEstudiant(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
+
+		if (trobaEstudiant(dni) != null) {
+            throw new GestorExcepcions(ERROR_DUPLICAT_ESTUDIANT);
+        }
+		
+		Estudiant estudiant = new Estudiant(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
+		this.estudiants.add(estudiant);
+		estudiant.setEscola(this);
+		
+		return estudiant;
+	}
+	
+	/**
+	 * Obté un estudiant amb el dni indicat
+	 * @return estudiant trobat o null
+	 */
+	public Estudiant trobaEstudiant(String dni) {
+		for(Estudiant estudiant : this.estudiants) {
+			if (estudiant.getDni().equals(dni)) {
+				return estudiant;
+			}
+		}
+		
+		return null;
+	}
 }

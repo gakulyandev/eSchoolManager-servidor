@@ -31,7 +31,7 @@ import static javax.persistence.DiscriminatorType.STRING;
 @Entity
 @Table(
 		name="Persona",
-		uniqueConstraints=@UniqueConstraint(columnNames={"dni"})
+		uniqueConstraints=@UniqueConstraint(columnNames={"dni","tipus"})
 )
 @Inheritance(strategy=JOINED)
 @DiscriminatorColumn(name="tipus", discriminatorType=STRING,length=20)

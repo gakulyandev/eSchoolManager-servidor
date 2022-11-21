@@ -48,10 +48,9 @@ public class Estudiant extends Persona {
      * @param adreca de l'estudiant
 	 * @throws GestorExcepcions 
      */
-	public Estudiant(Escola escola, String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
+	public Estudiant(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		
-		this.setEscola(escola);
 		this.setRegistrat(true);
 		this.setBeques(new ArrayList<Beca>());
 		this.setSessions(new ArrayList<Sessio>());
