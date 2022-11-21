@@ -181,7 +181,7 @@ public class GestorEmpleat extends GestorEscola {
 	
 	/**
      * Dona de baixa un empleat de l'escola
-     * @param codi del empleat a donar de baixa
+     * @param codi de l'empleat a donar de baixa
      * @throws GestorExcepcions
      */
 	public void baixa(int codi) throws GestorExcepcions {
@@ -189,7 +189,7 @@ public class GestorEmpleat extends GestorEscola {
 		// Troba el departament
         Empleat empleat = escola.trobaEmpleat(codi);
         if (empleat == null) {
-			throw new GestorExcepcions(ERROR_INEXISTENT_DEPARTAMENT);
+			throw new GestorExcepcions(ERROR_INEXISTENT_EMPLEAT);
 		}
         escola.baixaEmpleat(empleat);
         escola.baixaUsuari(empleat.getUsuari());

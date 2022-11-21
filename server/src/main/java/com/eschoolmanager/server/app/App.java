@@ -51,7 +51,6 @@ public class App implements Constants {
 		
 		// Creació de l'escola
 		Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");	
-		escola.setCodi(CODI_ESCOLA);
 		
 		// Creació de permisos
 		Permis permisAcces = new Permis("acces","LOGIN;LOGOUT");
@@ -118,7 +117,6 @@ public class App implements Constants {
 		// Creació de serveis d'exemple
 		escola.altaServei("Psicologia", 25.00, 1);
 		escola.altaServei("Psicopedagogia", 35.00, 2);
-		
 		// Persistencia
 		entityManager.getTransaction().begin();
         entityManager.persist(escola);

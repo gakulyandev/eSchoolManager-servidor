@@ -548,7 +548,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_INEXISTENT_DEPARTAMENT, resposta.get(MISSATGE));
+        assertEquals(ERROR_INEXISTENT_ESTUDIANT, resposta.get(MISSATGE));
     }
 
     /**

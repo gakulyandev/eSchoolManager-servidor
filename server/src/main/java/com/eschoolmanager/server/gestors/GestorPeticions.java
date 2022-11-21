@@ -481,6 +481,15 @@ public class GestorPeticions implements Constants {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_BAIXA_ESTUDIANT: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					gestorEstudiant.baixa(dadesPeticio.getInt(DADES_CODI_ESTUDIANT));
+
+					// Genera resposta					
+					return generaRespostaOK(dadesResposta);	
+				}
 				default: {
 					// Genera resposta
 					return generaRespostaNOK(ERROR_GENERIC);

@@ -613,4 +613,15 @@ public class Escola implements Constants {
 		
 		return null;
 	}
+	
+	/**
+	 * Dona de baixa un estudiant
+	 * @throws GestorExcepcions 
+	 */
+	public void baixaEstudiant(Estudiant estudiant) throws GestorExcepcions {
+		if (!estudiant.isBuit()) {
+			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS_ESTUDIANT);
+		}
+		this.estudiants.remove(estudiant);
+	}
 }

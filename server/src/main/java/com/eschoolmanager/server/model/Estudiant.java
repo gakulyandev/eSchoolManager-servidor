@@ -124,4 +124,23 @@ public class Estudiant extends Persona {
 		this.actualitzaPersona(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		this.setRegistrat(registrat);
 	}
+	
+	/**
+	 * Indica si l'estudiant té o no elements relacionats
+	 * @return true o false segons si té o no elements relacionats
+	 */
+	public Boolean isBuit() {
+		return (this.sessions.isEmpty() && this.beques.isEmpty());
+	}
+	
+	/**
+	 * Afegeix una beca al llistat
+	 * @param beca a afegir
+	 */
+	public void adjudicaBeca(Beca beca) {
+		if(!beques.contains(beca)) {
+			beques.add(beca);
+		}
+		beca.setEstudiant(this);
+	}
 }

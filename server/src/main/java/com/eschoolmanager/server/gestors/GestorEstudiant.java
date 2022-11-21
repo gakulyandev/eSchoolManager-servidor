@@ -156,4 +156,26 @@ public class GestorEstudiant extends GestorEscola {
         entityManager.merge(estudiant);
         entityManager.getTransaction().commit();
     }
+	
+	/**
+     * Dona de baixa un estudiant de l'escola
+     * @param codi de l'estudiant a donar de baixa
+     * @throws GestorExcepcions
+     */
+	public void baixa(int codi) throws GestorExcepcions {
+        
+		// Troba el departament
+        Estudiant estudiant = escola.trobaEstudiant(codi);
+        if (estudiant == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_ESTUDIANT);
+		}
+        escola.baixaEstudiant(estudiant);
+        
+        // Actualitza el departament
+        entityManager.getTransaction().begin();
+        entityManager.merge(escola);
+        entityManager.remove(estudiant);
+        entityManager.getTransaction().commit();
+    }
+
 }

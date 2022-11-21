@@ -51,10 +51,10 @@ public class Beca {
 		this.setAdjudicant(adjudicant);
 		this.setImportInicial(importInicial);
 		this.setImportRestant(importInicial);
-		this.setEstudiant(estudiant);
 		this.setServei(servei);
 		this.setFinalitzada(false);
 		this.setDataAdjudicacio(new Date(Calendar.LONG));
+		estudiant.adjudicaBeca(this);
 	}
 
 	/**
