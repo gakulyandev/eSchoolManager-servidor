@@ -1,0 +1,126 @@
+/**
+ * 
+ */
+package com.eschoolmanager.server;
+
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONObject;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * @author Gayané Akulyan Akulyan
+ * Classe per comprovar el funcionament de les gestions de beques
+ */
+public class GestioBequesTest extends BaseTest {
+
+	/**
+     * Neteja la base de dades i l'omple amb dades de prova
+     * @throws Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+    	super.setUp();
+    }
+    
+    /**
+     * Tanca l'entityManager i la factoria d'entitats en acabar els tests
+     */
+    @After()
+    public void classEnds() {
+    	super.classEnds();
+    }
+    
+    /**
+     * Mètode que prova donar d'alta una beca amb un usuari autoritzat i servei i estudiant existents
+     */
+    @Test
+    public void provaAltaBecaAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_ALTA_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 2000.00);
+    	dadesPeticio.put(DADES_ADJUDICANT_BECA, "Generalitat");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova donar d'alta una beca amb un usuari no autoritzat
+     */
+    @Test
+    public void provaAltaBecaNoAutoritzatDadesCorrectes() {
+
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_ALTA_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 2000.00);
+    	dadesPeticio.put(DADES_ADJUDICANT_BECA, "Generalitat");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova donar d'alta una beca amb un usuari autoritzat i servei i/o estudiant inexistents
+     */
+    @Test
+    public void provaAltaBecaAutoritzatDadesIncorrectes() {
+
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_ALTA_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 2000.00);
+    	dadesPeticio.put(DADES_ADJUDICANT_BECA, "Generalitat");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 40);
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_ESTUDIANT_SERVEI, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova donar d'alta una beca amb dades incompletes
+     */
+    @Test
+    public void provaAltaBecaDadesIncompletes() {
+    	
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_ALTA_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 2000.00);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+
+}
