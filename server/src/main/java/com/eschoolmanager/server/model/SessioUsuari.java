@@ -53,8 +53,8 @@ public class SessioUsuari {
 	 * Obté el codi de l'empleat
 	 * @return codiEmpleat de l'empleat
 	 */
-	public String getCodiEmpleat() {
-		return nomEmpleat;
+	public int getCodiEmpleat() {
+		return codiEmpleat;
 	}
 
 	/**
