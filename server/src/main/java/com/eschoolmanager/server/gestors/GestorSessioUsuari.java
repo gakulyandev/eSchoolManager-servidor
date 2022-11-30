@@ -36,9 +36,9 @@ public class GestorSessioUsuari extends GestorEscola {
 	 * Valida el codi de sessió de l'usuari
 	 * @param codiSessio de sessió a validar
 	 * @param crida per validar el permis de l'usuari
-	 * @throws GestorExcepcions en cas que no sigui vàlid
+	 * @return true o false segons si està validad o no
 	 */
-	public void validaSessio(String codiSessio, String crida) throws GestorExcepcions {
+	/*public boolean validaSessio(String codiSessio, String crida, int codiEmpleat) throws GestorExcepcions {
 		
 		// Troba l'usuari pel codi de sessió
 		Usuari usuari = gestorSessionsUsuari.trobaUsuari(codiSessio);
@@ -49,9 +49,59 @@ public class GestorSessioUsuari extends GestorEscola {
 		// Confirma si te permisos per la crida
 		Empleat empleat = usuari.getEmpleat();
 
-		if (!empleat.getDepartament().confirmaPermis(crida)) {
-			throw new GestorExcepcions(ERROR_NO_AUTORITZAT);
+		System.out.println("CODI EMPLEAT " + codiEmpleat);
+		System.out.println("CODI EMPLEAT " + empleat.getCodi());
+		System.out.println("AUTORITZAT " + (crida.equals(CRIDA_CONSULTA_EMPLEAT) && 
+				!empleat.getDepartament().confirmaPermis(crida) && 
+				(codiEmpleat != empleat.getCodi())));
+		
+		if (crida.equals(CRIDA_CONSULTA_EMPLEAT) && 
+						!empleat.getDepartament().confirmaPermis(crida) && 
+						(codiEmpleat == empleat.getCodi())) {
+			return true;
+		} else if (empleat.getDepartament().confirmaPermis(crida)) {
+			return true;
 		}
+		
+		return false;
+	}*/
+	
+	/**
+	 * Troba la sessió de l'usuari
+	 * @param codiSessio de sessió a validar
+	 * @return Sessió de l'usuari
+	 * @return true o false segons si està validad o no
+	 */
+	public SessioUsuari trobaSessio(String codiSessio) throws GestorExcepcions {
+		
+		// Troba la sessió amb el codi indicat
+		SessioUsuari sessio = gestorSessionsUsuari.trobaSessio(codiSessio);
+		if (sessio == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_USUARI);
+		}
+		
+		return sessio;
+	}
+	
+	/**
+	 * Confirma permisos
+	 * @param sessioUsuari per confirmar
+	 * @param crida per validar el permis de l'usuari
+	 * @param codiEmpleat necessari per alguns permisos
+	 */
+	public boolean confirmaPermis(SessioUsuari sessioUsuari, String crida, int codiEmpleat) throws GestorExcepcions {
+		
+		Empleat empleat = sessioUsuari.getUsuari().getEmpleat();
+		
+		if ((crida.equals(CRIDA_CONSULTA_EMPLEAT) || crida.equals(CRIDA_MODI_EMPLEAT)) && 
+				!empleat.getDepartament().confirmaPermis(crida) && 
+				(codiEmpleat == empleat.getCodi())) {// Confirma permis si és el propi empleat el que fa consulta o modi
+			return true;
+		} else if (empleat.getDepartament().confirmaPermis(crida)) {// Confirma permis sobre la resta de crides
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -98,8 +148,8 @@ public class GestorSessioUsuari extends GestorEscola {
 	 */
 	public void tancaSessio(String codiSessio) throws GestorExcepcions {
 		
-		// Confirma existencia d'un usuari amb el codi de sessió
-		if (gestorSessionsUsuari.trobaUsuari(codiSessio) == null) {
+		// Confirma existencia d'una sessió amb el codi indicat
+		if (gestorSessionsUsuari.trobaSessio(codiSessio) == null) {
 			throw new GestorExcepcions(ERROR_INEXISTENT_USUARI);
 		}
 		

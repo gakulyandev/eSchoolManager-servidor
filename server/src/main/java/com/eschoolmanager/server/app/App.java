@@ -53,7 +53,7 @@ public class App implements Constants {
 		Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");	
 		
 		// Creació de permisos
-		Permis permisAcces = new Permis("acces","LOGIN;LOGOUT");
+		Permis permisAcces = new Permis("acces","LOGOUT");
 		Permis permisEscola = new Permis("escola","CONSULTA ESCOLA;MODI ESCOLA");
 		Permis permisDepartament = new Permis("departament","ALTA DEPARTAMENT;BAIXA DEPARTAMENT;MODI DEPARTAMENT;LLISTA DEPARTAMENTS;CONSULTA DEPARTAMENT");
 		Permis permisEmpleat = new Permis("empleat","ALTA EMPLEAT;BAIXA EMPLEAT;MODI EMPLEAT;LLISTA EMPLEATS;CONSULTA EMPLEAT");

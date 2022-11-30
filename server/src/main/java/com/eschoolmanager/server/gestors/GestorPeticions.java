@@ -3,6 +3,7 @@
  */
 package com.eschoolmanager.server.gestors;
 
+import com.eschoolmanager.server.model.SessioUsuari;
 import com.eschoolmanager.server.utilitats.Constants;
 import javax.persistence.EntityManager;
 
@@ -57,9 +58,18 @@ public class GestorPeticions implements Constants {
 			
 			String crida = peticio.getString(CRIDA);
 		
-			// Valida codi de sessió i permis de crida per l'usuari amb la sessió iniciada
+			// Necessari per validar permisos del propi empleat per consultar i modificar les seves dades
+			int codiEmpleat = -1;
+			if (crida.equals(CRIDA_CONSULTA_EMPLEAT) || crida.equals(CRIDA_MODI_EMPLEAT)) {
+				codiEmpleat = peticio.getJSONObject(DADES).getInt(DADES_CODI_EMPLEAT);
+			}
+			
+			// Troba la sessió i confirma el permis de crida per l'usuari amb la sessió iniciada
 			if (!crida.equals(CRIDA_LOGIN)) {
-				gestorSessioUsuari.validaSessio(peticio.getString(CODI_SESSIO), crida);
+				SessioUsuari sessio = gestorSessioUsuari.trobaSessio(peticio.getString(CODI_SESSIO));
+				if (!gestorSessioUsuari.confirmaPermis(sessio, crida, codiEmpleat)) {
+					throw new GestorExcepcions(ERROR_NO_AUTORITZAT);
+				}
 			}
 			
 			// Gestió de la petició segons tipus de crida

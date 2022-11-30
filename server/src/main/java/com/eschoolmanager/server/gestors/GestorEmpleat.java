@@ -24,7 +24,7 @@ import com.eschoolmanager.server.model.Usuari;
  */
 public class GestorEmpleat extends GestorEscola {
 
-	private final static String[] DADES_CAMPS = {"nom","codi","cognoms","dataNaixement","telefon","email","adreca","codiDepartament"};
+	private final static String[] DADES_CAMPS = {"dni","nom","codi","cognoms","dataNaixement","telefon","email","adreca","codiDepartament"};
 	
 	/**
      * Constructor que associa el gestor a un EntityManager

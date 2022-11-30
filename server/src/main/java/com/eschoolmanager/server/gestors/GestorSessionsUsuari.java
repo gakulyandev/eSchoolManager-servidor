@@ -36,24 +36,11 @@ public class GestorSessionsUsuari {
 	 * Troba la sessió iniciada amb el codi indicat
 	 * @param codi de la sessió a trobar
 	 */
-	private SessioUsuari trobaSessio(String codi) {
+	public SessioUsuari trobaSessio(String codi) {
 		for(SessioUsuari sessio : sessions) {
 			if (sessio.getCodi().equals(codi)) {
 				return sessio;
 			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Troba l'usuari d'una sessió iniciada amb el codi indicat
-	 * @param codi de la sessió de l'usuari a trobar
-	 */
-	public Usuari trobaUsuari(String codi) {
-		SessioUsuari sessio = trobaSessio(codi);
-		if (sessio != null) {
-			return sessio.getUsuari();
 		}
 		
 		return null;

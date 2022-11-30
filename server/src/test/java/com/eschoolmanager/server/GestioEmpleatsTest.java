@@ -308,6 +308,25 @@ public class GestioEmpleatsTest extends BaseTest {
     }
     
     /**
+     * Mètode que prova consultar el propi empleat
+     */
+    @Test
+    public void provaConsultaPropiEmpleatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
      * Mètode que prova consultar un empleat amb un usuari no autoritzat i empleat existent
      */
     @Test
@@ -467,7 +486,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 11);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -487,6 +506,36 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Comprovació
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova actualitzar les dades del propi empleat
+     */
+    @Test
+    public void provaModiPropiEmpleatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
+    	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
+    	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
+    	dadesPeticio.put(DADES_DATA_NAIXEMENT_EMPLEAT, "1991-10-28");
+    	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
+    	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
+    	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
+    	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
+    	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
     }
     
     /**
