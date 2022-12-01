@@ -216,7 +216,7 @@ public class Servei {
 	}
 	
 	/**
-	 * Assigna un professor al llistat
+	 * Afegeix un professor al llistat
 	 * @param professor a assignar
 	 */
 	public void assignaProfessor(Professor professor) {
@@ -225,6 +225,16 @@ public class Servei {
 		}
 		if (!professor.getServeis().contains(this)) {
 			professor.afegeixServei(this);	
+		}
+	}
+	
+	/**
+	 * Afegeix una beca al llistat
+	 * @param beca a assignar
+	 */
+	public void assignaBeca(Beca beca) {
+		if(!beques.contains(beca)) {
+			beques.add(beca);
 		}
 	}
 	

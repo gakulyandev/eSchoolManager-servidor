@@ -29,6 +29,7 @@ public class GestorPeticions implements Constants {
 	private GestorServei gestorServei;
 	private GestorEmpleat gestorEmpleat;
 	private GestorEstudiant gestorEstudiant;
+	private GestorBeca gestorBeca;
 	
 	/**
      * Constructor que associa i inicialitza els diferents gestors
@@ -42,6 +43,7 @@ public class GestorPeticions implements Constants {
 		this.gestorServei = new GestorServei(entityManager);
 		this.gestorEmpleat = new GestorEmpleat(entityManager);
 		this.gestorEstudiant = new GestorEstudiant(entityManager);
+		this.gestorBeca = new GestorBeca(entityManager);
 	}
 
 	/**
@@ -499,6 +501,20 @@ public class GestorPeticions implements Constants {
 					gestorEstudiant.baixa(dadesPeticio.getInt(DADES_CODI_ESTUDIANT));
 
 					// Genera resposta					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_ALTA_BECA: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					gestorBeca.alta(
+							dadesPeticio.getString(DADES_ADJUDICANT_BECA),
+							dadesPeticio.getDouble(DADES_IMPORT_INICIAL_BECA),
+							dadesPeticio.getInt(DADES_CODI_ESTUDIANT),
+							dadesPeticio.getInt(DADES_CODI_SERVEI)
+					);
+
+					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
 				default: {
