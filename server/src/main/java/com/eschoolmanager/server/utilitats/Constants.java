@@ -35,6 +35,7 @@ public interface Constants {
 	public final static String CRIDA_MODI_ESTUDIANT = "MODI ESTUDIANT";
 	public final static String CRIDA_BAIXA_ESTUDIANT = "BAIXA ESTUDIANT";
 	public final static String CRIDA_ALTA_BECA = "ALTA BECA";
+	public final static String CRIDA_LLISTA_BEQUES = "LLISTA BEQUES";
 
 	public final static int CODI_ESCOLA = 1;
 	public final static String CODI_SESSIO = "codiSessio";
