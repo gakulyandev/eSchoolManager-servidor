@@ -36,6 +36,7 @@ public interface Constants {
 	public final static String CRIDA_BAIXA_ESTUDIANT = "BAIXA ESTUDIANT";
 	public final static String CRIDA_ALTA_BECA = "ALTA BECA";
 	public final static String CRIDA_LLISTA_BEQUES = "LLISTA BEQUES";
+	public final static String CRIDA_CONSULTA_BECA = "CONSULTA BECA";
 
 	public final static int CODI_ESCOLA = 1;
 	public final static String CODI_SESSIO = "codiSessio";
@@ -84,6 +85,7 @@ public interface Constants {
 	public final static String DADES_ESTAT_ESTUDIANT = "registrat";
 	public final static String DADES_IMPORT_INICIAL_BECA = "importInicial";
 	public final static String DADES_ADJUDICANT_BECA = "adjudicant";
+	public final static String DADES_CODI_BECA = "codiBeca";
 	
 	public final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
 	
@@ -98,6 +100,7 @@ public interface Constants {
 	public final static String ERROR_INEXISTENT_USUARI = "No existeix cap usuari amb les dades indicades";
     public final static String ERROR_INEXISTENT_ESTUDIANT = "No existeix l'estudiant indicat";
     public final static String ERROR_INEXISTENT_ESTUDIANT_SERVEI = "No existeix l'estudiant i/o servei indicats";
+	public final static String ERROR_INEXISTENT_BECA = "No existeix la beca indicada";
 	public final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";

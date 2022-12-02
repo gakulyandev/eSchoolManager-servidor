@@ -429,7 +429,6 @@ public class GestorPeticions implements Constants {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
-
 				case CRIDA_LLISTA_ESTUDIANTS: {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);

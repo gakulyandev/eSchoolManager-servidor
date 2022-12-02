@@ -236,6 +236,7 @@ public class BaseTest implements Constants {
 		
 		// Creació de beques d'exemple
 		Beca beca = new Beca("Entitat Prova", 1000.00, estudiant1, serveiPsicologia);
+		beca.setCodi(30);
 		
 		insertaDades(escola);
     }

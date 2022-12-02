@@ -206,5 +206,85 @@ public class GestioBequesTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
+    
+    /**
+     * Mètode que prova consultar una beca amb un usuari autoritzat i beca existent
+     */
+    @Test
+    public void provaConsultaBecaAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Clara", dadesResposta.get(DADES_NOM_ESTUDIANT));
+    }
+    
+    /**
+     * Mètode que prova consultar una beca amb un usuari no autoritzat i beca existent
+     */
+    @Test
+    public void provaConsultaBecaNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar una beca amb un usuari autoritzat i beca inexistent
+     */
+    @Test
+    public void provaConsultaBecaAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_BECA, 50);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_BECA, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar una beca amb dades incompletes
+     */
+    @Test
+    public void provaConsultaBecaDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 
 }
