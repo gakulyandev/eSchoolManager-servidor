@@ -4,9 +4,11 @@
 package com.eschoolmanager.server.gestors;
 
 import java.sql.Date;
+import java.util.HashMap;
 
 import javax.persistence.EntityManager;
 
+import com.eschoolmanager.server.model.Beca;
 import com.eschoolmanager.server.model.Estudiant;
 import com.eschoolmanager.server.model.Servei;
 
@@ -42,12 +44,40 @@ public class GestorBeca extends GestorEscola {
 			throw new GestorExcepcions(ERROR_INEXISTENT_ESTUDIANT_SERVEI);
 		}
         
-        estudiant.adjudicaBeca(adjudicant, importInicial, servei);
+        Beca beca = escola.altaBeca(adjudicant, importInicial, estudiant, servei);
         
         // Persisteix l'estudiant
         entityManager.getTransaction().begin();
-        entityManager.merge(estudiant);
+        entityManager.merge(beca);
         entityManager.getTransaction().commit();
+    }
+	
+	/**
+     * Obté les dades d'una beca
+     * @param codi de la beca a cercar
+     * @return dades de la beca
+     * @throws GestorExcepcions
+     */
+	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
+        
+		Beca beca = escola.trobaBeca(codi);
+        if (beca == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_BECA);
+		}
+        
+        HashMap<String, Object> dadesBeca = new HashMap<String, Object>();
+        dadesBeca.put(DADES_CODI_BECA, beca.getCodi());
+        dadesBeca.put(DADES_ADJUDICANT_BECA, beca.getAdjudicant());
+        dadesBeca.put(DADES_IMPORT_INICIAL_BECA, beca.getImportInicial());
+        dadesBeca.put(DADES_IMPORT_RESTANT_BECA, beca.getImportRestant());
+        dadesBeca.put(DADES_ESTAT_BECA, beca.isFinalitzada());
+        dadesBeca.put(DADES_CODI_ESTUDIANT, beca.getEstudiant().getCodi());
+        dadesBeca.put(DADES_NOM_ESTUDIANT, beca.getEstudiant().getNom());
+        dadesBeca.put(DADES_COGNOMS_ESTUDIANT, beca.getEstudiant().getCognoms());
+        dadesBeca.put(DADES_CODI_SERVEI, beca.getServei().getCodi());
+        dadesBeca.put(DADES_NOM_SERVEI, beca.getServei().getNom());
+        
+        return dadesBeca;
     }
 
 }

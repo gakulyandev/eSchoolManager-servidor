@@ -126,7 +126,7 @@ public class GestioBequesTest extends BaseTest {
     /**
      * Mètode que prova llistar beques amb un usuari autoritzat
      */
-    @Test
+    //@Test
     public void provaLlistaBequesAutoritzat() {
         
     	//Petició del client
@@ -148,7 +148,7 @@ public class GestioBequesTest extends BaseTest {
     /**
      * Mètode que prova llistar beques amb un usuari no autoritzat
      */
-    @Test
+    //@Test
     public void provaLlistaBequesNoAutoritzat() {
 
     	//Petició del client
@@ -169,7 +169,7 @@ public class GestioBequesTest extends BaseTest {
     /**
      * Mètode que prova llistar beques amb un usuari autoritzat i dades incorrectes
      */
-    @Test
+    //@Test
     public void provaLlistaBequesAutoritzatDadesIncorrectes() {
 
     	//Petició del client
@@ -190,7 +190,7 @@ public class GestioBequesTest extends BaseTest {
     /**
      * Mètode que prova llistar beques amb dades incompletes
      */
-    @Test
+    //@Test
     public void provaLlistaBequesDadesIncompletes() {
     	
     	//Petició del client

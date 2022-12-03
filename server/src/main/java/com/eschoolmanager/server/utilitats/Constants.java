@@ -84,6 +84,8 @@ public interface Constants {
 	public final static String DADES_EMAIL_ESTUDIANT = "email";
 	public final static String DADES_ESTAT_ESTUDIANT = "registrat";
 	public final static String DADES_IMPORT_INICIAL_BECA = "importInicial";
+	public final static String DADES_IMPORT_RESTANT_BECA = "importRestant";
+	public final static String DADES_ESTAT_BECA = "finalitzada";
 	public final static String DADES_ADJUDICANT_BECA = "adjudicant";
 	public final static String DADES_CODI_BECA = "codiBeca";
 	

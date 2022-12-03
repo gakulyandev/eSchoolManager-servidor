@@ -31,6 +31,7 @@ public class Beca {
 	private Estudiant estudiant;
 	private Servei servei;
 	private Date dataAdjudicacio;
+	private Escola escola;
 	private boolean finalitzada = false;
 
 	/**
@@ -52,7 +53,9 @@ public class Beca {
 		this.setImportInicial(importInicial);
 		this.setImportRestant(importInicial);
 		this.setEstudiant(estudiant);
+		estudiant.adjudicaBeca(this);
 		this.setServei(servei);
+		servei.assignaBeca(this);
 		this.setFinalitzada(false);
 		this.setDataAdjudicacio(new Date(Calendar.LONG));
 	}
@@ -73,6 +76,24 @@ public class Beca {
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
+	}
+
+	/**
+	 * Obté l'escola a on és el departament
+	 * @return escola a on és el departament
+	 */
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="escola_codi")
+	public Escola getEscola() {
+		return escola;
+	}
+
+	/**
+	 * Actualitza l'escola a on és el departament
+	 * @param escola actualitzada del departament
+	 */
+	public void setEscola(Escola escola) {
+		this.escola = escola;
 	}
 
 	/**

@@ -137,11 +137,9 @@ public class Estudiant extends Persona {
 	 * Afegeix una beca al llistat
 	 * @param beca a afegir
 	 */
-	public void adjudicaBeca(String adjudicant, double importInicial, Servei servei) {
-		Beca beca = new Beca(adjudicant, importInicial, this, servei);
+	public void adjudicaBeca(Beca beca) {
 		if(!beques.contains(beca)) {
 			beques.add(beca);
 		}
-		servei.assignaBeca(beca);
 	}
 }

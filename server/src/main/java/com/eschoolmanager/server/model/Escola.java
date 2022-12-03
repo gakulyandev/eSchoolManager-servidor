@@ -37,6 +37,7 @@ public class Escola implements Constants {
 	private List<Departament> departaments;
 	private List<Estudiant> estudiants;
 	private List<Servei> serveis;
+	private List<Beca> beques;
 	
 
 	/**
@@ -62,6 +63,7 @@ public class Escola implements Constants {
 		this.setDepartaments(new ArrayList<Departament>());
 		this.setEstudiants(new ArrayList<Estudiant>());
 		this.setServeis(new ArrayList<Servei>());
+		this.setBeques(new ArrayList<Beca>());
 	}
 	
 	/**
@@ -217,6 +219,23 @@ public class Escola implements Constants {
 	 */
 	public void setServeis(List<Servei> serveis) {
 		this.serveis = serveis;
+	}
+
+	/**
+	 * Obté les beques de l'escola
+	 * @return beques de l'escola
+	 */
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="escola")
+	public List<Beca> getBeques() {
+		return beques;
+	}
+
+	/**
+	 * Actualitza les beques de l'escola
+	 * @param beques actualitzades de l'escola
+	 */
+	public void setBeques(List<Beca> beques) {
+		this.beques = beques;
 	}
 	
 	/**
@@ -623,5 +642,40 @@ public class Escola implements Constants {
 			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS_ESTUDIANT);
 		}
 		this.estudiants.remove(estudiant);
+	}
+	
+
+	/**
+	 * Dona d'alta una beca a l'escola
+     * @param adjudicant de la beca
+     * @param import inicial de la beca
+     * @param l'estudiant
+     * @param el servei
+     * @throws GestorExcepcions
+	 */
+	public Beca altaBeca(String adjudicant, Double importInicial, Estudiant estudiant, Servei servei) throws GestorExcepcions {
+		if (trobaServei(nom) != null) {
+            throw new GestorExcepcions(ERROR_EXISTEIX_SERVEI);
+        }
+
+		Beca beca = new Beca(adjudicant, importInicial, estudiant, servei);
+		this.beques.add(beca);
+		beca.setEscola(this);
+		
+		return beca;
+	}
+	
+	/**
+	 * Obté una beca amb el codi indicat
+	 * @return beca trobada o null
+	 */
+	public Beca trobaBeca(int codi) {
+		for(Beca beca : this.beques) {
+			if (beca.getCodi() == codi) {
+				return beca;
+			}
+		}
+		
+		return null;
 	}
 }
