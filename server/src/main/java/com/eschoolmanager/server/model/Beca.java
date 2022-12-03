@@ -217,4 +217,24 @@ public class Beca {
 		this.finalitzada = finalitzada;
 	}
 
+	/**
+	 * Actualitza les dades de la beca
+     * @param adjudicant actualitzat de la beca
+     * @param import inicial actualitzat de la beca
+     * @param l'estudiant actualitzat
+     * @param servei actualitzat
+	 */
+	public void actualitza(String adjudicant, Double importInicial, Estudiant estudiant, Servei servei) {
+		this.setAdjudicant(adjudicant);
+		if (this.importRestant == this.importInicial) {
+			this.setImportRestant(importInicial);
+		}
+		this.setImportInicial(importInicial);
+			
+		this.setEstudiant(estudiant);
+		estudiant.adjudicaBeca(this);
+		this.setServei(servei);
+		servei.assignaBeca(this);
+	}
+
 }

@@ -37,6 +37,7 @@ public interface Constants {
 	public final static String CRIDA_ALTA_BECA = "ALTA BECA";
 	public final static String CRIDA_LLISTA_BEQUES = "LLISTA BEQUES";
 	public final static String CRIDA_CONSULTA_BECA = "CONSULTA BECA";
+	public final static String CRIDA_MODI_BECA = "MODI BECA";
 
 	public final static int CODI_ESCOLA = 1;
 	public final static String CODI_SESSIO = "codiSessio";
@@ -115,6 +116,4 @@ public interface Constants {
 	public final static String ERROR_ELEMENTS_RELACIONATS_EMPLEAT = "Existeixen altres elements relacionats amb l'empleat";
     public final static String ERROR_ELEMENTS_RELACIONATS_ESTUDIANT = "Existeixen altres elements relacionats amb l'estudiant";
 	public final static String ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT = "Existeixen altres elements relacionats amb el departament";
-	
-	
 }

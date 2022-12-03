@@ -125,7 +125,7 @@ public class GestorServei extends GestorEscola {
      */
 	public void actualitza(Integer codi, String nom, Double cost, int durada) throws GestorExcepcions {
         
-		// Troba el departament
+		// Troba el servei
 		Servei servei = escola.trobaServei(codi);
         if (servei == null) {
 			throw new GestorExcepcions(ERROR_INEXISTENT_SERVEI);
@@ -134,7 +134,7 @@ public class GestorServei extends GestorEscola {
         // Actualitza el servei de l'escola
         escola.actualitzaServei(servei, nom, cost, durada);
 
-        // Actualitza el departament
+        // Actualitza el servei
         entityManager.getTransaction().begin();
         entityManager.merge(servei);
         entityManager.getTransaction().commit();
@@ -154,7 +154,7 @@ public class GestorServei extends GestorEscola {
 		}
         escola.baixaServei(servei);
         
-        // Actualitza el departament
+        // Actualitza el servei
         entityManager.getTransaction().begin();
         entityManager.merge(escola);
         entityManager.remove(servei);

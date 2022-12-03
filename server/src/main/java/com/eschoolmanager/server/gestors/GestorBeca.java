@@ -79,5 +79,39 @@ public class GestorBeca extends GestorEscola {
         
         return dadesBeca;
     }
+	
+	/**
+     * Actualitza una beca a l'escola
+     * @param codi de la beca a actualitzar
+     * @param adjudicant actualitzat de la beca
+     * @param import inicial actualitzat de la beca
+     * @param codi de l'estudiant actualitzat
+     * @param codi del servei actualitzat
+     * @throws GestorExcepcions
+     */
+	public void actualitza(Integer codi, String adjudicant, Double importInicial, int codiEstudiant, int codiServei) throws GestorExcepcions {
+        
+		// Troba la beca
+		Beca beca = escola.trobaBeca(codi);
+        if (beca == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_BECA);
+		}
+        
+        // Troba l'estudiant i servei
+        Estudiant estudiant = escola.trobaEstudiant(codiEstudiant);
+        Servei servei = escola.trobaServei(codiServei);
+        
+        if (estudiant == null || servei == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_ESTUDIANT_SERVEI);
+		}
+        
+        // Actualitza la beca de l'escola
+        escola.actualitzaBeca(beca, adjudicant, importInicial, estudiant, servei);
+
+        // Actualitza la beca
+        entityManager.getTransaction().begin();
+        entityManager.merge(beca);
+        entityManager.getTransaction().commit();
+    }
 
 }

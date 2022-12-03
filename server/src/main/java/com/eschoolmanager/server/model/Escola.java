@@ -678,4 +678,18 @@ public class Escola implements Constants {
 		
 		return null;
 	}
+	
+	/**
+	 * Actualitza una beca del llistat
+	 * @param beca a actualitzar
+     * @param adjudicant actualitzat de la beca
+     * @param import inicial actualitzat de la beca
+     * @param l'estudiant actualitzat
+     * @param servei actualitzat
+	 * @throws GestorExcepcions 
+	 */
+	
+	public void actualitzaBeca(Beca beca, String adjudicant, Double importInicial, Estudiant estudiant, Servei servei) throws GestorExcepcions {
+		beca.actualitza(adjudicant, importInicial, estudiant, servei);
+	}
 }

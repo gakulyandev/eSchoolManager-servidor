@@ -287,4 +287,96 @@ public class GestioBequesTest extends BaseTest {
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
 
+    /**
+     * Mètode que prova modificar una beca amb un usuari autoritzat i servei existent
+     */
+    @Test
+    public void provaModiBecaAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 3000.00);
+    	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar una beca amb un usuari no autoritzat
+     */
+    @Test
+    public void provaModiBecaNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 3000.00);
+    	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar una beca amb un usuari autoritzat i servei inexistent
+     */
+    @Test
+    public void provaModiBecaAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_BECA, 50);
+    	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 3000.00);
+    	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar una beca amb dades incompletes
+     */
+    @Test
+    public void provaModiBecaDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_BECA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 }
