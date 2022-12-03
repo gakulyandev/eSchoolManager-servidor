@@ -184,7 +184,7 @@ public class Usuari {
 	 */
 	public void actualitza(String nomUsuari, String contrasenya) {
 		this.setNomUsuari(nomUsuari);
-		if (contrasenya != null) {
+		if (contrasenya != null && contrasenya.length() > 0) {
 			this.setContrasenya(contrasenya);
 		}
 	}
