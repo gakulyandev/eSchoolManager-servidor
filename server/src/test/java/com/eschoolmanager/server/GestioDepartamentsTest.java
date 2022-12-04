@@ -51,7 +51,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer prova");
     	dadesPeticioPermisos.put(PERMIS, true);
     	dadesPeticio.put(DADES_PERMISOS_DEPARTAMENT, dadesPeticioPermisos);
     	peticio.put(DADES, dadesPeticio);
@@ -116,7 +116,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer");
+    	dadesPeticio.put(DADES_NOM_DEPARTAMENT, "Financer prova");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

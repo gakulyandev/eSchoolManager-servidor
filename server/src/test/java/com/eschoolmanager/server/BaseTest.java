@@ -115,7 +115,7 @@ public class BaseTest implements Constants {
 		Escola escola = new Escola("Escola Prova", "c/Prova, 1", "934445556");		
         
 		// Creació de permisos
-		Permis permisAcces = new Permis("acces","LOGIN;LOGOUT");
+		Permis permisAcces = new Permis("acces","LOGOUT");
 		Permis permisEscola = new Permis("escola","CONSULTA ESCOLA;MODI ESCOLA");
 		Permis permisDepartament = new Permis("departament","ALTA DEPARTAMENT;BAIXA DEPARTAMENT;MODI DEPARTAMENT;LLISTA DEPARTAMENTS;CONSULTA DEPARTAMENT");
 		Permis permisEmpleat = new Permis("empleat","ALTA EMPLEAT;BAIXA EMPLEAT;MODI EMPLEAT;LLISTA EMPLEATS;CONSULTA EMPLEAT");
@@ -128,6 +128,7 @@ public class BaseTest implements Constants {
 		List<Permis> permisosAdministrador = new ArrayList<Permis>();
 		List<Permis> permisosAdministratiu = new ArrayList<Permis>();
 		List<Permis> permisosDocent = new ArrayList<Permis>();
+		List<Permis> permisosFinancer = new ArrayList<Permis>();
 		
 		permisosAdministrador.add(permisAcces);
 		permisosAdministrador.add(permisEscola);
@@ -149,17 +150,21 @@ public class BaseTest implements Constants {
 		
 		permisosDocent.add(permisAcces);
 		permisosDocent.add(permisSessio);
+		
+		permisosFinancer.add(permisAcces);
 
 		// Creació dels departaments bàsics
 		Departament departamentAdministrador = escola.altaDepartament("Administrador", permisosAdministrador);
 		Departament departamentAdministratiu = escola.altaDepartament("Administratiu", permisosAdministratiu);
 		Departament departamentDocent = escola.altaDepartament("Docent", permisosDocent);
 		Departament departamentDocentBuit = escola.altaDepartament("DocentBuit", permisosDocent);
+		Departament departamentFinancer = escola.altaDepartament("Financer", permisosFinancer);
 		
 		departamentAdministrador.setCodi(1);
 		departamentAdministratiu.setCodi(2);
 		departamentDocent.setCodi(3);
 		departamentDocentBuit.setCodi(4);
+		departamentFinancer.setCodi(5);
 		
         // Creació d'empleats d'exemple
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -173,21 +178,25 @@ public class BaseTest implements Constants {
 		Empleat empleatAdministratiu = escola.altaEmpleat("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5", departamentAdministratiu);
 		Professor empleatDocent = (Professor) escola.altaEmpleat("45628915M", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departamentDocent);
 		Professor empleatDocent2 = (Professor) escola.altaEmpleat("45628915L", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departamentDocent);
+		Empleat empleatFinancer = escola.altaEmpleat("66633344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5", departamentFinancer);
 		empleatAdministrador.setCodi(10);
 		empleatAdministratiu.setCodi(11);
 		empleatDocent.setCodi(12);
 		empleatDocent2.setCodi(13);
+		empleatFinancer.setCodi(14);
 		
         // Creació d'usuaris d'exemple
 		Usuari usuariAdministrador = escola.altaUsuari("p.gomez", "passtest1");
 		Usuari usuariAdministratiu = escola.altaUsuari("c.carrillo", "passtest2");
 		Usuari usuariDocent = escola.altaUsuari("b.roig", "passtest3");
 		Usuari usuariDocent2 = escola.altaUsuari("b.roig2", "passtest3");
+		Usuari usuariFinancer = escola.altaUsuari("c.carrillo2", "passtest2");
 
 		empleatAdministrador.assignaUsuari(usuariAdministrador);
 		empleatAdministratiu.assignaUsuari(usuariAdministratiu);
 		empleatDocent.assignaUsuari(usuariDocent);
 		empleatDocent2.assignaUsuari(usuariDocent2);
+		empleatFinancer.assignaUsuari(usuariFinancer);
 		
 		gestorSessionsUsuari.desaSessio(
 				new SessioUsuari(
@@ -217,6 +226,16 @@ public class BaseTest implements Constants {
 						usuariDocent.getEmpleat().getNom(), 
 						usuariDocent.getEmpleat().getDepartament().getNom(), 
 						usuariDocent.getEmpleat().getDepartament().getPermisos()
+				)
+		);
+		gestorSessionsUsuari.desaSessio(
+				new SessioUsuari(
+						"codiProvaFinancer", 
+						usuariFinancer, 
+						usuariFinancer.getEmpleat().getCodi(), 
+						usuariFinancer.getEmpleat().getNom(), 
+						usuariFinancer.getEmpleat().getDepartament().getNom(), 
+						usuariFinancer.getEmpleat().getDepartament().getPermisos()
 				)
 		);
 
