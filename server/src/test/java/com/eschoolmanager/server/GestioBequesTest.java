@@ -126,13 +126,13 @@ public class GestioBequesTest extends BaseTest {
     /**
      * Mètode que prova llistar beques amb un usuari autoritzat
      */
-    //@Test
+    @Test
     public void provaLlistaBequesAutoritzat() {
         
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LLISTA_BEQUES);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CAMP, "nom");
+    	dadesPeticio.put(DADES_CAMP, "adjudicant");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
     	peticio.put(DADES, dadesPeticio);
 
@@ -148,13 +148,13 @@ public class GestioBequesTest extends BaseTest {
     /**
      * Mètode que prova llistar beques amb un usuari no autoritzat
      */
-    //@Test
+    @Test
     public void provaLlistaBequesNoAutoritzat() {
 
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LLISTA_BEQUES);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CAMP, "nom");
+    	dadesPeticio.put(DADES_CAMP, "adjudicant");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
     	peticio.put(DADES, dadesPeticio);
 
@@ -169,13 +169,13 @@ public class GestioBequesTest extends BaseTest {
     /**
      * Mètode que prova llistar beques amb un usuari autoritzat i dades incorrectes
      */
-    //@Test
+    @Test
     public void provaLlistaBequesAutoritzatDadesIncorrectes() {
 
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LLISTA_BEQUES);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CAMP, "nomS");
+    	dadesPeticio.put(DADES_CAMP, "adjudicantsss");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
     	peticio.put(DADES, dadesPeticio);
 
@@ -190,7 +190,7 @@ public class GestioBequesTest extends BaseTest {
     /**
      * Mètode que prova llistar beques amb dades incompletes
      */
-    //@Test
+    @Test
     public void provaLlistaBequesDadesIncompletes() {
     	
     	//Petició del client

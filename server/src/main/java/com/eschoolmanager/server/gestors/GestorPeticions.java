@@ -516,6 +516,28 @@ public class GestorPeticions implements Constants {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_LLISTA_BEQUES: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					HashMap<Integer, Object> dadesBeques = gestorBeca.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+
+					// Genera resposta
+					dadesResposta = new JSONObject();
+					
+					for (Integer key : dadesBeques.keySet()) {
+						JSONObject dadesRespostaBeca = new JSONObject();
+						dadesRespostaBeca.put(DADES_CODI_BECA, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_CODI_BECA));
+						dadesRespostaBeca.put(DADES_ADJUDICANT_BECA, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_ADJUDICANT_BECA));
+						dadesRespostaBeca.put(DADES_IMPORT_INICIAL_BECA, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_IMPORT_INICIAL_BECA));
+						dadesRespostaBeca.put(DADES_NOM_ESTUDIANT, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_NOM_ESTUDIANT));
+						dadesRespostaBeca.put(DADES_COGNOMS_ESTUDIANT, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_COGNOMS_ESTUDIANT));
+						dadesRespostaBeca.put(DADES_NOM_SERVEI, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_NOM_SERVEI));
+						dadesResposta.put(String.valueOf(key), dadesRespostaBeca);
+					}
+					
+					return generaRespostaOK(dadesResposta);	
+				}
 				case CRIDA_CONSULTA_BECA: {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);

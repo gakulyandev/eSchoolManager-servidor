@@ -4,9 +4,12 @@
 package com.eschoolmanager.server.gestors;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Beca;
 import com.eschoolmanager.server.model.Estudiant;
@@ -17,6 +20,8 @@ import com.eschoolmanager.server.model.Servei;
  * Classe que gestiona les altes, baixes, modificacions i consultes de beques
  */
 public class GestorBeca extends GestorEscola {
+	
+	private final static String[] DADES_CAMPS = {"codi","adjudicant","importInicial", "importRestant", "codiEstudiant", "codiServei"};
 
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -50,6 +55,55 @@ public class GestorBeca extends GestorEscola {
         entityManager.getTransaction().begin();
         entityManager.merge(beca);
         entityManager.getTransaction().commit();
+    }
+	
+	/**
+     * Obté llistat de les beques a l'escola
+     * @param camp de dades per ordenar
+     * @param ordre que ha de mostrar
+     * @return llista de beques
+     * @throws GestorExcepcions
+     */
+	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
+                
+		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
+			 camp.length() == 0 && ordre.length() == 0) {
+			List<Beca> beques;
+			
+			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
+				beques = escola.getBeques(); //Llista les beques amb l'ordre per defecte
+			} else {
+				//Llista les beques segons la petició
+				String consulta = "SELECT b FROM Beca b ORDER BY b." + camp + " " + ordre;
+	
+				entityManager.getTransaction().begin();   
+				
+	    		Query query = (Query) entityManager.createQuery(consulta);
+	    		beques = query.getResultList();  
+	    		
+	            entityManager.getTransaction().commit();
+			}
+	
+			
+	        HashMap<Integer, Object> dadesBeques = new HashMap<Integer, Object>();
+	        
+			int i = 0;
+	        for (Beca beca : beques) {
+	        	HashMap<String,Object> dadesBeca = new HashMap<String, Object>();
+	        	dadesBeca.put(DADES_CODI_BECA, beca.getCodi());
+	        	dadesBeca.put(DADES_ADJUDICANT_BECA, beca.getAdjudicant());
+	        	dadesBeca.put(DADES_IMPORT_INICIAL_BECA, beca.getImportInicial());
+	        	dadesBeca.put(DADES_NOM_ESTUDIANT, beca.getEstudiant().getNom());
+	        	dadesBeca.put(DADES_COGNOMS_ESTUDIANT, beca.getEstudiant().getCognoms());
+	        	dadesBeca.put(DADES_NOM_SERVEI, beca.getServei().getNom());
+	        	dadesBeques.put(i, dadesBeca);
+	        	i++;
+	    	}
+	        
+	        return dadesBeques;		
+		}
+		
+		throw new GestorExcepcions(ERROR_CAMP);
     }
 	
 	/**
