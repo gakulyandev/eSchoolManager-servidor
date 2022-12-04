@@ -692,4 +692,12 @@ public class Escola implements Constants {
 	public void actualitzaBeca(Beca beca, String adjudicant, Double importInicial, Estudiant estudiant, Servei servei) throws GestorExcepcions {
 		beca.actualitza(adjudicant, importInicial, estudiant, servei);
 	}
+	
+	/**
+	 * Dona de baixa una beca
+	 * @throws GestorExcepcions 
+	 */
+	public void baixaBeca(Beca beca) throws GestorExcepcions {
+		this.beques.remove(beca);
+	}
 }

@@ -38,8 +38,10 @@ public interface Constants {
 	public final static String CRIDA_LLISTA_BEQUES = "LLISTA BEQUES";
 	public final static String CRIDA_CONSULTA_BECA = "CONSULTA BECA";
 	public final static String CRIDA_MODI_BECA = "MODI BECA";
+	public final static String CRIDA_BAIXA_BECA = "BAIXA BECA";
 
 	public final static int CODI_ESCOLA = 1;
+	
 	public final static String CODI_SESSIO = "codiSessio";
 	public final static String RESPOSTA = "resposta";
 	public final static String RESPOSTA_OK = "OK";

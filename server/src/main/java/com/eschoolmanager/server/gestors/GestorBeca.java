@@ -46,7 +46,7 @@ public class GestorBeca extends GestorEscola {
         
         Beca beca = escola.altaBeca(adjudicant, importInicial, estudiant, servei);
         
-        // Persisteix l'estudiant
+        // Persisteix la beca
         entityManager.getTransaction().begin();
         entityManager.merge(beca);
         entityManager.getTransaction().commit();
@@ -108,9 +108,30 @@ public class GestorBeca extends GestorEscola {
         // Actualitza la beca de l'escola
         escola.actualitzaBeca(beca, adjudicant, importInicial, estudiant, servei);
 
-        // Actualitza la beca
+        // Actualitza la base de dades
         entityManager.getTransaction().begin();
         entityManager.merge(beca);
+        entityManager.getTransaction().commit();
+    }
+
+	/**
+     * Dona de baixa una beca a l'escola
+     * @param codi de la beca a donar de baixa
+     * @throws GestorExcepcions
+     */
+	public void baixa(int codi) throws GestorExcepcions {
+        
+		// Troba la beca
+		Beca beca = escola.trobaBeca(codi);
+        if (beca == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_BECA);
+		}
+        escola.baixaBeca(beca);
+        
+        // Actualitza la base de dades
+        entityManager.getTransaction().begin();
+        entityManager.merge(escola);
+        entityManager.remove(beca);
         entityManager.getTransaction().commit();
     }
 
