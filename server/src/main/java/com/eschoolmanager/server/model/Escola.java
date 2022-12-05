@@ -38,6 +38,7 @@ public class Escola implements Constants {
 	private List<Estudiant> estudiants;
 	private List<Servei> serveis;
 	private List<Beca> beques;
+	private List<Sessio> sessions;
 	
 
 	/**
@@ -64,6 +65,7 @@ public class Escola implements Constants {
 		this.setEstudiants(new ArrayList<Estudiant>());
 		this.setServeis(new ArrayList<Servei>());
 		this.setBeques(new ArrayList<Beca>());
+		this.setSessions(new ArrayList<Sessio>());
 	}
 	
 	/**
@@ -236,6 +238,23 @@ public class Escola implements Constants {
 	 */
 	public void setBeques(List<Beca> beques) {
 		this.beques = beques;
+	}
+
+	/**
+	 * Obté les sessions de l'escola
+	 * @return sessions de l'escola
+	 */
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="escola")
+	public List<Sessio> getSessions() {
+		return sessions;
+	}
+
+	/**
+	 * Actualitza les sessions de l'escola
+	 * @param sessions actualitzades de l'escola
+	 */
+	public void setSessions(List<Sessio> sessions) {
+		this.sessions = sessions;
 	}
 	
 	/**
@@ -468,6 +487,7 @@ public class Escola implements Constants {
 		if (!empleat.isBuit()) {
 			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS_EMPLEAT);
 		}
+		empleat.getDepartament().baixaEmpleat(empleat);
 		this.empleats.remove(empleat);
 	}
 	
@@ -643,7 +663,6 @@ public class Escola implements Constants {
 		}
 		this.estudiants.remove(estudiant);
 	}
-	
 
 	/**
 	 * Dona d'alta una beca a l'escola
@@ -651,16 +670,16 @@ public class Escola implements Constants {
      * @param import inicial de la beca
      * @param l'estudiant
      * @param el servei
+     * @return la beca
      * @throws GestorExcepcions
 	 */
 	public Beca altaBeca(String adjudicant, Double importInicial, Estudiant estudiant, Servei servei) throws GestorExcepcions {
-		if (trobaServei(nom) != null) {
-            throw new GestorExcepcions(ERROR_EXISTEIX_SERVEI);
-        }
-
+		
 		Beca beca = new Beca(adjudicant, importInicial, estudiant, servei);
-		this.beques.add(beca);
-		beca.setEscola(this);
+		if (!this.beques.contains(beca)) {
+			this.beques.add(beca);
+			beca.setEscola(this);			
+		}
 		
 		return beca;
 	}
@@ -699,5 +718,25 @@ public class Escola implements Constants {
 	 */
 	public void baixaBeca(Beca beca) throws GestorExcepcions {
 		this.beques.remove(beca);
+	}
+
+	/**
+	 * Dona d'alta una beca a l'escola
+     * @param professor
+     * @param l'estudiant
+     * @param servei
+     * @param data i hora
+     * @return la sessió
+     * @throws GestorExcepcions
+	 */
+	public Sessio altaSessio(Professor professor, Estudiant estudiant, Servei servei, Date dataIHora) throws GestorExcepcions {
+		
+		Sessio sessio = new Sessio(professor, estudiant, servei, dataIHora);
+		if (!this.sessions.contains(sessio)) {
+			this.sessions.add(sessio);
+			sessio.setEscola(this);			
+		}
+		
+		return sessio;
 	}
 }

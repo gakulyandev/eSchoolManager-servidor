@@ -82,17 +82,18 @@ public interface Constants {
 	public final static String DADES_DNI_ESTUDIANT = "dni";
 	public final static String DADES_NOM_ESTUDIANT = "nomEstudiant";
 	public final static String DADES_COGNOMS_ESTUDIANT = "cognoms";
+	public final static String DADES_COGNOMS_ESTUDIANT_COMPLET = "cognomsEstudiant";
 	public final static String DADES_DATA_NAIXEMENT_ESTUDIANT = "dataNaixement";
 	public final static String DADES_ADRECA_ESTUDIANT = "adreca";
 	public final static String DADES_TELEFON_ESTUDIANT = "telefon";
 	public final static String DADES_EMAIL_ESTUDIANT = "email";
 	public final static String DADES_ESTAT_ESTUDIANT = "registrat";
+	public final static String DADES_IMPORT_IMPUTAT_ESTUDIANT = "importImputat";
 	public final static String DADES_IMPORT_INICIAL_BECA = "importInicial";
 	public final static String DADES_IMPORT_RESTANT_BECA = "importRestant";
 	public final static String DADES_ESTAT_BECA = "finalitzada";
 	public final static String DADES_ADJUDICANT_BECA = "adjudicant";
 	public final static String DADES_CODI_BECA = "codiBeca";
-	public final static String DADES_CODI_PROFESSOR = "codiProfessor";
 	public final static String DADES_DATA_I_HORA = "dataIHora";
 	
 	public final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
@@ -108,6 +109,9 @@ public interface Constants {
 	public final static String ERROR_INEXISTENT_USUARI = "No existeix cap usuari amb les dades indicades";
     public final static String ERROR_INEXISTENT_ESTUDIANT = "No existeix l'estudiant indicat";
     public final static String ERROR_INEXISTENT_ESTUDIANT_SERVEI = "No existeix l'estudiant i/o servei indicats";
+    public final static String ERROR_INEXISTENT_PROFESSOR_ESTUDIANT_SERVEI = "No existeix el professor i/o l'estudiant i/o servei indicats";
+    public final static String ERROR_INEXISTENT_PROFESSOR = "L'empleat indicat no és professor";
+    public final static String ERROR_INEXISTENT_RELACIO_PROFESSOR_SERVEI = "El professor indicat no imparteix el servei";
 	public final static String ERROR_INEXISTENT_BECA = "No existeix la beca indicada";
 	public final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";

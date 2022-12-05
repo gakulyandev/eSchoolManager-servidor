@@ -26,6 +26,7 @@ import com.eschoolmanager.server.gestors.GestorExcepcions;
 public class Estudiant extends Persona {
 	
 	private boolean registrat = false;
+	private Double importImputat;
 	private List<Beca> beques;
 	private List<Sessio> sessions;
 
@@ -52,6 +53,7 @@ public class Estudiant extends Persona {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		
 		this.setRegistrat(true);
+		this.setImportImputat(0.00);
 		this.setBeques(new ArrayList<Beca>());
 		this.setSessions(new ArrayList<Sessio>());
 	}
@@ -73,6 +75,22 @@ public class Estudiant extends Persona {
 		this.registrat = registrat;
 	}
 	
+	/**
+	 * Obté l'import acumulat de les sessions realitzades
+	 * @return importImputat
+	 */
+	public Double getImportImputat() {
+		return importImputat;
+	}
+
+	/**
+	 * Actualitza l'import acumulat de les sessions realitzades
+	 * @param importImputat actualitzat
+	 */
+	public void setImportImputat(Double importImputat) {
+		this.importImputat = importImputat;
+	}
+
 	/**
 	 * Llista les beques adjudicades a l'estudiant
 	 * @return beques de l'estudiant
@@ -142,4 +160,45 @@ public class Estudiant extends Persona {
 			beques.add(beca);
 		}
 	}
+	
+	/**
+	 * Assigna una sessió
+	 * @param sessió a assignar
+	 */
+	public void assignaSessio(Sessio sessio) {
+		if(!sessions.contains(sessio)) {
+			sessions.add(sessio);
+		}
+		
+		// Imputa l'import del servei
+		this.imputaServei(sessio.getServei());
+	}
+	
+	/**
+	 * Imputa el servei impartit una vegada es crea una sessió
+	 */
+	public void imputaServei(Servei servei) {
+
+		// Imputa part o la totalitat a la beca que hi hagi adjudicada sobre el servei
+		double importAImputar = servei.getCost();
+		for(Beca beca: this.beques) {
+			if (beca.getServei() == servei) {
+				double importRestant = beca.getImportRestant();
+				if (importRestant >= importAImputar) {
+					beca.imputaImport(importAImputar);
+					importAImputar = 0.00;
+				} else {
+					beca.imputaImport(importRestant);
+					System.out.println("Import a imputar " +importAImputar+  ", Import restant" + importRestant);
+					importAImputar = importAImputar - importRestant;
+					importAImputar = 15.00;
+				}
+			}
+		}
+		System.out.println("Import a imputar " +importAImputar);
+		
+		this.setImportImputat(this.getImportImputat() + importAImputar);
+	}
+	
+	
 }

@@ -100,6 +100,25 @@ public class Professor extends Empleat {
 	}
 	
 	/**
+	 * Comprova si imparteix el servei
+	 * @param servei a comprovar
+	 */
+	public boolean imparteixServei(Servei servei) {
+		return serveis.contains(servei);
+	}
+	
+	/**
+	 * Assigna una sessió
+	 * @param sessió a assignar
+	 */
+	public void assignaSessio(Sessio sessio) {
+		if(!sessions.contains(sessio)) {
+			sessions.add(sessio);
+		}
+		
+	}
+	
+	/**
 	 * Indica si l'empleat té o no elements relacionats
 	 * @return true o false segons si té o no elements relacionats
 	 */

@@ -30,6 +30,7 @@ public class GestorPeticions implements Constants {
 	private GestorEmpleat gestorEmpleat;
 	private GestorEstudiant gestorEstudiant;
 	private GestorBeca gestorBeca;
+	private GestorSessio gestorSessio;
 	
 	/**
      * Constructor que associa i inicialitza els diferents gestors
@@ -44,6 +45,7 @@ public class GestorPeticions implements Constants {
 		this.gestorEmpleat = new GestorEmpleat(entityManager);
 		this.gestorEstudiant = new GestorEstudiant(entityManager);
 		this.gestorBeca = new GestorBeca(entityManager);
+		this.gestorSessio = new GestorSessio(entityManager);
 	}
 
 	/**
@@ -452,18 +454,19 @@ public class GestorPeticions implements Constants {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 
-					HashMap<String, Object> dadesEmpleat = gestorEstudiant.consulta(dadesPeticio.getInt(DADES_CODI_ESTUDIANT));
+					HashMap<String, Object> dadesEstudiant = gestorEstudiant.consulta(dadesPeticio.getInt(DADES_CODI_ESTUDIANT));
 					
 					// Genera resposta
-					dadesResposta.put(DADES_CODI_ESTUDIANT, dadesEmpleat.get(DADES_CODI_ESTUDIANT));
-					dadesResposta.put(DADES_DNI_ESTUDIANT, dadesEmpleat.get(DADES_DNI_ESTUDIANT));
-					dadesResposta.put(DADES_NOM_ESTUDIANT, dadesEmpleat.get(DADES_NOM_ESTUDIANT));
-					dadesResposta.put(DADES_COGNOMS_ESTUDIANT, dadesEmpleat.get(DADES_COGNOMS_ESTUDIANT));
-					dadesResposta.put(DADES_DATA_NAIXEMENT_ESTUDIANT, dadesEmpleat.get(DADES_DATA_NAIXEMENT_ESTUDIANT));
-					dadesResposta.put(DADES_ADRECA_ESTUDIANT, dadesEmpleat.get(DADES_ADRECA_ESTUDIANT));
-					dadesResposta.put(DADES_TELEFON_ESTUDIANT, dadesEmpleat.get(DADES_TELEFON_ESTUDIANT));
-					dadesResposta.put(DADES_EMAIL_ESTUDIANT, dadesEmpleat.get(DADES_EMAIL_ESTUDIANT));
-					dadesResposta.put(DADES_ESTAT_ESTUDIANT, dadesEmpleat.get(DADES_ESTAT_ESTUDIANT));
+					dadesResposta.put(DADES_CODI_ESTUDIANT, dadesEstudiant.get(DADES_CODI_ESTUDIANT));
+					dadesResposta.put(DADES_DNI_ESTUDIANT, dadesEstudiant.get(DADES_DNI_ESTUDIANT));
+					dadesResposta.put(DADES_NOM_ESTUDIANT, dadesEstudiant.get(DADES_NOM_ESTUDIANT));
+					dadesResposta.put(DADES_COGNOMS_ESTUDIANT, dadesEstudiant.get(DADES_COGNOMS_ESTUDIANT));
+					dadesResposta.put(DADES_DATA_NAIXEMENT_ESTUDIANT, dadesEstudiant.get(DADES_DATA_NAIXEMENT_ESTUDIANT));
+					dadesResposta.put(DADES_ADRECA_ESTUDIANT, dadesEstudiant.get(DADES_ADRECA_ESTUDIANT));
+					dadesResposta.put(DADES_TELEFON_ESTUDIANT, dadesEstudiant.get(DADES_TELEFON_ESTUDIANT));
+					dadesResposta.put(DADES_EMAIL_ESTUDIANT, dadesEstudiant.get(DADES_EMAIL_ESTUDIANT));
+					dadesResposta.put(DADES_ESTAT_ESTUDIANT, dadesEstudiant.get(DADES_ESTAT_ESTUDIANT));
+					dadesResposta.put(DADES_IMPORT_IMPUTAT_ESTUDIANT, dadesEstudiant.get(DADES_IMPORT_IMPUTAT_ESTUDIANT));
 					
 					return generaRespostaOK(dadesResposta);	
 				}
@@ -530,9 +533,11 @@ public class GestorPeticions implements Constants {
 						dadesRespostaBeca.put(DADES_CODI_BECA, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_CODI_BECA));
 						dadesRespostaBeca.put(DADES_ADJUDICANT_BECA, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_ADJUDICANT_BECA));
 						dadesRespostaBeca.put(DADES_IMPORT_INICIAL_BECA, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_IMPORT_INICIAL_BECA));
+						dadesRespostaBeca.put(DADES_IMPORT_RESTANT_BECA, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_IMPORT_RESTANT_BECA));
 						dadesRespostaBeca.put(DADES_NOM_ESTUDIANT, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_NOM_ESTUDIANT));
-						dadesRespostaBeca.put(DADES_COGNOMS_ESTUDIANT, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_COGNOMS_ESTUDIANT));
+						dadesRespostaBeca.put(DADES_COGNOMS_ESTUDIANT_COMPLET, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_COGNOMS_ESTUDIANT_COMPLET));
 						dadesRespostaBeca.put(DADES_NOM_SERVEI, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_NOM_SERVEI));
+						dadesRespostaBeca.put(DADES_ESTAT_BECA, ((HashMap<String,Object>) dadesBeques.get(key)).get(DADES_ESTAT_BECA));
 						dadesResposta.put(String.valueOf(key), dadesRespostaBeca);
 					}
 					
@@ -552,7 +557,7 @@ public class GestorPeticions implements Constants {
 					dadesResposta.put(DADES_ESTAT_BECA, dadesBeca.get(DADES_ESTAT_BECA));
 					dadesResposta.put(DADES_CODI_ESTUDIANT, dadesBeca.get(DADES_CODI_ESTUDIANT));
 					dadesResposta.put(DADES_NOM_ESTUDIANT, dadesBeca.get(DADES_NOM_ESTUDIANT));
-					dadesResposta.put(DADES_COGNOMS_ESTUDIANT, dadesBeca.get(DADES_COGNOMS_ESTUDIANT));
+					dadesResposta.put(DADES_COGNOMS_ESTUDIANT_COMPLET, dadesBeca.get(DADES_COGNOMS_ESTUDIANT_COMPLET));
 					dadesResposta.put(DADES_CODI_SERVEI, dadesBeca.get(DADES_CODI_SERVEI));
 					dadesResposta.put(DADES_NOM_SERVEI, dadesBeca.get(DADES_NOM_SERVEI));
 					
@@ -580,6 +585,27 @@ public class GestorPeticions implements Constants {
 					gestorBeca.baixa(dadesPeticio.getInt(DADES_CODI_BECA));
 
 					// Genera resposta					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_ALTA_SESSIO: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			        java.util.Date parsedDate = null;
+					try {
+						parsedDate = format.parse(dadesPeticio.getString(DADES_DATA_I_HORA));
+					} catch (ParseException e) {
+						System.out.println(ERROR_GENERIC);
+					}
+					
+					gestorSessio.alta(
+							dadesPeticio.getInt(DADES_CODI_EMPLEAT),
+							dadesPeticio.getInt(DADES_CODI_ESTUDIANT),
+							dadesPeticio.getInt(DADES_CODI_SERVEI),
+							new Date(parsedDate.getTime())
+					);
+
+					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
 				default: {

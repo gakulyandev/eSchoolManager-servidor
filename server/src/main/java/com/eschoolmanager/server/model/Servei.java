@@ -239,6 +239,17 @@ public class Servei {
 	}
 	
 	/**
+	 * Assigna una sessió
+	 * @param sessió a assignar
+	 */
+	public void assignaSessio(Sessio sessio) {
+		if(!sessions.contains(sessio)) {
+			sessions.add(sessio);
+		}
+		
+	}
+	
+	/**
 	 * Indica si el servei té o no elements relacionats
 	 * @return true o false segons si té o no elements relacionats
 	 */

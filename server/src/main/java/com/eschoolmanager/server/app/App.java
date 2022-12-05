@@ -17,6 +17,7 @@ import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Escola;
 import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Professor;
+import com.eschoolmanager.server.model.Servei;
 import com.eschoolmanager.server.model.Usuari;
 import com.eschoolmanager.server.utilitats.Constants;
 
@@ -115,7 +116,8 @@ public class App implements Constants {
 		empleatDocent.assignaUsuari(usuariDocent);
 		
 		// Creació de serveis d'exemple
-		escola.altaServei("Psicologia", 25.00, 1);
+		Servei serveiPsicologia = escola.altaServei("Psicologia", 25.00, 1);
+		((Professor) empleatDocent).afegeixServei(serveiPsicologia);
 		escola.altaServei("Psicopedagogia", 35.00, 2);
 		// Persistencia
 		entityManager.getTransaction().begin();

@@ -3,7 +3,7 @@
  */
 package com.eschoolmanager.server.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,7 +27,8 @@ public class Sessio {
 	private Professor professor;
 	private Estudiant estudiant;
 	private Servei servei;
-	private Timestamp dataIHora;
+	private Date dataIHora;
+	private Escola escola;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -43,11 +44,14 @@ public class Sessio {
      * @param servei que es presta a la sessió
      * @param dataIHora de la sessió realitzada
      */
-	public Sessio(Professor professor, Estudiant estudiant, Servei servei, Timestamp dataIHora) {
+	public Sessio(Professor professor, Estudiant estudiant, Servei servei, Date dataIHora) {
 		this.setProfessor(professor);
 		this.setEstudiant(estudiant);
 		this.setServei(servei);
 		this.setDataIHora(dataIHora);
+		professor.assignaSessio(this);
+		estudiant.assignaSessio(this);
+		servei.assignaSessio(this);
 	}
 	
 	/**
@@ -67,6 +71,24 @@ public class Sessio {
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
+	}
+
+	/**
+	 * Obté l'escola a on és el departament
+	 * @return escola a on és el departament
+	 */
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="escola_codi")
+	public Escola getEscola() {
+		return escola;
+	}
+
+	/**
+	 * Actualitza l'escola a on és el departament
+	 * @param escola actualitzada del departament
+	 */
+	public void setEscola(Escola escola) {
+		this.escola = escola;
 	}
 
 	/**
@@ -128,7 +150,7 @@ public class Sessio {
 	 * @return dataIHora a la que es realitza la sessió
 	 */
 	@Column(name="data_i_hora")
-	public Timestamp getDataIHora() {
+	public Date getDataIHora() {
 		return dataIHora;
 	}
 
@@ -136,7 +158,7 @@ public class Sessio {
 	 * Actualitza la data i hora a la que es realitza la sessió
 	 * @param dataIHora actualitzada de la sessió
 	 */
-	public void setDataIHora(Timestamp dataIHora) {
+	public void setDataIHora(Date dataIHora) {
 		this.dataIHora = dataIHora;
 	}
 

@@ -236,5 +236,15 @@ public class Beca {
 		this.setServei(servei);
 		servei.assignaBeca(this);
 	}
+	
+	/**
+	 * Imputa el servei impartit a la beca una vegada es crea una sessió
+	 */
+	public void imputaImport(Double importAImputar) {
+		this.setImportRestant(this.getImportRestant() - importAImputar);
+		if (this.getImportRestant() == 0) {
+			this.setFinalitzada(true);
+		}
+	}
 
 }

@@ -243,4 +243,12 @@ public class Departament {
 		}
 	}
 	
+	/**
+	 * Dona de baixa un empleat
+	 * @throws GestorExcepcions 
+	 */
+	public void baixaEmpleat(Empleat empleat) throws GestorExcepcions {
+		this.empleats.remove(empleat);
+	}
+	
 }

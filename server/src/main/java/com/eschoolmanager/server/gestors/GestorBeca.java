@@ -93,9 +93,11 @@ public class GestorBeca extends GestorEscola {
 	        	dadesBeca.put(DADES_CODI_BECA, beca.getCodi());
 	        	dadesBeca.put(DADES_ADJUDICANT_BECA, beca.getAdjudicant());
 	        	dadesBeca.put(DADES_IMPORT_INICIAL_BECA, beca.getImportInicial());
+	        	dadesBeca.put(DADES_IMPORT_RESTANT_BECA, beca.getImportRestant());
 	        	dadesBeca.put(DADES_NOM_ESTUDIANT, beca.getEstudiant().getNom());
-	        	dadesBeca.put(DADES_COGNOMS_ESTUDIANT, beca.getEstudiant().getCognoms());
+	        	dadesBeca.put(DADES_COGNOMS_ESTUDIANT_COMPLET, beca.getEstudiant().getCognoms());
 	        	dadesBeca.put(DADES_NOM_SERVEI, beca.getServei().getNom());
+	        	dadesBeca.put(DADES_ESTAT_BECA, beca.isFinalitzada());
 	        	dadesBeques.put(i, dadesBeca);
 	        	i++;
 	    	}
@@ -127,7 +129,7 @@ public class GestorBeca extends GestorEscola {
         dadesBeca.put(DADES_ESTAT_BECA, beca.isFinalitzada());
         dadesBeca.put(DADES_CODI_ESTUDIANT, beca.getEstudiant().getCodi());
         dadesBeca.put(DADES_NOM_ESTUDIANT, beca.getEstudiant().getNom());
-        dadesBeca.put(DADES_COGNOMS_ESTUDIANT, beca.getEstudiant().getCognoms());
+        dadesBeca.put(DADES_COGNOMS_ESTUDIANT_COMPLET, beca.getEstudiant().getCognoms());
         dadesBeca.put(DADES_CODI_SERVEI, beca.getServei().getCodi());
         dadesBeca.put(DADES_NOM_SERVEI, beca.getServei().getNom());
         
