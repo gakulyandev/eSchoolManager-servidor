@@ -40,6 +40,7 @@ public interface Constants {
 	public final static String CRIDA_MODI_BECA = "MODI BECA";
 	public final static String CRIDA_BAIXA_BECA = "BAIXA BECA";
 	public final static String CRIDA_ALTA_SESSIO = "ALTA SESSIO";
+	public final static String CRIDA_LLISTA_SESSIONS = "LLISTA SESSIONS";
 
 	public final static int CODI_ESCOLA = 1;
 	

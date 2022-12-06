@@ -147,4 +147,89 @@ public class GestioSessionsTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
+    
+
+    /**
+     * Mètode que prova llistar sessions amb un usuari autoritzat
+     */
+    @Test
+    public void provaLlistaSessionsAutoritzat() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA_SESSIONS);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CAMP, "adjudicant");
+    	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Clara", dadesResposta.getJSONObject("0").get(DADES_NOM_ESTUDIANT));
+    }
+    
+    /**
+     * Mètode que prova llistar sessions amb un usuari no autoritzat
+     */
+    @Test
+    public void provaLlistaSessionsNoAutoritzat() {
+
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA_SESSIONS);
+        peticio.put(CODI_SESSIO, "codiProvaFinancer");
+    	dadesPeticio.put(DADES_CAMP, "dataIHora");
+    	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova llistar sessions amb un usuari autoritzat i dades incorrectes
+     */
+    @Test
+    public void provaLlistaSessionsAutoritzatDadesIncorrectes() {
+
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA_SESSIONS);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CAMP, "data");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_CAMP, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova llistar sessions amb dades incompletes
+     */
+    @Test
+    public void provaLlistaSessionsDadesIncompletes() {
+    	
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_LLISTA_SESSIONS);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 }
