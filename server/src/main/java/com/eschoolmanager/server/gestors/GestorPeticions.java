@@ -626,9 +626,33 @@ public class GestorPeticions implements Constants {
 						dadesRespostaSessio.put(DADES_NOM_ESTUDIANT, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_ESTUDIANT));
 						dadesRespostaSessio.put(DADES_COGNOMS_ESTUDIANT_COMPLET, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_COGNOMS_ESTUDIANT_COMPLET));
 						dadesRespostaSessio.put(DADES_NOM_SERVEI, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_SERVEI));
-						dadesRespostaSessio.put(DADES_DATA_I_HORA, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_DATA_I_HORA));
+						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+						String strDate = dateFormat.format(((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_DATA_I_HORA));  
+						dadesRespostaSessio.put(DADES_DATA_I_HORA, strDate);
 						dadesResposta.put(String.valueOf(key), dadesRespostaSessio);
 					}
+					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_CONSULTA_SESSIO: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+
+					HashMap<String, Object> dadesSessio = gestorSessio.consulta(dadesPeticio.getInt(DADES_CODI_SESSIO));
+					
+					// Genera resposta
+					dadesResposta.put(DADES_CODI_SESSIO, dadesSessio.get(DADES_CODI_SESSIO));
+					dadesResposta.put(DADES_CODI_PROFESSOR, dadesSessio.get(DADES_CODI_PROFESSOR));
+					dadesResposta.put(DADES_NOM_PROFESSOR, dadesSessio.get(DADES_NOM_PROFESSOR));
+					dadesResposta.put(DADES_COGNOMS_PROFESSOR, dadesSessio.get(DADES_COGNOMS_PROFESSOR));
+					dadesResposta.put(DADES_CODI_ESTUDIANT, dadesSessio.get(DADES_CODI_ESTUDIANT));
+					dadesResposta.put(DADES_NOM_ESTUDIANT, dadesSessio.get(DADES_NOM_ESTUDIANT));
+					dadesResposta.put(DADES_COGNOMS_ESTUDIANT_COMPLET, dadesSessio.get(DADES_COGNOMS_ESTUDIANT_COMPLET));
+					dadesResposta.put(DADES_CODI_SERVEI, dadesSessio.get(DADES_CODI_SERVEI));
+					dadesResposta.put(DADES_NOM_SERVEI, dadesSessio.get(DADES_NOM_SERVEI));
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+					String strDate = dateFormat.format(dadesSessio.get(DADES_DATA_I_HORA));  
+					dadesResposta.put(DADES_DATA_I_HORA, strDate);
 					
 					return generaRespostaOK(dadesResposta);	
 				}

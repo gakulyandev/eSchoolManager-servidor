@@ -83,7 +83,7 @@ public class GestorSessio extends GestorEscola {
 			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
 				sessions = escola.getSessions(); //Llista les sessions amb l'ordre per defecte
 			} else {
-				//Llista les beques segons la petició
+				//Llista les sessions segons la petició
 				String consulta = "SELECT s FROM Sessio s ORDER BY s." + camp + " " + ordre;
 	
 				entityManager.getTransaction().begin();   
@@ -115,6 +115,35 @@ public class GestorSessio extends GestorEscola {
 		}
 		
 		throw new GestorExcepcions(ERROR_CAMP);
+    }
+	
+
+	/**
+     * Obté les dades d'una sessió
+     * @param codi de la sessió a cercar
+     * @return dades de la sessió
+     * @throws GestorExcepcions
+     */
+	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
+        
+		Sessio sessio = escola.trobaSessio(codi);
+        if (sessio == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_SESSIO);
+		}
+        
+        HashMap<String, Object> dadesSessio = new HashMap<String, Object>();
+    	dadesSessio.put(DADES_CODI_SESSIO, sessio.getCodi());
+    	dadesSessio.put(DADES_CODI_PROFESSOR, sessio.getProfessor().getCodi());
+    	dadesSessio.put(DADES_NOM_PROFESSOR, sessio.getProfessor().getNom());
+    	dadesSessio.put(DADES_COGNOMS_PROFESSOR, sessio.getProfessor().getCognoms());
+    	dadesSessio.put(DADES_CODI_ESTUDIANT, sessio.getEstudiant().getCodi());
+    	dadesSessio.put(DADES_NOM_ESTUDIANT, sessio.getEstudiant().getNom());
+    	dadesSessio.put(DADES_COGNOMS_ESTUDIANT_COMPLET, sessio.getEstudiant().getCognoms());
+    	dadesSessio.put(DADES_CODI_SERVEI, sessio.getServei().getCodi());
+    	dadesSessio.put(DADES_NOM_SERVEI, sessio.getServei().getNom());
+    	dadesSessio.put(DADES_DATA_I_HORA, sessio.getDataIHora());
+        
+        return dadesSessio;
     }
 
 }

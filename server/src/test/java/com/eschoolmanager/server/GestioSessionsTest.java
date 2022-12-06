@@ -232,4 +232,84 @@ public class GestioSessionsTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
+    
+    /**
+     * Mètode que prova consultar una sessió amb un usuari autoritzat i beca existent
+     */
+    @Test
+    public void provaConsultaSessioAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SESSIO, 40);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Clara", dadesResposta.get(DADES_NOM_ESTUDIANT));
+    }
+    
+    /**
+     * Mètode que prova consultar una sessió amb un usuari no autoritzat i beca existent
+     */
+    @Test
+    public void provaConsultaSessioNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaFinancer");
+    	dadesPeticio.put(DADES_CODI_SESSIO, 40);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar una sessió amb un usuari autoritzat i beca inexistent
+     */
+    @Test
+    public void provaConsultaSessioAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SESSIO, 50);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_SESSIO, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova consultar una sessió amb dades incompletes
+     */
+    @Test
+    public void provaConsultaSessioDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 }

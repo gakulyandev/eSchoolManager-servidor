@@ -739,4 +739,18 @@ public class Escola implements Constants {
 		
 		return sessio;
 	}
+	
+	/**
+	 * Obté una sessió amb el codi indicat
+	 * @return sessió trobada o null
+	 */
+	public Sessio trobaSessio(int codi) {
+		for(Sessio sessio : this.sessions) {
+			if (sessio.getCodi() == codi) {
+				return sessio;
+			}
+		}
+		
+		return null;
+	}
 }
