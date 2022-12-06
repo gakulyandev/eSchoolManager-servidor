@@ -158,7 +158,7 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LLISTA_SESSIONS);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CAMP, "adjudicant");
+    	dadesPeticio.put(DADES_CAMP, "dataIHora");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
     	peticio.put(DADES, dadesPeticio);
 

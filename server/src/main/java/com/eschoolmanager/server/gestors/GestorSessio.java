@@ -4,8 +4,12 @@
 package com.eschoolmanager.server.gestors;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Beca;
 import com.eschoolmanager.server.model.Empleat;
@@ -21,6 +25,7 @@ import com.eschoolmanager.server.model.Sessio;
 public class GestorSessio extends GestorEscola {
 	
 	public final static String DEPARTAMENT_DOCENT = "Docent";
+	private final static String[] DADES_CAMPS = {"codi","codiEmpleat","codiEstudiant", "codiServei", "dataIHora"};
 
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -60,6 +65,56 @@ public class GestorSessio extends GestorEscola {
         entityManager.getTransaction().begin();
         entityManager.merge(sessio);
         entityManager.getTransaction().commit();
+    }
+	
+	/**
+     * Obté llistat de les sessions a l'escola
+     * @param camp de dades per ordenar
+     * @param ordre que ha de mostrar
+     * @return llista de sessions
+     * @throws GestorExcepcions
+     */
+	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
+                
+		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
+			 camp.length() == 0 && ordre.length() == 0) {
+			List<Sessio> sessions;
+			
+			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
+				sessions = escola.getSessions(); //Llista les sessions amb l'ordre per defecte
+			} else {
+				//Llista les beques segons la petició
+				String consulta = "SELECT s FROM Sessio s ORDER BY s." + camp + " " + ordre;
+	
+				entityManager.getTransaction().begin();   
+				
+	    		Query query = (Query) entityManager.createQuery(consulta);
+	    		sessions = query.getResultList();  
+	    		
+	            entityManager.getTransaction().commit();
+			}
+	
+			
+	        HashMap<Integer, Object> dadesSessions = new HashMap<Integer, Object>();
+	        
+			int i = 0;
+	        for (Sessio sessio : sessions) {
+	        	HashMap<String,Object> dadesSessio = new HashMap<String, Object>();
+	        	dadesSessio.put(DADES_CODI_SESSIO, sessio.getCodi());
+	        	dadesSessio.put(DADES_NOM_PROFESSOR, sessio.getProfessor().getNom());
+	        	dadesSessio.put(DADES_COGNOMS_PROFESSOR, sessio.getProfessor().getCognoms());
+	        	dadesSessio.put(DADES_NOM_ESTUDIANT, sessio.getEstudiant().getNom());
+	        	dadesSessio.put(DADES_COGNOMS_ESTUDIANT_COMPLET, sessio.getEstudiant().getCognoms());
+	        	dadesSessio.put(DADES_NOM_SERVEI, sessio.getServei().getNom());
+	        	dadesSessio.put(DADES_DATA_I_HORA, sessio.getDataIHora());
+	        	dadesSessions.put(i, dadesSessio);
+	        	i++;
+	    	}
+	        
+	        return dadesSessions;		
+		}
+		
+		throw new GestorExcepcions(ERROR_CAMP);
     }
 
 }

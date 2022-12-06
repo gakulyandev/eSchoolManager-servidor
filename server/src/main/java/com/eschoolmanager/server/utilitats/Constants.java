@@ -96,6 +96,8 @@ public interface Constants {
 	public final static String DADES_ADJUDICANT_BECA = "adjudicant";
 	public final static String DADES_CODI_BECA = "codiBeca";
 	public final static String DADES_DATA_I_HORA = "dataIHora";
+	public final static String DADES_NOM_PROFESSOR = "nomProfessor";
+	public final static String DADES_COGNOMS_PROFESSOR = "cognomsProfessor";
 	
 	public final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
 	

@@ -609,6 +609,29 @@ public class GestorPeticions implements Constants {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_LLISTA_SESSIONS: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					HashMap<Integer, Object> dadesSessions = gestorSessio.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+
+					// Genera resposta
+					dadesResposta = new JSONObject();
+					
+					for (Integer key : dadesSessions.keySet()) {
+						JSONObject dadesRespostaSessio = new JSONObject();
+						dadesRespostaSessio.put(DADES_CODI_SESSIO, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_CODI_SESSIO));
+						dadesRespostaSessio.put(DADES_NOM_PROFESSOR, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_PROFESSOR));
+						dadesRespostaSessio.put(DADES_COGNOMS_PROFESSOR, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_COGNOMS_PROFESSOR));
+						dadesRespostaSessio.put(DADES_NOM_ESTUDIANT, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_ESTUDIANT));
+						dadesRespostaSessio.put(DADES_COGNOMS_ESTUDIANT_COMPLET, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_COGNOMS_ESTUDIANT_COMPLET));
+						dadesRespostaSessio.put(DADES_NOM_SERVEI, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_SERVEI));
+						dadesRespostaSessio.put(DADES_DATA_I_HORA, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_DATA_I_HORA));
+						dadesResposta.put(String.valueOf(key), dadesRespostaSessio);
+					}
+					
+					return generaRespostaOK(dadesResposta);	
+				}
 				default: {
 					// Genera resposta
 					return generaRespostaNOK(ERROR_GENERIC);
