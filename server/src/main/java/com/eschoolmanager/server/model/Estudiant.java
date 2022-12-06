@@ -180,7 +180,8 @@ public class Estudiant extends Persona {
 	public void imputaServei(Servei servei) {
 
 		// Imputa part o la totalitat a la beca que hi hagi adjudicada sobre el servei
-		double importAImputar = servei.getCost();
+		Double importAImputar = servei.getCost();
+		Double importAImputarEstudiant = 0.00;
 		for(Beca beca: this.beques) {
 			if (beca.getServei() == servei) {
 				double importRestant = beca.getImportRestant();
@@ -189,15 +190,12 @@ public class Estudiant extends Persona {
 					importAImputar = 0.00;
 				} else {
 					beca.imputaImport(importRestant);
-					System.out.println("Import a imputar " +importAImputar+  ", Import restant" + importRestant);
-					importAImputar = importAImputar - importRestant;
-					importAImputar = 15.00;
+					importAImputarEstudiant = importAImputar - importRestant;
 				}
 			}
 		}
-		System.out.println("Import a imputar " +importAImputar);
 		
-		this.setImportImputat(this.getImportImputat() + importAImputar);
+		this.setImportImputat(this.getImportImputat() + importAImputarEstudiant);
 	}
 	
 	
