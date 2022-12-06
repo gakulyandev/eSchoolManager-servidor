@@ -53,14 +53,8 @@ public class GestorSessio extends GestorEscola {
         if (!empleat.getDepartament().getNom().equals(DEPARTAMENT_DOCENT)) {
 			throw new GestorExcepcions(ERROR_INEXISTENT_PROFESSOR);
         }
-
-        // Comprova si el professor imparteix el servei
-        Professor professor = (Professor) empleat;
-        if (!professor.imparteixServei(servei)) {
-			throw new GestorExcepcions(ERROR_INEXISTENT_RELACIO_PROFESSOR_SERVEI);
-        }
         
-        Sessio sessio = escola.altaSessio(professor, estudiant, servei, dataIHora);
+        Sessio sessio = escola.altaSessio((Professor) empleat, estudiant, servei, dataIHora);
         
         // Persisteix la sessió
         entityManager.getTransaction().begin();

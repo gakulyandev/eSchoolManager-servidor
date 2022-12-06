@@ -572,7 +572,8 @@ public class GestorPeticions implements Constants {
 							dadesPeticio.getString(DADES_ADJUDICANT_BECA),
 							dadesPeticio.getDouble(DADES_IMPORT_INICIAL_BECA),
 							dadesPeticio.getInt(DADES_CODI_ESTUDIANT),
-							dadesPeticio.getInt(DADES_CODI_SERVEI)
+							dadesPeticio.getInt(DADES_CODI_SERVEI),
+							dadesPeticio.getBoolean(DADES_ESTAT_BECA)
 					);
 
 					// Genera resposta

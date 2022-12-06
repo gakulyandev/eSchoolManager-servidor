@@ -145,7 +145,7 @@ public class GestorBeca extends GestorEscola {
      * @param codi del servei actualitzat
      * @throws GestorExcepcions
      */
-	public void actualitza(Integer codi, String adjudicant, Double importInicial, int codiEstudiant, int codiServei) throws GestorExcepcions {
+	public void actualitza(Integer codi, String adjudicant, Double importInicial, int codiEstudiant, int codiServei, boolean finalitzada) throws GestorExcepcions {
         
 		// Troba la beca
 		Beca beca = escola.trobaBeca(codi);
@@ -162,7 +162,7 @@ public class GestorBeca extends GestorEscola {
 		}
         
         // Actualitza la beca de l'escola
-        escola.actualitzaBeca(beca, adjudicant, importInicial, estudiant, servei);
+        escola.actualitzaBeca(beca, adjudicant, importInicial, estudiant, servei, finalitzada);
 
         // Actualitza la base de dades
         entityManager.getTransaction().begin();

@@ -13,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,7 +31,6 @@ public class Servei {
 	private double cost;
 	private int durada;
 	private List<Beca> beques;
-	private List<Professor> professors;
 	private List<Sessio> sessions;
 	
 	/**
@@ -55,7 +52,6 @@ public class Servei {
 		this.setCost(cost);
 		this.setDurada(durada);
 		this.setBeques(new ArrayList<Beca>());
-		this.setProfessors(new ArrayList<Professor>());
 		this.setSessions(new ArrayList<Sessio>());
 	}
 
@@ -163,28 +159,6 @@ public class Servei {
 	public void setBeques(List<Beca> beques) {
 		this.beques = beques;
 	}
-
-	/**
-	 * Llista els professors que presten el servei
-	 * @return professors que presten el servei
-	 */
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name="serveis_professors",
-			joinColumns=@JoinColumn(name="professor"),
-			inverseJoinColumns=@JoinColumn(name="servei")
-	)
-	public List<Professor> getProfessors() {
-		return this.professors;
-	}
-	
-	/**
-	 * Actualitza professors que presten el servei (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param professors actualitzats del servei
-	 */
-	public void setProfessors(List<Professor> professors) {
-		this.professors = professors;
-	}
 	
 	/**
 	 * Llista les sessions realitzades del servei
@@ -216,19 +190,6 @@ public class Servei {
 	}
 	
 	/**
-	 * Afegeix un professor al llistat
-	 * @param professor a assignar
-	 */
-	public void assignaProfessor(Professor professor) {
-		if(!professors.contains(professor)) {
-			professors.add(professor);
-		}
-		if (!professor.getServeis().contains(this)) {
-			professor.afegeixServei(this);	
-		}
-	}
-	
-	/**
 	 * Afegeix una beca al llistat
 	 * @param beca a assignar
 	 */
@@ -254,6 +215,6 @@ public class Servei {
 	 * @return true o false segons si té o no elements relacionats
 	 */
 	public Boolean isBuit() {
-		return (this.professors.isEmpty() && this.beques.isEmpty() && this.sessions.isEmpty());
+		return (this.beques.isEmpty() && this.sessions.isEmpty());
 	}
 }

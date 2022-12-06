@@ -31,6 +31,7 @@ import com.eschoolmanager.server.model.SessioUsuari;
 import com.eschoolmanager.server.model.Usuari;
 import com.eschoolmanager.server.utilitats.Constants;
 import com.eschoolmanager.server.model.Servei;
+import com.eschoolmanager.server.model.Sessio;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -242,10 +243,8 @@ public class BaseTest implements Constants {
         // Creació de serveis d'exemple
 		Servei serveiPsicologia = escola.altaServei("Psicologia", 25.00, 1);
 		Servei serveiPsicopedagogia = escola.altaServei("Psicopedagogia", 35.00, 2);
-		
 		serveiPsicologia.setCodi(5);
 		serveiPsicopedagogia.setCodi(6);
-		serveiPsicologia.assignaProfessor(empleatDocent);
 		
 		// Creació d'estudiants d'exemple
 		Estudiant estudiant1 = escola.altaEstudiant("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5");
@@ -256,6 +255,17 @@ public class BaseTest implements Constants {
 		// Creació de beques d'exemple
 		Beca beca = escola.altaBeca("Entitat Prova", 1000.00, estudiant1, serveiPsicologia);
 		beca.setCodi(30);
+		
+		// Creació de sessions d'exemple
+		SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        java.util.Date parsed2 = null;
+		try {
+			parsed2 = format2.parse("2022-1-04 16:00:00");
+		} catch (ParseException e) {
+			System.out.println("S'ha produït un error");
+		}
+		Sessio sessio = escola.altaSessio(empleatDocent, estudiant1, serveiPsicologia, new Date(parsed2.getTime()));
+		sessio.setCodi(40);
 		
 		insertaDades(escola);
     }

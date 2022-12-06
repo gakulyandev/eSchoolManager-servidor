@@ -451,7 +451,7 @@ public class GestioDepartamentsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_DEPARTAMENT);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 5);
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, 50);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

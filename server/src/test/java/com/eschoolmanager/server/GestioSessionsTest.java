@@ -127,29 +127,6 @@ public class GestioSessionsTest extends BaseTest {
     }
     
     /**
-     * Mètode que prova donar d'alta una sessió amb un usuari autoritzat i un servei no impartit pel professor
-     */
-    @Test
-    public void provaAltaSessioAutoritzatServeiIncorrecte() {
-
-    	//Petició del client
-        peticio.put(CRIDA, CRIDA_ALTA_SESSIO);
-        peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 6);
-    	dadesPeticio.put(DADES_DATA_I_HORA, "2022-12-04 16:00:00");
-    	peticio.put(DADES, dadesPeticio);
-
-    	//Resposta del servidor una vegada processada la petició
-    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
-    	
-    	//Comprovació
-        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
-        assertEquals(ERROR_INEXISTENT_RELACIO_PROFESSOR_SERVEI, resposta.get(MISSATGE));
-    }
-    
-    /**
      * Mètode que prova donar d'alta una sessió amb dades incompletes
      */
     @Test

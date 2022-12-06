@@ -26,6 +26,7 @@ import com.eschoolmanager.server.utilitats.Constants;
  * Classe que executa l'aplicació servidor
  */
 public class App implements Constants {
+	
 	public static void main( String[] args ) {
     	
     	// Executa el servidor a espera de clients
@@ -116,8 +117,7 @@ public class App implements Constants {
 		empleatDocent.assignaUsuari(usuariDocent);
 		
 		// Creació de serveis d'exemple
-		Servei serveiPsicologia = escola.altaServei("Psicologia", 25.00, 1);
-		((Professor) empleatDocent).afegeixServei(serveiPsicologia);
+		escola.altaServei("Psicologia", 25.00, 1);
 		escola.altaServei("Psicopedagogia", 35.00, 2);
 		// Persistencia
 		entityManager.getTransaction().begin();

@@ -181,13 +181,13 @@ public class Estudiant extends Persona {
 
 		// Imputa part o la totalitat a la beca que hi hagi adjudicada sobre el servei
 		Double importAImputar = servei.getCost();
-		Double importAImputarEstudiant = 0.00;
+		Double importAImputarEstudiant = importAImputar;
 		for(Beca beca: this.beques) {
-			if (beca.getServei() == servei) {
+			if ((beca.getServei() == servei) && !beca.isFinalitzada()) {
 				double importRestant = beca.getImportRestant();
 				if (importRestant >= importAImputar) {
 					beca.imputaImport(importAImputar);
-					importAImputar = 0.00;
+					importAImputarEstudiant = 0.00;
 				} else {
 					beca.imputaImport(importRestant);
 					importAImputarEstudiant = importAImputar - importRestant;

@@ -301,6 +301,7 @@ public class GestioBequesTest extends BaseTest {
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
     	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_ESTAT_BECA, true);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -324,6 +325,7 @@ public class GestioBequesTest extends BaseTest {
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
     	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_ESTAT_BECA, true);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -348,6 +350,7 @@ public class GestioBequesTest extends BaseTest {
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
     	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_ESTAT_BECA, true);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -370,6 +373,7 @@ public class GestioBequesTest extends BaseTest {
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
     	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_ESTAT_BECA, true);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

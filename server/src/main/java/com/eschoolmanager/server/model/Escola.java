@@ -708,8 +708,8 @@ public class Escola implements Constants {
 	 * @throws GestorExcepcions 
 	 */
 	
-	public void actualitzaBeca(Beca beca, String adjudicant, Double importInicial, Estudiant estudiant, Servei servei) throws GestorExcepcions {
-		beca.actualitza(adjudicant, importInicial, estudiant, servei);
+	public void actualitzaBeca(Beca beca, String adjudicant, Double importInicial, Estudiant estudiant, Servei servei, Boolean finalitzada) throws GestorExcepcions {
+		beca.actualitza(adjudicant, importInicial, estudiant, servei, finalitzada);
 	}
 	
 	/**

@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,7 +24,6 @@ import com.eschoolmanager.server.gestors.GestorExcepcions;
 @DiscriminatorValue("PR")
 public class Professor extends Empleat {
 	
-	private List<Servei> serveis;
 	private List<Sessio> sessions;
 
 	/**
@@ -48,25 +46,7 @@ public class Professor extends Empleat {
      */
 	public Professor(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
-		this.setServeis(new ArrayList<Servei>());
 		this.setSessions(new ArrayList<Sessio>());
-	}
-	
-	/**
-	 * Llista els serveis prestats pel professor
-	 * @return serveis prestats pel professor
-	 */
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="professors")
-	public List<Servei> getServeis() {
-		return this.serveis;
-	}
-	
-	/**
-	 * Actualitza els serveis prestats pel professor (només s'inclou pel correcte funcionament del mapeig ORM)
-	 * @param serveis actualitzats del professor
-	 */
-	public void setServeis(List<Servei> serveis) {
-		this.serveis = serveis;
 	}
 	
 	/**
@@ -87,27 +67,6 @@ public class Professor extends Empleat {
 	}
 	
 	/**
-	 * Afegeix un servei al llistat
-	 * @param servei a afegir
-	 */
-	public void afegeixServei(Servei servei) {
-		if(!serveis.contains(servei)) {
-			serveis.add(servei);
-		}
-		if (!servei.getProfessors().contains(this)) {
-			servei.assignaProfessor(this);			
-		}
-	}
-	
-	/**
-	 * Comprova si imparteix el servei
-	 * @param servei a comprovar
-	 */
-	public boolean imparteixServei(Servei servei) {
-		return serveis.contains(servei);
-	}
-	
-	/**
 	 * Assigna una sessió
 	 * @param sessió a assignar
 	 */
@@ -115,7 +74,6 @@ public class Professor extends Empleat {
 		if(!sessions.contains(sessio)) {
 			sessions.add(sessio);
 		}
-		
 	}
 	
 	/**
@@ -123,6 +81,6 @@ public class Professor extends Empleat {
 	 * @return true o false segons si té o no elements relacionats
 	 */
 	public Boolean isBuit() {
-		return (this.sessions.isEmpty() && this.serveis.isEmpty());
+		return (this.sessions.isEmpty());
 	}
 }

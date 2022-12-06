@@ -224,7 +224,7 @@ public class Beca {
      * @param l'estudiant actualitzat
      * @param servei actualitzat
 	 */
-	public void actualitza(String adjudicant, Double importInicial, Estudiant estudiant, Servei servei) {
+	public void actualitza(String adjudicant, Double importInicial, Estudiant estudiant, Servei servei, Boolean finalitzada) {
 		this.setAdjudicant(adjudicant);
 		if (this.importRestant == this.importInicial) {
 			this.setImportRestant(importInicial);
@@ -235,6 +235,7 @@ public class Beca {
 		estudiant.adjudicaBeca(this);
 		this.setServei(servei);
 		servei.assignaBeca(this);
+		this.setFinalitzada(finalitzada);
 	}
 	
 	/**
