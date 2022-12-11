@@ -44,9 +44,9 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_DATA_I_HORA, "2022-1-04 16:00:00");
     	peticio.put(DADES, dadesPeticio);
 
@@ -66,9 +66,9 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaFinancer");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_DATA_I_HORA, "2022-1-04 16:00:00");
     	peticio.put(DADES, dadesPeticio);
 
@@ -89,9 +89,9 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 50);
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_INEXISTENT);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_DATA_I_HORA, "2022-1-04 16:00:00");
     	peticio.put(DADES, dadesPeticio);
 
@@ -112,9 +112,9 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 14);
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_ADMINISTRATIU);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_DATA_I_HORA, "2022-12-04 16:00:00");
     	peticio.put(DADES, dadesPeticio);
 
@@ -135,8 +135,8 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_ALTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_DATA_I_HORA, "2022-1-04 16:00:00");
     	peticio.put(DADES, dadesPeticio);
 
@@ -242,7 +242,7 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_SESSIO, 40);
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -263,7 +263,7 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaFinancer");
-    	dadesPeticio.put(DADES_CODI_SESSIO, 40);
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -283,7 +283,7 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_SESSIO, 50);
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

@@ -254,7 +254,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -275,7 +275,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -295,7 +295,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 30);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -334,7 +334,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	dadesPeticio.put(DADES_DNI_ESTUDIANT, "99988877A");
     	dadesPeticio.put(DADES_NOM_ESTUDIANT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_ESTUDIANT, "Ruiz");
@@ -361,7 +361,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	dadesPeticio.put(DADES_DNI_ESTUDIANT, "99988877Addd");
     	dadesPeticio.put(DADES_NOM_ESTUDIANT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_ESTUDIANT, "Ruiz");
@@ -389,7 +389,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 30);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_INEXISTENT);
     	dadesPeticio.put(DADES_DNI_ESTUDIANT, "99988877A");
     	dadesPeticio.put(DADES_NOM_ESTUDIANT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_ESTUDIANT, "Ruiz");
@@ -417,7 +417,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	dadesPeticio.put(DADES_DNI_ESTUDIANT, "99988877A");
     	dadesPeticio.put(DADES_NOM_ESTUDIANT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_ESTUDIANT, "Ruiz");
@@ -445,7 +445,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	dadesPeticio.put(DADES_DNI_ESTUDIANT, "22233344N");
     	dadesPeticio.put(DADES_NOM_ESTUDIANT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_ESTUDIANT, "Ruiz");
@@ -473,7 +473,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	dadesPeticio.put(DADES_NOM_ESTUDIANT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_ESTUDIANT, "Ruiz");
     	dadesPeticio.put(DADES_DATA_NAIXEMENT_ESTUDIANT, "1991-10-28");
@@ -500,7 +500,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 21);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_2);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -520,7 +520,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 21);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_2);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -540,7 +540,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 30);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -560,7 +560,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

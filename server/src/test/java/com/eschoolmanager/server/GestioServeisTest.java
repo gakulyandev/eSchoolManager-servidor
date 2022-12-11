@@ -213,7 +213,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -234,7 +234,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -254,7 +254,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 10);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -293,7 +293,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
@@ -315,7 +315,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
@@ -338,7 +338,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 10);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_INEXISTENT);
     	dadesPeticio.put(DADES_NOM_SERVEI, "PsicologiaModificat");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
@@ -360,7 +360,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_NOM_SERVEI, "Psicopedagogia");
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
@@ -383,7 +383,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_DURADA_SERVEI, 2);
     	dadesPeticio.put(DADES_COST_SERVEI, 60.00);
     	peticio.put(DADES, dadesPeticio);
@@ -405,7 +405,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 6);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOPEDAGODIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -425,7 +425,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 6);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOPEDAGODIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -445,7 +445,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 10);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -465,7 +465,7 @@ public class GestioServeisTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_SERVEI);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

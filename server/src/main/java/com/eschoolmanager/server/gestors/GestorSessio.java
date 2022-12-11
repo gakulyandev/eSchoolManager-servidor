@@ -101,8 +101,8 @@ public class GestorSessio extends GestorEscola {
 	        for (Sessio sessio : sessions) {
 	        	HashMap<String,Object> dadesSessio = new HashMap<String, Object>();
 	        	dadesSessio.put(DADES_CODI_SESSIO, sessio.getCodi());
-	        	dadesSessio.put(DADES_NOM_PROFESSOR, sessio.getProfessor().getNom());
-	        	dadesSessio.put(DADES_COGNOMS_PROFESSOR, sessio.getProfessor().getCognoms());
+	        	dadesSessio.put(DADES_NOM_EMPLEAT_COMPLET, sessio.getProfessor().getNom());
+	        	dadesSessio.put(DADES_COGNOMS_EMPLEAT_COMPLET, sessio.getProfessor().getCognoms());
 	        	dadesSessio.put(DADES_NOM_ESTUDIANT, sessio.getEstudiant().getNom());
 	        	dadesSessio.put(DADES_COGNOMS_ESTUDIANT_COMPLET, sessio.getEstudiant().getCognoms());
 	        	dadesSessio.put(DADES_NOM_SERVEI, sessio.getServei().getNom());
@@ -133,9 +133,9 @@ public class GestorSessio extends GestorEscola {
         
         HashMap<String, Object> dadesSessio = new HashMap<String, Object>();
     	dadesSessio.put(DADES_CODI_SESSIO, sessio.getCodi());
-    	dadesSessio.put(DADES_CODI_PROFESSOR, sessio.getProfessor().getCodi());
-    	dadesSessio.put(DADES_NOM_PROFESSOR, sessio.getProfessor().getNom());
-    	dadesSessio.put(DADES_COGNOMS_PROFESSOR, sessio.getProfessor().getCognoms());
+    	dadesSessio.put(DADES_CODI_EMPLEAT, sessio.getProfessor().getCodi());
+    	dadesSessio.put(DADES_NOM_EMPLEAT_COMPLET, sessio.getProfessor().getNom());
+    	dadesSessio.put(DADES_COGNOMS_EMPLEAT_COMPLET, sessio.getProfessor().getCognoms());
     	dadesSessio.put(DADES_CODI_ESTUDIANT, sessio.getEstudiant().getCodi());
     	dadesSessio.put(DADES_NOM_ESTUDIANT, sessio.getEstudiant().getNom());
     	dadesSessio.put(DADES_COGNOMS_ESTUDIANT_COMPLET, sessio.getEstudiant().getCognoms());

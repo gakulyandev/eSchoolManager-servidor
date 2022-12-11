@@ -4,7 +4,9 @@
 package com.eschoolmanager.server.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,7 +28,6 @@ import javax.persistence.Table;
 public class Factura {
 	
 	private int codi;
-	private String dades;
 	private Date dataGeneracio;
 	private Estudiant estudiant;
 
@@ -43,7 +45,6 @@ public class Factura {
      * @param estudiant per qui es genera la factura
      */
 	public Factura(String dades, Estudiant estudiant) {
-        this.setDades(dades);
         this.setEstudiant(estudiant);
         this.setDataGeneracio(new Date(Calendar.LONG));
 	}
@@ -65,23 +66,6 @@ public class Factura {
 	 */
 	public void setCodi(int codi) {
 		this.codi = codi;
-	}
-
-	/**
-	 * Obté les dades de l'factura
-	 * @return dades de l'factura
-	 */
-	@Column(name="dades")
-	public String getDades() {
-		return dades;
-	}
-
-	/**
-	 * Actualitza les dades de la factura
-	 * @param dades actualitzades de la factura
-	 */
-	public void setDades(String dades) {
-		this.dades = dades;
 	}
 
 	/**

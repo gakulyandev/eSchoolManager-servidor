@@ -46,7 +46,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest4");
     	peticio.put(DADES, dadesPeticio);
@@ -74,7 +74,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest4");
     	peticio.put(DADES, dadesPeticio);
@@ -103,7 +103,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest4");
     	peticio.put(DADES, dadesPeticio);
@@ -132,7 +132,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest4");
     	peticio.put(DADES, dadesPeticio);
@@ -161,7 +161,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest4");
     	peticio.put(DADES, dadesPeticio);
@@ -189,7 +189,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest4");
     	peticio.put(DADES, dadesPeticio);
@@ -295,7 +295,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 10);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_ADMINISTRATIU);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -304,7 +304,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
-        assertEquals("Pedro", dadesResposta.get(DADES_NOM_EMPLEAT));
+        assertEquals("Clara", dadesResposta.get(DADES_NOM_EMPLEAT));
     }
     
     /**
@@ -316,7 +316,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -335,7 +335,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 10);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_ADMINISTRATIU);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -355,7 +355,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 20);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -394,7 +394,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -402,7 +402,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
     	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
@@ -424,7 +424,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877Addd");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -432,7 +432,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
     	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
@@ -455,7 +455,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 30);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_INEXISTENT);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -463,7 +463,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
     	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
@@ -486,7 +486,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 11);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_ADMINISTRATIU);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -494,7 +494,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
     	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
@@ -517,7 +517,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -525,7 +525,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
     	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
@@ -547,7 +547,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "22233344N");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -555,7 +555,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
     	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
@@ -578,7 +578,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	dadesPeticio.put(DADES_DNI_EMPLEAT, "99988877A");
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
@@ -586,7 +586,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "p.gomez");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
     	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
@@ -609,14 +609,14 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	dadesPeticio.put(DADES_NOM_EMPLEAT, "Sara");
     	dadesPeticio.put(DADES_COGNOMS_EMPLEAT, "Ruiz");
     	dadesPeticio.put(DADES_DATA_NAIXEMENT_EMPLEAT, "1991-10-28");
     	dadesPeticio.put(DADES_ADRECA_EMPLEAT, "C/De l'aigua 1");
     	dadesPeticio.put(DADES_TELEFON_EMPLEAT, "666888999");
     	dadesPeticio.put(DADES_EMAIL_EMPLEAT, "s.ruiz@gmail.com");
-    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, "2");
+    	dadesPeticio.put(DADES_CODI_DEPARTAMENT, CODI_EXEMPLE_DEPARTAMENT_DOCENT);
     	dadesPeticio.put(DADES_NOM_USUARI, "s.ruiz");
     	dadesPeticio.put(DADES_CONTRASENYA_USUARI, "passtest5");
     	dadesPeticio.put(DADES_ESTAT_EMPLEAT, false);
@@ -639,7 +639,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 13);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT_BUIT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -659,7 +659,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 13);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_ADMINISTRATIU);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -679,7 +679,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 30);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -699,7 +699,7 @@ public class GestioEmpleatsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_EMPLEAT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_EMPLEAT, 12);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

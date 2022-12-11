@@ -46,6 +46,23 @@ public class BaseTest implements Constants {
 	protected JSONObject peticio, dadesPeticio, resposta, dadesResposta;
 
 	protected final static String PERSISTENCE_UNIT = "eSchoolManager";
+	protected final static int CODI_EXEMPLE_DEPARTAMENT_ADMINISTRADOR = 1;
+	protected final static int CODI_EXEMPLE_DEPARTAMENT_ADMINISTRATIU = 2;
+	protected final static int CODI_EXEMPLE_DEPARTAMENT_DOCENT = 3;
+	protected final static int CODI_EXEMPLE_DEPARTAMENT_DOCENT_BUIT = 4;
+	protected final static int CODI_EXEMPLE_DEPARTAMENT_FINANCER = 5;
+	protected final static int CODI_EXEMPLE_EMPLEAT_ADMINISTRADOR = 10;
+	protected final static int CODI_EXEMPLE_EMPLEAT_ADMINISTRATIU = 11;
+	protected final static int CODI_EXEMPLE_EMPLEAT_DOCENT = 12;
+	protected final static int CODI_EXEMPLE_EMPLEAT_DOCENT_BUIT = 13;
+	protected final static int CODI_EXEMPLE_EMPLEAT_FINANCER = 14;
+	protected final static int CODI_EXEMPLE_SERVEI_PSICOLOGIA = 20;
+	protected final static int CODI_EXEMPLE_SERVEI_PSICOPEDAGODIA = 21;
+	protected final static int CODI_EXEMPLE_ESTUDIANT_1 = 30;
+	protected final static int CODI_EXEMPLE_ESTUDIANT_2 = 31;
+	protected final static int CODI_EXEMPLE_BECA = 40;
+	protected final static int CODI_EXEMPLE_SESSIO = 50;
+	protected final static int CODI_EXEMPLE_INEXISTENT = 100;
     
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -161,11 +178,11 @@ public class BaseTest implements Constants {
 		Departament departamentDocentBuit = escola.altaDepartament("DocentBuit", permisosDocent);
 		Departament departamentFinancer = escola.altaDepartament("Financer", permisosFinancer);
 		
-		departamentAdministrador.setCodi(1);
-		departamentAdministratiu.setCodi(2);
-		departamentDocent.setCodi(3);
-		departamentDocentBuit.setCodi(4);
-		departamentFinancer.setCodi(5);
+		departamentAdministrador.setCodi(CODI_EXEMPLE_DEPARTAMENT_ADMINISTRADOR);
+		departamentAdministratiu.setCodi(CODI_EXEMPLE_DEPARTAMENT_ADMINISTRATIU);
+		departamentDocent.setCodi(CODI_EXEMPLE_DEPARTAMENT_DOCENT);
+		departamentDocentBuit.setCodi(CODI_EXEMPLE_DEPARTAMENT_DOCENT_BUIT);
+		departamentFinancer.setCodi(CODI_EXEMPLE_DEPARTAMENT_FINANCER);
 		
         // Creació d'empleats d'exemple
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -178,25 +195,25 @@ public class BaseTest implements Constants {
 		Empleat empleatAdministrador = escola.altaEmpleat("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4", departamentAdministrador);
 		Empleat empleatAdministratiu = escola.altaEmpleat("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5", departamentAdministratiu);
 		Professor empleatDocent = (Professor) escola.altaEmpleat("45628915M", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departamentDocent);
-		Professor empleatDocent2 = (Professor) escola.altaEmpleat("45628915L", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departamentDocent);
+		Professor empleatDocentBuit = (Professor) escola.altaEmpleat("45628915L", "Blas", "Roig", new Date(parsed.getTime()), "658656558", "b.roig@gmail.com", "c/Del Pino, 1", departamentDocent);
 		Empleat empleatFinancer = escola.altaEmpleat("66633344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5", departamentFinancer);
-		empleatAdministrador.setCodi(10);
-		empleatAdministratiu.setCodi(11);
-		empleatDocent.setCodi(12);
-		empleatDocent2.setCodi(13);
-		empleatFinancer.setCodi(14);
+		empleatAdministrador.setCodi(CODI_EXEMPLE_EMPLEAT_ADMINISTRADOR);
+		empleatAdministratiu.setCodi(CODI_EXEMPLE_EMPLEAT_ADMINISTRATIU);
+		empleatDocent.setCodi(CODI_EXEMPLE_EMPLEAT_DOCENT);
+		empleatDocentBuit.setCodi(CODI_EXEMPLE_EMPLEAT_DOCENT_BUIT);
+		empleatFinancer.setCodi(CODI_EXEMPLE_EMPLEAT_FINANCER);
 		
         // Creació d'usuaris d'exemple
 		Usuari usuariAdministrador = escola.altaUsuari("p.gomez", "passtest1");
 		Usuari usuariAdministratiu = escola.altaUsuari("c.carrillo", "passtest2");
 		Usuari usuariDocent = escola.altaUsuari("b.roig", "passtest3");
-		Usuari usuariDocent2 = escola.altaUsuari("b.roig2", "passtest3");
+		Usuari usuariDocentBuit = escola.altaUsuari("b.roig2", "passtest3");
 		Usuari usuariFinancer = escola.altaUsuari("c.carrillo2", "passtest2");
 
 		empleatAdministrador.assignaUsuari(usuariAdministrador);
 		empleatAdministratiu.assignaUsuari(usuariAdministratiu);
 		empleatDocent.assignaUsuari(usuariDocent);
-		empleatDocent2.assignaUsuari(usuariDocent2);
+		empleatDocentBuit.assignaUsuari(usuariDocentBuit);
 		empleatFinancer.assignaUsuari(usuariFinancer);
 		
 		gestorSessionsUsuari.desaSessio(
@@ -243,18 +260,18 @@ public class BaseTest implements Constants {
         // Creació de serveis d'exemple
 		Servei serveiPsicologia = escola.altaServei("Psicologia", 25.00, 1);
 		Servei serveiPsicopedagogia = escola.altaServei("Psicopedagogia", 35.00, 2);
-		serveiPsicologia.setCodi(5);
-		serveiPsicopedagogia.setCodi(6);
+		serveiPsicologia.setCodi(CODI_EXEMPLE_SERVEI_PSICOLOGIA);
+		serveiPsicopedagogia.setCodi(CODI_EXEMPLE_SERVEI_PSICOPEDAGODIA);
 		
 		// Creació d'estudiants d'exemple
 		Estudiant estudiant1 = escola.altaEstudiant("55533344N", "Clara", "Carrillo", new Date(parsed.getTime()), "655666558", "c.carrillo@icloud.com", "c/Del Mar, 5");
-		estudiant1.setCodi(20);
+		estudiant1.setCodi(CODI_EXEMPLE_ESTUDIANT_1);
 		Estudiant estudiant2 = escola.altaEstudiant("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4");
-		estudiant2.setCodi(21);
+		estudiant2.setCodi(CODI_EXEMPLE_ESTUDIANT_2);
 		
 		// Creació de beques d'exemple
 		Beca beca = escola.altaBeca("Entitat Prova", 1000.00, estudiant1, serveiPsicologia);
-		beca.setCodi(30);
+		beca.setCodi(CODI_EXEMPLE_BECA);
 		
 		// Creació de sessions d'exemple
 		SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -265,7 +282,7 @@ public class BaseTest implements Constants {
 			System.out.println("S'ha produït un error");
 		}
 		Sessio sessio = escola.altaSessio(empleatDocent, estudiant1, serveiPsicologia, new Date(parsed2.getTime()));
-		sessio.setCodi(40);
+		sessio.setCodi(CODI_EXEMPLE_SESSIO);
 		
 		insertaDades(escola);
     }

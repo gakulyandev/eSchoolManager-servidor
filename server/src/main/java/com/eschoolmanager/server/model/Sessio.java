@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -29,7 +30,8 @@ public class Sessio {
 	private Servei servei;
 	private Date dataIHora;
 	private Escola escola;
-
+	private boolean facturada;
+	
 	/**
 	 * Constructor per defecte sense paràmetres
 	 * necessari per el correcte funcionament de l'ORM EclipseLink
@@ -49,6 +51,7 @@ public class Sessio {
 		this.setEstudiant(estudiant);
 		this.setServei(servei);
 		this.setDataIHora(dataIHora);
+		this.setFacturada(false);
 		professor.assignaSessio(this);
 		estudiant.assignaSessio(this);
 		servei.assignaSessio(this);
@@ -160,6 +163,21 @@ public class Sessio {
 	 */
 	public void setDataIHora(Date dataIHora) {
 		this.dataIHora = dataIHora;
+	}
+
+	/**
+	 * Obté l'estat de facturació
+	 * @return true o false segons si la sessió ha sigut o no facturada
+	 */
+	public boolean isFacturada() {
+		return facturada;
+	}
+
+	/**
+	 * @param facturada the facturada to set
+	 */
+	public void setFacturada(boolean facturada) {
+		this.facturada = facturada;
 	}
 
 }

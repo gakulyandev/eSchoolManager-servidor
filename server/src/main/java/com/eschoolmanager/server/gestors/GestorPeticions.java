@@ -621,8 +621,8 @@ public class GestorPeticions implements Constants {
 					for (Integer key : dadesSessions.keySet()) {
 						JSONObject dadesRespostaSessio = new JSONObject();
 						dadesRespostaSessio.put(DADES_CODI_SESSIO, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_CODI_SESSIO));
-						dadesRespostaSessio.put(DADES_NOM_PROFESSOR, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_PROFESSOR));
-						dadesRespostaSessio.put(DADES_COGNOMS_PROFESSOR, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_COGNOMS_PROFESSOR));
+						dadesRespostaSessio.put(DADES_NOM_EMPLEAT_COMPLET, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_EMPLEAT_COMPLET));
+						dadesRespostaSessio.put(DADES_COGNOMS_EMPLEAT_COMPLET, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_COGNOMS_EMPLEAT_COMPLET));
 						dadesRespostaSessio.put(DADES_NOM_ESTUDIANT, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_ESTUDIANT));
 						dadesRespostaSessio.put(DADES_COGNOMS_ESTUDIANT_COMPLET, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_COGNOMS_ESTUDIANT_COMPLET));
 						dadesRespostaSessio.put(DADES_NOM_SERVEI, ((HashMap<String,Object>) dadesSessions.get(key)).get(DADES_NOM_SERVEI));
@@ -642,9 +642,9 @@ public class GestorPeticions implements Constants {
 					
 					// Genera resposta
 					dadesResposta.put(DADES_CODI_SESSIO, dadesSessio.get(DADES_CODI_SESSIO));
-					dadesResposta.put(DADES_CODI_PROFESSOR, dadesSessio.get(DADES_CODI_PROFESSOR));
-					dadesResposta.put(DADES_NOM_PROFESSOR, dadesSessio.get(DADES_NOM_PROFESSOR));
-					dadesResposta.put(DADES_COGNOMS_PROFESSOR, dadesSessio.get(DADES_COGNOMS_PROFESSOR));
+					dadesResposta.put(DADES_CODI_EMPLEAT, dadesSessio.get(DADES_CODI_EMPLEAT));
+					dadesResposta.put(DADES_NOM_EMPLEAT_COMPLET, dadesSessio.get(DADES_NOM_EMPLEAT_COMPLET));
+					dadesResposta.put(DADES_COGNOMS_EMPLEAT_COMPLET, dadesSessio.get(DADES_COGNOMS_EMPLEAT_COMPLET));
 					dadesResposta.put(DADES_CODI_ESTUDIANT, dadesSessio.get(DADES_CODI_ESTUDIANT));
 					dadesResposta.put(DADES_NOM_ESTUDIANT, dadesSessio.get(DADES_NOM_ESTUDIANT));
 					dadesResposta.put(DADES_COGNOMS_ESTUDIANT_COMPLET, dadesSessio.get(DADES_COGNOMS_ESTUDIANT_COMPLET));

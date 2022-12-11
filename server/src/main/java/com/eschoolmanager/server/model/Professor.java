@@ -59,7 +59,7 @@ public class Professor extends Empleat {
 	}
 	
 	/**
-	 * Actualitza les sessions realitzades pel professor (només s'inclou pel correcte funcionament del mapeig ORM)
+	 * Actualitza les sessions realitzades pel professor
 	 * @param sessions actualitzades del professor
 	 */
 	public void setSessions(List<Sessio> sessions) {

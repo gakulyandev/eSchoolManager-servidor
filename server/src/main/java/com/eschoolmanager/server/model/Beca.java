@@ -145,6 +145,9 @@ public class Beca {
 	 */
 	public void setImportRestant(double importRestant) {
 		this.importRestant = importRestant;
+		if (this.importRestant == 0) {
+			this.setFinalitzada(true);
+		}
 	}
 
 	/**
@@ -243,9 +246,6 @@ public class Beca {
 	 */
 	public void imputaImport(Double importAImputar) {
 		this.setImportRestant(this.getImportRestant() - importAImputar);
-		if (this.getImportRestant() == 0) {
-			this.setFinalitzada(true);
-		}
 	}
 
 }

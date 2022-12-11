@@ -44,8 +44,8 @@ public class GestioBequesTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 2000.00);
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "Generalitat");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -66,8 +66,8 @@ public class GestioBequesTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 2000.00);
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "Generalitat");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -89,8 +89,8 @@ public class GestioBequesTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 2000.00);
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "Generalitat");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 40);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_INEXISTENT);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -111,8 +111,8 @@ public class GestioBequesTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_ALTA_BECA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 2000.00);
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -216,7 +216,7 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_BECA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_BECA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -237,7 +237,7 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_BECA);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_BECA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -257,7 +257,7 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_BECA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_BECA, 50);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -296,11 +296,11 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_BECA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_BECA);
     	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 3000.00);
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_ESTAT_BECA, true);
     	peticio.put(DADES, dadesPeticio);
 
@@ -320,11 +320,11 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_BECA);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_BECA);
     	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 3000.00);
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_ESTAT_BECA, true);
     	peticio.put(DADES, dadesPeticio);
 
@@ -345,11 +345,11 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_BECA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_BECA, 50);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_INEXISTENT);
     	dadesPeticio.put(DADES_IMPORT_INICIAL_BECA, 3000.00);
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_INEXISTENT);
     	dadesPeticio.put(DADES_ESTAT_BECA, true);
     	peticio.put(DADES, dadesPeticio);
 
@@ -369,10 +369,10 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_BECA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_BECA);
     	dadesPeticio.put(DADES_ADJUDICANT_BECA, "GeneralitatModificat");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, 20);
-    	dadesPeticio.put(DADES_CODI_SERVEI, 5);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_ESTAT_BECA, true);
     	peticio.put(DADES, dadesPeticio);
 
@@ -393,7 +393,7 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_BECA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_BECA, 30); 
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_BECA); 
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -413,7 +413,7 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_BECA);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_BECA, 30);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_BECA);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -433,7 +433,7 @@ public class GestioBequesTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_BECA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_BECA, 50);
+    	dadesPeticio.put(DADES_CODI_BECA, CODI_EXEMPLE_INEXISTENT);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

@@ -127,7 +127,7 @@ public class Departament {
 	}
 	
 	/**
-	 * Actualitza els empleats donats d'alta al departament (només s'inclou pel correcte funcionament del mapeig ORM)
+	 * Actualitza els empleats donats d'alta al departament
 	 * @param empleats actualitzats del departament
 	 */
 	public void setEmpleats(List<Empleat> empleats) {
@@ -149,7 +149,7 @@ public class Departament {
 	}
 	
 	/**
-	 * Actualitza els permisos dels empleats del departament (només s'inclou pel correcte funcionament del mapeig ORM)
+	 * Actualitza els permisos dels empleats del departament
 	 * @param permisos actualitzats del departament
 	 */
 	public void setPermisos(List<Permis> permisos) {

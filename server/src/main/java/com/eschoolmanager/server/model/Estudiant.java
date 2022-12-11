@@ -5,6 +5,7 @@ package com.eschoolmanager.server.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,6 +30,7 @@ public class Estudiant extends Persona {
 	private Double importImputat;
 	private List<Beca> beques;
 	private List<Sessio> sessions;
+	private List<Factura> factures;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -56,6 +58,7 @@ public class Estudiant extends Persona {
 		this.setImportImputat(0.00);
 		this.setBeques(new ArrayList<Beca>());
 		this.setSessions(new ArrayList<Sessio>());
+		this.setFactures(new ArrayList<Factura>());
 	}
 
 	/**
@@ -118,11 +121,28 @@ public class Estudiant extends Persona {
 	}
 	
 	/**
-	 * Actualitza les sessions realitzades a l'estudiant (només s'inclou pel correcte funcionament del mapeig ORM)
+	 * Actualitza les sessions realitzades a l'estudiant
 	 * @param sessions actualitzades de l'estudiant
 	 */
 	public void setSessions(List<Sessio> sessions) {
 		this.sessions = sessions;
+	}
+	
+	/**
+	 * Llista les factures generades de l'estudiant
+	 * @return factures generades de l'estudiant
+	 */
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="estudiant")
+	public List<Factura> getFactures() {
+		return this.factures;
+	}
+	
+	/**
+	 * Actualitza les factures generades de l'estudiant
+	 * @param factures actualitzades de l'estudiant
+	 */
+	public void setFactures(List<Factura> factures) {
+		this.factures = factures;
 	}
 	
 	/**
@@ -169,34 +189,6 @@ public class Estudiant extends Persona {
 		if(!sessions.contains(sessio)) {
 			sessions.add(sessio);
 		}
-		
-		// Imputa l'import del servei
-		this.imputaServei(sessio.getServei());
-	}
-	
-	/**
-	 * Imputa el servei impartit una vegada es crea una sessió
-	 */
-	public void imputaServei(Servei servei) {
-
-		// Imputa part o la totalitat a la beca que hi hagi adjudicada sobre el servei
-		Double importAImputar = servei.getCost();
-		Double importAImputarEstudiant = importAImputar;
-		for(Beca beca: this.beques) {
-			if ((beca.getServei() == servei) && !beca.isFinalitzada()) {
-				double importRestant = beca.getImportRestant();
-				if (importRestant >= importAImputar) {
-					beca.imputaImport(importAImputar);
-					importAImputarEstudiant = 0.00;
-				} else {
-					beca.imputaImport(importRestant);
-					importAImputarEstudiant = importAImputar - importRestant;
-				}
-			}
-		}
-		
-		this.setImportImputat(this.getImportImputat() + importAImputarEstudiant);
-	}
-	
+	}	
 	
 }

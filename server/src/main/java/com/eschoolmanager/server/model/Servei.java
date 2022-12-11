@@ -170,7 +170,7 @@ public class Servei {
 	}
 	
 	/**
-	 * Actualitza les sessions realitzades del servei (només s'inclou pel correcte funcionament del mapeig ORM)
+	 * Actualitza les sessions realitzades del servei
 	 * @param sessions actualitzades del servei
 	 */
 	public void setSessions(List<Sessio> sessions) {
