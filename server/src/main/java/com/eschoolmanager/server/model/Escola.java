@@ -766,4 +766,15 @@ public class Escola implements Constants {
 	public void actualitzaSessio(Sessio sessio, Professor professor, Estudiant estudiant, Servei servei, Date dataIHora) throws GestorExcepcions {
 		sessio.actualitza(professor, estudiant, servei, dataIHora);
 	}
+	
+	/**
+	 * Dona de baixa una sessió
+	 * @throws GestorExcepcions 
+	 */
+	public void baixaSessio(Sessio sessio) throws GestorExcepcions {
+		if (sessio.isFacturada()) {
+			throw new GestorExcepcions(ERROR_SESSIO_FACTURADA);
+		}
+		this.sessions.remove(sessio);
+	}
 }

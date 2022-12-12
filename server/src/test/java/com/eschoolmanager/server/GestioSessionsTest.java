@@ -242,7 +242,7 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO);
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO_1);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -263,7 +263,7 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_CONSULTA_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaFinancer");
-    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO);
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO_1);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -322,7 +322,7 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO);
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO_1);
     	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
@@ -345,7 +345,7 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_MODI_SESSIO);
         peticio.put(CODI_SESSIO, "codiProvaFinancer");
-    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO);
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO_1);
     	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
@@ -396,6 +396,105 @@ public class GestioSessionsTest extends BaseTest {
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
     	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
     	dadesPeticio.put(DADES_DATA_I_HORA, "2024-1-04 16:00:00");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa una sessió amb un usuari autoritzat i sessió existent
+     */
+    @Test
+    public void provaBaixaSessioAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO_1);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que donar de baixa una sessió amb un usuari no autoritzat i sessió existent
+     */
+    @Test
+    public void provaBaixaSessioNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaFinancer");
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO_1);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa una sessió amb un usuari autoritzat i sessió inexistent
+     */
+    @Test
+    public void provaBaixaSessioAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_INEXISTENT);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_SESSIO, resposta.get(MISSATGE));
+    }
+
+    /**
+     * Mètode que donar de baixa una sessió amb un usuari autoritzat i sessió facturada
+     */
+    @Test
+    public void provaBaixaSessioAutoritzatSessioFacturada() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO_2);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_SESSIO_FACTURADA, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que donar de baixa una sessió amb dades incompletes
+     */
+    @Test
+    public void provaBaixaSessioDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_BAIXA_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

@@ -43,6 +43,7 @@ public interface Constants {
 	public final static String CRIDA_LLISTA_SESSIONS = "LLISTA SESSIONS";
 	public final static String CRIDA_CONSULTA_SESSIO = "CONSULTA SESSIO";
 	public final static String CRIDA_MODI_SESSIO = "MODI SESSIO";
+	public final static String CRIDA_BAIXA_SESSIO = "BAIXA SESSIO";
 
 	public final static int CODI_ESCOLA = 1;
 	
@@ -129,4 +130,5 @@ public interface Constants {
 	public final static String ERROR_ELEMENTS_RELACIONATS_EMPLEAT = "Existeixen altres elements relacionats amb l'empleat";
     public final static String ERROR_ELEMENTS_RELACIONATS_ESTUDIANT = "Existeixen altres elements relacionats amb l'estudiant";
 	public final static String ERROR_ELEMENTS_RELACIONATS_DEPARTAMENT = "Existeixen altres elements relacionats amb el departament";
+	public final static String ERROR_SESSIO_FACTURADA = "La sessió ha estat facturada";
 }

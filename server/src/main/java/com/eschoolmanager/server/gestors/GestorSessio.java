@@ -185,5 +185,26 @@ public class GestorSessio extends GestorEscola {
         entityManager.merge(sessio);
         entityManager.getTransaction().commit();
     }
+	
+	/**
+     * Dona de baixa una sessió
+     * @param codi de la sessió a donar de baixa
+     * @throws GestorExcepcions
+     */
+	public void baixa(int codi) throws GestorExcepcions {
+        
+		// Troba la sessió i resta de dades
+		Sessio sessio = escola.trobaSessio(codi);
+        if (sessio == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_SESSIO);
+		}
+        escola.baixaSessio(sessio);
+
+        // Actualitza la base de dades
+        entityManager.getTransaction().begin();
+        entityManager.merge(escola);
+        entityManager.remove(sessio);
+        entityManager.getTransaction().commit();
+    }
 
 }

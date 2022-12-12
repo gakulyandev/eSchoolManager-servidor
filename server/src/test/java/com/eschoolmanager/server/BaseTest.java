@@ -61,7 +61,8 @@ public class BaseTest implements Constants {
 	protected final static int CODI_EXEMPLE_ESTUDIANT_1 = 30;
 	protected final static int CODI_EXEMPLE_ESTUDIANT_2 = 31;
 	protected final static int CODI_EXEMPLE_BECA = 40;
-	protected final static int CODI_EXEMPLE_SESSIO = 50;
+	protected final static int CODI_EXEMPLE_SESSIO_1 = 50;
+	protected final static int CODI_EXEMPLE_SESSIO_2 = 51;
 	protected final static int CODI_EXEMPLE_INEXISTENT = 100;
     
 	/**
@@ -282,7 +283,10 @@ public class BaseTest implements Constants {
 			System.out.println("S'ha produït un error");
 		}
 		Sessio sessio = escola.altaSessio(empleatDocent, estudiant1, serveiPsicologia, new Date(parsed2.getTime()));
-		sessio.setCodi(CODI_EXEMPLE_SESSIO);
+		sessio.setCodi(CODI_EXEMPLE_SESSIO_1);
+		Sessio sessio2 = escola.altaSessio(empleatDocent, estudiant1, serveiPsicologia, new Date(parsed2.getTime()));
+		sessio2.setCodi(CODI_EXEMPLE_SESSIO_2);
+		sessio2.setFacturada(true);
 		
 		insertaDades(escola);
     }
