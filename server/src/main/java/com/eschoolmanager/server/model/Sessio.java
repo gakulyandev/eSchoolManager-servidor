@@ -180,4 +180,21 @@ public class Sessio {
 		this.facturada = facturada;
 	}
 
+	/**
+	 * Actualitza les dades del servei
+     * @param professor a actualitzar
+     * @param l'estudiant a actualitzar
+     * @param servei a actualitzar
+     * @param data i hora a actualitzar
+	 */
+	public void actualitza(Professor professor, Estudiant estudiant, Servei servei, Date dataIHora) {
+		this.setProfessor(professor);
+		this.setEstudiant(estudiant);
+		this.setServei(servei);
+		this.setDataIHora(dataIHora);
+		professor.assignaSessio(this);
+		estudiant.assignaSessio(this);
+		servei.assignaSessio(this);
+	}
+
 }

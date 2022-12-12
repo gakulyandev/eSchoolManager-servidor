@@ -753,4 +753,17 @@ public class Escola implements Constants {
 		
 		return null;
 	}
+	
+	/**
+	 * Actualitza una sessió del llistat
+     * @param sessió a actualitzar
+     * @param professor a actualitzar
+     * @param l'estudiant a actualitzar
+     * @param servei a actualitzar
+     * @param data i hora a actualitzar
+	 * @throws GestorExcepcions 
+	 */
+	public void actualitzaSessio(Sessio sessio, Professor professor, Estudiant estudiant, Servei servei, Date dataIHora) throws GestorExcepcions {
+		sessio.actualitza(professor, estudiant, servei, dataIHora);
+	}
 }

@@ -141,7 +141,7 @@ public class BaseTest implements Constants {
 		Permis permisEstudiant = new Permis("estudiant","ALTA ESTUDIANT;BAIXA ESTUDIANT;MODI ESTUDIANT;LLISTA ESTUDIANTS;CONSULTA ESTUDIANT");
 		Permis permisBeca = new Permis("beca","ALTA BECA;BAIXA BECA;MODI BECA;LLISTA BEQUES;CONSULTA BECA");
 		Permis permisSessio = new Permis("sessio","ALTA SESSIO;BAIXA SESSIO;MODI SESSIO;LLISTA SESSIONS;CONSULTA SESSIO");
-		Permis permisInforme = new Permis("informe","LLISTA DADES");
+		Permis permisFactura = new Permis("factura","GENERA FACTURA");
 		
 		List<Permis> permisosAdministrador = new ArrayList<Permis>();
 		List<Permis> permisosAdministratiu = new ArrayList<Permis>();
@@ -156,7 +156,7 @@ public class BaseTest implements Constants {
 		permisosAdministrador.add(permisEstudiant);
 		permisosAdministrador.add(permisBeca);
 		permisosAdministrador.add(permisSessio);
-		permisosAdministrador.add(permisInforme);
+		permisosAdministrador.add(permisFactura);
 		
 		permisosAdministratiu.add(permisAcces);
 		permisosAdministratiu.add(permisEmpleat);
@@ -164,7 +164,7 @@ public class BaseTest implements Constants {
 		permisosAdministratiu.add(permisEstudiant);
 		permisosAdministratiu.add(permisBeca);
 		permisosAdministratiu.add(permisSessio);
-		permisosAdministratiu.add(permisInforme);
+		permisosAdministratiu.add(permisFactura);
 		
 		permisosDocent.add(permisAcces);
 		permisosDocent.add(permisSessio);

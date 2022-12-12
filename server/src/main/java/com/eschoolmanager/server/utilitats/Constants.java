@@ -42,6 +42,7 @@ public interface Constants {
 	public final static String CRIDA_ALTA_SESSIO = "ALTA SESSIO";
 	public final static String CRIDA_LLISTA_SESSIONS = "LLISTA SESSIONS";
 	public final static String CRIDA_CONSULTA_SESSIO = "CONSULTA SESSIO";
+	public final static String CRIDA_MODI_SESSIO = "MODI SESSIO";
 
 	public final static int CODI_ESCOLA = 1;
 	
@@ -98,7 +99,7 @@ public interface Constants {
 	public final static String DADES_CODI_BECA = "codiBeca";
 	public final static String DADES_DATA_I_HORA = "dataIHora";
 	
-	public final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","informe"};
+	public final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","factura"};
 	
 	public final static String ERROR_GENERIC = "S'ha produit un error";
 	public final static String ERROR_NO_AUTORITZAT = "L'usuari no està autoritzat per aquesta acció";

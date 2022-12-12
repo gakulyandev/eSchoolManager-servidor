@@ -312,4 +312,97 @@ public class GestioSessionsTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
+    
+    /**
+     * Mètode que prova modificar una sessió amb un usuari autoritzat i sessió, professor, servei i estudiant existents
+     */
+    @Test
+    public void provaModiSessioAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
+    	dadesPeticio.put(DADES_DATA_I_HORA, "2024-1-04 16:00:00");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar una sessió amb un usuari no autoritzat
+     */
+    @Test
+    public void provaModiSessioNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaFinancer");
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_SESSIO);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
+    	dadesPeticio.put(DADES_DATA_I_HORA, "2024-1-04 16:00:00");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova modificar una sessió amb un usuari autoritzat i servei inexistent
+     */
+    @Test
+    public void provaModiSessioAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_SESSIO, CODI_EXEMPLE_INEXISTENT);
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
+    	dadesPeticio.put(DADES_DATA_I_HORA, "2024-1-04 16:00:00");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova modificar una sessió amb dades incompletes
+     */
+    @Test
+    public void provaModiSessioDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_MODI_SESSIO);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_EMPLEAT, CODI_EXEMPLE_EMPLEAT_DOCENT);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
+    	dadesPeticio.put(DADES_CODI_SERVEI, CODI_EXEMPLE_SERVEI_PSICOLOGIA);
+    	dadesPeticio.put(DADES_DATA_I_HORA, "2024-1-04 16:00:00");
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 }

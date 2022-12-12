@@ -126,6 +126,7 @@ public class GestorSessio extends GestorEscola {
      */
 	public HashMap<String, Object> consulta(int codi) throws GestorExcepcions {
         
+		// Troba la sessió
 		Sessio sessio = escola.trobaSessio(codi);
         if (sessio == null) {
 			throw new GestorExcepcions(ERROR_INEXISTENT_SESSIO);
@@ -144,6 +145,45 @@ public class GestorSessio extends GestorEscola {
     	dadesSessio.put(DADES_DATA_I_HORA, sessio.getDataIHora());
         
         return dadesSessio;
+    }
+	
+	/**
+     * Actualitza una sessió
+     * @param codi de la sessió a actualitzar
+     * @param codi del professor a actualitzar
+     * @param codi de l'estudiant a actualitzar
+     * @param codi del servei a actualitzar
+     * @param data i hora a actualitzar
+     * @throws GestorExcepcions
+     */
+	public void actualitza(Integer codi, int codiEmpleat, int codiEstudiant, int codiServei, Date dataIHora) throws GestorExcepcions {
+        
+		// Troba la sessió i resta de dades
+		Sessio sessio = escola.trobaSessio(codi);
+        if (sessio == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_SESSIO);
+		}
+        
+        Empleat empleat = escola.trobaEmpleat(codiEmpleat);
+        Estudiant estudiant = escola.trobaEstudiant(codiEstudiant);
+        Servei servei = escola.trobaServei(codiServei);
+        
+        if (empleat == null || estudiant == null || servei == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_PROFESSOR_ESTUDIANT_SERVEI);
+		}
+
+        // Comprova si l'empleat és docent
+        if (!empleat.getDepartament().getNom().equals(DEPARTAMENT_DOCENT)) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_PROFESSOR);
+        }
+        
+        // Actualitza la sessió
+        escola.actualitzaSessio(sessio, (Professor) empleat, estudiant, servei, dataIHora);
+
+        // Actualitza la base de dades
+        entityManager.getTransaction().begin();
+        entityManager.merge(sessio);
+        entityManager.getTransaction().commit();
     }
 
 }
