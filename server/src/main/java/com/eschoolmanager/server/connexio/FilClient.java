@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import com.eschoolmanager.server.gestors.GestorExcepcions;
 import com.eschoolmanager.server.gestors.GestorPeticions;
+import com.eschoolmanager.server.seguretat.Seguretat;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -19,6 +20,7 @@ public class FilClient extends Thread {
     private PrintWriter out;
     private int numeroClient;
     private GestorPeticions gestorPeticions;
+    private Seguretat seguretat;
     
 	private final static String ERROR_GENERIC = "S'ha produit un error";
 	
@@ -34,6 +36,7 @@ public class FilClient extends Thread {
 		this.gestorPeticions = gestorPeticions;
 		
 		try {
+			this.seguretat = new Seguretat();
             this.client = client;
             this.in = new Scanner(client.getInputStream());
             this.out = new PrintWriter(client.getOutputStream(), true);
@@ -52,19 +55,24 @@ public class FilClient extends Thread {
         while(!this.client.isClosed()) {
         	
         	if (this.in.hasNextLine()) {
-            	String peticio = this.in.nextLine();
-            	System.out.println("Client " + numeroClient + " => Peticio:" + peticio);
-            	
-            	String resposta = gestorPeticions.generaResposta(peticio);
-            	System.out.println("Client " + numeroClient + " => Resposta:" + resposta);
-                
-                this.out.println(resposta);
-                
-                try {
+        		
+            	try {
+                	String peticio = this.in.nextLine();
+					String peticioDesencriptada = this.seguretat.desencripta(peticio);
+	            	System.out.println("Client " + numeroClient + " => Peticio:" + peticioDesencriptada);
+	            	
+	            	String resposta = gestorPeticions.generaResposta(peticioDesencriptada);
+	            	System.out.println("Client " + numeroClient + " => Resposta:" + resposta);
+
+					String respostaEncriptada = this.seguretat.encripta(resposta);
+	                this.out.println(respostaEncriptada);
+	                
     				this.client.close();
                 } catch (IOException ex) {
                 	GestorPeticions.generaRespostaNOK(ERROR_GENERIC);
-                }
+                } catch (GestorExcepcions e) {
+                	GestorPeticions.generaRespostaNOK(ERROR_GENERIC);
+				}
         	}
         }
         
