@@ -19,6 +19,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.eschoolmanager.server.seguretat.Seguretat;
+
 /**
  * @author Gayané Akulyan Akulyan
  * Classe persistent per emmagatzemar els usuaris de l'escola
@@ -52,7 +54,7 @@ public class Usuari {
      */
 	public Usuari(String nomUsuari, String contrasenya) {
         this.setNomUsuari(nomUsuari);
-        this.setContrasenya(contrasenya);
+        this.setContrasenya(Seguretat.encriptaContrasenya(contrasenya));
 		this.setActiu(true);
 	}
 	

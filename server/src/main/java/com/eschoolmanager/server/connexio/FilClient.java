@@ -58,13 +58,13 @@ public class FilClient extends Thread {
         		
             	try {
                 	String peticio = this.in.nextLine();
-					String peticioDesencriptada = this.seguretat.desencripta(peticio);
+					String peticioDesencriptada = this.seguretat.desencriptaMissatge(peticio);
 	            	System.out.println("Client " + numeroClient + " => Peticio:" + peticioDesencriptada);
 	            	
 	            	String resposta = gestorPeticions.generaResposta(peticioDesencriptada);
 	            	System.out.println("Client " + numeroClient + " => Resposta:" + resposta);
 
-					String respostaEncriptada = this.seguretat.encripta(resposta);
+					String respostaEncriptada = this.seguretat.encriptaMissatge(resposta);
 	                this.out.println(respostaEncriptada);
 	                
     				this.client.close();

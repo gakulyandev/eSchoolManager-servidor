@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 
 import com.eschoolmanager.server.gestors.GestorExcepcions;
+import com.eschoolmanager.server.seguretat.Seguretat;
 import com.eschoolmanager.server.utilitats.Constants;
 
 /**
@@ -386,7 +387,7 @@ public class Escola implements Constants {
 	 */
 	public Usuari trobaUsuari(String nomUsuari, String contrasenya) {
 		for(Usuari usuari : this.usuaris) {
-			if (usuari.getNomUsuari().equals(nomUsuari) && usuari.getContrasenya().equals(contrasenya)) {
+			if (usuari.getNomUsuari().equals(nomUsuari) && usuari.getContrasenya().equals(Seguretat.encriptaContrasenya(contrasenya))) {
 				return usuari;
 			}
 		}

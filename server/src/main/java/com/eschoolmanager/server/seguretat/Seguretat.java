@@ -1,6 +1,9 @@
 package com.eschoolmanager.server.seguretat;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
@@ -41,7 +44,7 @@ public class Seguretat implements Constants {
 	 * @return missatge encriptat
 	 * @throws GestorExcepcions
 	 */
-	public String encripta(String missatge) throws GestorExcepcions {
+	public String encriptaMissatge(String missatge) throws GestorExcepcions {
 		byte[] missatgeEncriptat = null;
 		try {
 			cipher = Cipher.getInstance(ALGORITME);
@@ -62,7 +65,7 @@ public class Seguretat implements Constants {
 	 * @return missatge desencriptat
 	 * @throws GestorExcepcions
 	 */
-	public String desencripta(String missatge) throws GestorExcepcions {
+	public String desencriptaMissatge(String missatge) throws GestorExcepcions {
 		String missatgeDesencriptat = null;
 		try {
 			cipher = Cipher.getInstance(ALGORITME);
@@ -77,5 +80,35 @@ public class Seguretat implements Constants {
 		
 		return missatgeDesencriptat;
 	}
+	
+	/**
+	 * Encripta contrasenya
+	 * @param contrasenya a encriptar
+	 */
+	public static String encriptaContrasenya(String contrasenya) {
+		
+        MessageDigest md;
+        StringBuilder hexString = null;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+		
+	        byte[] hash = md.digest(contrasenya.getBytes(StandardCharsets.UTF_8));  
+	        BigInteger numero = new BigInteger(1, hash);  
+	        hexString = new StringBuilder(numero.toString(16));  
+
+	        while (hexString.length() < 32)  
+	        {  
+	            hexString.insert(0, '0');  
+	        }  
+	        
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+
+        return hexString.toString(); 
+	}
+	
+	
 }
 
