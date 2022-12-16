@@ -28,3 +28,4 @@ com\eschoolmanager\server\gestors\GestorEscola.class
 com\eschoolmanager\server\gestors\GestorEstudiant.class
 com\eschoolmanager\server\gestors\GestorBeca.class
 com\eschoolmanager\server\model\Persona.class
+com\eschoolmanager\server\seguretat\Seguretat.class
