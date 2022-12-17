@@ -138,6 +138,7 @@ public class GestioDepartamentsTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	dadesPeticio.put(DADES_VALOR, "Administrador");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -160,6 +161,7 @@ public class GestioDepartamentsTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, "Administrador");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -181,6 +183,7 @@ public class GestioDepartamentsTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_CAMP, "nomS");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, "Administrador");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -201,6 +204,7 @@ public class GestioDepartamentsTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_LLISTA_DEPARTAMENTS);
         peticio.put(CODI_SESSIO, "codiProvaAdministrador");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, "Administrador");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

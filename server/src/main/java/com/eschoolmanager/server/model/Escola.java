@@ -385,7 +385,7 @@ public class Escola implements Constants {
 	 * Obté un usuari amb el nom d'usuari i contrasenya indicats
 	 * @return usuari trobat o null
 	 */
-	public Usuari trobaUsuari(String nomUsuari, String contrasenya) {
+	public Usuari trobaUsuari(String nomUsuari, String contrasenya) throws GestorExcepcions {
 		for(Usuari usuari : this.usuaris) {
 			if (usuari.getNomUsuari().equals(nomUsuari) && usuari.getContrasenya().equals(Seguretat.encriptaContrasenya(contrasenya))) {
 				return usuari;

@@ -5,7 +5,7 @@ package com.eschoolmanager.server.utilitats;
 
 /**
  * @author Gayané Akulyan Akulyan
- *
+ * Interficie que emmagatzema els valors constants utilitzats dins l'aplicació
  */
 public interface Constants {
 
@@ -55,7 +55,27 @@ public interface Constants {
 	
 	public final static String DADES = "dades";
 	public final static String DADES_CAMP = "camp";
+	public final static String DADES_CAMP_CODI = "codi";  
+	public final static String DADES_CAMP_NOM = "nom"; 
+	public final static String DADES_CAMP_DURADA = "durada"; 
+	public final static String DADES_CAMP_COST = "cost"; 
+	public final static String DADES_CAMP_DNI = "dni"; 
+	public final static String DADES_CAMP_COGNOMS = "cognoms"; 
+	public final static String DADES_CAMP_DATA_NAIXEMENT = "dataNaixement"; 
+	public final static String DADES_CAMP_TELEFON = "telefon"; 
+	public final static String DADES_CAMP_EMAIL = "email"; 
+	public final static String DADES_CAMP_ADRECA = "adreca"; 
+	public final static String DADES_CAMP_CODI_DEPARTAMENT = "codiDepartament"; 
+	public final static String DADES_CAMP_ADJUDICANT = "adjudicant";
+	public final static String DADES_CAMP_IMPORT_INICIAL = "importInicial"; 
+	public final static String DADES_CAMP_IMPORT_RESTANT = "importRestant"; 
+	public final static String DADES_CAMP_CODI_ESTUDIANT = "codiEstudiant"; 
+	public final static String DADES_CAMP_CODI_SERVEI = "codiServei"; 
+	public final static String DADES_CAMP_CODI_EMPLEAT = "codiEmpleat"; 
+	
 	public final static String DADES_ORDRE = "ordre";
+	public final static String DADES_ORDRE_ASC = "ASC";  
+	public final static String DADES_VALOR = "valor";
 	public final static String DADES_CONTRASENYA = "contrasenya";
 	public final static String DADES_CODI_SESSIO = "codiSessio";
 	public final static String DADES_CODI_ESCOLA = "codiEscola";

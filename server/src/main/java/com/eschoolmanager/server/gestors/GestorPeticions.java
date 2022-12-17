@@ -162,7 +162,7 @@ public class GestorPeticions implements Constants {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
-					HashMap<Integer, Object> dadesDepartaments = gestorDepartament.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+					HashMap<Integer, Object> dadesDepartaments = gestorDepartament.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE), dadesPeticio.getString(DADES_VALOR));
 
 					// Genera resposta
 					dadesResposta = new JSONObject();
@@ -246,7 +246,7 @@ public class GestorPeticions implements Constants {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
-					HashMap<Integer, Object> dadesServeis = gestorServei.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+					HashMap<Integer, Object> dadesServeis = gestorServei.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE), dadesPeticio.getString(DADES_VALOR));
 
 					// Genera resposta
 					dadesResposta = new JSONObject();
@@ -330,7 +330,7 @@ public class GestorPeticions implements Constants {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
-					HashMap<Integer, Object> dadesEmpleats = gestorEmpleat.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+					HashMap<Integer, Object> dadesEmpleats = gestorEmpleat.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE), dadesPeticio.getString(DADES_VALOR));
 
 					// Genera resposta
 					dadesResposta = new JSONObject();
@@ -435,7 +435,7 @@ public class GestorPeticions implements Constants {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
-					HashMap<Integer, Object> dadesEstudiants = gestorEstudiant.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+					HashMap<Integer, Object> dadesEstudiants = gestorEstudiant.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE), dadesPeticio.getString(DADES_VALOR));
 
 					// Genera resposta
 					dadesResposta = new JSONObject();
@@ -523,7 +523,7 @@ public class GestorPeticions implements Constants {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
-					HashMap<Integer, Object> dadesBeques = gestorBeca.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+					HashMap<Integer, Object> dadesBeques = gestorBeca.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE), dadesPeticio.getString(DADES_VALOR));
 
 					// Genera resposta
 					dadesResposta = new JSONObject();
@@ -613,7 +613,7 @@ public class GestorPeticions implements Constants {
 					// Processa la petició
 					dadesPeticio = peticio.getJSONObject(DADES);
 					
-					HashMap<Integer, Object> dadesSessions = gestorSessio.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE));
+					HashMap<Integer, Object> dadesSessions = gestorSessio.llista(dadesPeticio.getString(DADES_CAMP), dadesPeticio.getString(DADES_ORDRE), dadesPeticio.getString(DADES_VALOR));
 
 					// Genera resposta
 					dadesResposta = new JSONObject();

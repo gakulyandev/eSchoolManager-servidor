@@ -4,7 +4,6 @@
 package com.eschoolmanager.server.gestors;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Permis;
+import com.eschoolmanager.server.utilitats.ConsultesDB;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -21,7 +21,8 @@ import com.eschoolmanager.server.model.Permis;
 public class GestorDepartament extends GestorEscola {
 
 	private final static String DEPARTAMENT_ADMINISTRADOR = "Administrador";   
-	private final static String[] DADES_CAMPS = {"nom","codi"};
+	private final static String ENTITAT = "Departament"; 
+	private final static String[] DADES_CAMPS = {DADES_CAMP_NOM, DADES_CAMP_CODI};
 	
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -67,25 +68,44 @@ public class GestorDepartament extends GestorEscola {
      * Obté llistat dels departaments de l'escola
      * @param camp de dades per ordenar
      * @param ordre que ha de mostrar
+     * @param valor que ha de mostrar
      * @return llista de departaments
      * @throws GestorExcepcions
      */
-	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
+	public HashMap<Integer, Object> llista(String camp, String ordre, String valor) throws GestorExcepcions {
                 
-        // Llista els permisos del departament
-		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
-			 camp.length() == 0 && ordre.length() == 0) {
+		// Verifica el filtre
+		if (ConsultesDB.verificaFiltre(camp, ordre, valor, DADES_CAMPS, DADES_ORDENACIONS)) {
 			List<Departament> departaments;
 			
-			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
-				departaments = escola.getDepartaments();//Llista els departaments amb l'ordre per defecte
-			} else {
-				//Llista els departaments segons la petició
-				String consulta = "SELECT d FROM Departament d ORDER BY d." + camp + " " + ordre;
-	
-				entityManager.getTransaction().begin();   
+			if (ConsultesDB.isFiltreDefecte(camp, ordre, valor)) {//Llista els departaments amb l'ordre per defecte
+				departaments = escola.getDepartaments();
+			} else {// Llista els departaments segons la petició
 				
-	    		Query query = (Query) entityManager.createQuery(consulta);
+				// Estableix Ordre per defecte
+				if (ordre.length() == 0) {
+					ordre = DADES_ORDRE_ASC;
+				}
+				
+				entityManager.getTransaction().begin(); 
+				
+				// Ajusta el valor al tipus de la base de dades
+				Object valorConsulta = null;				
+				if (valor.length() > 0) {
+					switch (camp) {
+						case DADES_CAMP_CODI:
+							valorConsulta = Integer.parseInt(valor);
+							break;
+						default:
+							valorConsulta = valor;
+							break;
+					}
+				}
+
+				// Crea consulta
+				Query query = ConsultesDB.creaConsulta(entityManager, ENTITAT, camp, ordre, valorConsulta);
+	    		
+	    		// Obté els resultats
 	    		departaments = query.getResultList();  
 	    		
 	            entityManager.getTransaction().commit();

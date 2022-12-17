@@ -158,8 +158,9 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LLISTA_SESSIONS);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
-    	dadesPeticio.put(DADES_CAMP, "dataIHora");
+    	dadesPeticio.put(DADES_CAMP, "codiEmpleat");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	dadesPeticio.put(DADES_VALOR, String.valueOf(CODI_EXEMPLE_EMPLEAT_DOCENT));
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -180,8 +181,9 @@ public class GestioSessionsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_LLISTA_SESSIONS);
         peticio.put(CODI_SESSIO, "codiProvaFinancer");
-    	dadesPeticio.put(DADES_CAMP, "dataIHora");
+    	dadesPeticio.put(DADES_CAMP, "codiEmpleat");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	dadesPeticio.put(DADES_VALOR, String.valueOf(CODI_EXEMPLE_EMPLEAT_DOCENT));
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -203,6 +205,7 @@ public class GestioSessionsTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CAMP, "data");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, String.valueOf(CODI_EXEMPLE_EMPLEAT_DOCENT));
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -223,6 +226,7 @@ public class GestioSessionsTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_LLISTA_SESSIONS);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, String.valueOf(CODI_EXEMPLE_EMPLEAT_DOCENT));
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

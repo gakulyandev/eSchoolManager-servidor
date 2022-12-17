@@ -17,6 +17,7 @@ import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Servei;
 import com.eschoolmanager.server.model.Usuari;
+import com.eschoolmanager.server.utilitats.ConsultesDB;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -24,7 +25,8 @@ import com.eschoolmanager.server.model.Usuari;
  */
 public class GestorEmpleat extends GestorEscola {
 
-	private final static String[] DADES_CAMPS = {"dni","nom","codi","cognoms","dataNaixement","telefon","email","adreca","codiDepartament"};
+	private final static String ENTITAT = "Empleat"; 
+	private final static String[] DADES_CAMPS = {DADES_CAMP_DNI, DADES_CAMP_NOM, DADES_CAMP_CODI, DADES_CAMP_COGNOMS, DADES_CAMP_TELEFON, DADES_CAMP_EMAIL, DADES_CAMP_ADRECA, DADES_CAMP_CODI_DEPARTAMENT};
 	
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -68,29 +70,52 @@ public class GestorEmpleat extends GestorEscola {
      * Obté llistat dels empleats de l'escola
      * @param camp de dades per ordenar
      * @param ordre que ha de mostrar
+     * @param valor que ha de mostrar
      * @return llista d'empleats
      * @throws GestorExcepcions
      */
-	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
+	public HashMap<Integer, Object> llista(String camp, String ordre, String valor) throws GestorExcepcions {
          
-		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
-			 camp.length() == 0 && ordre.length() == 0) {
+		// Verifica el filtre
+		if (ConsultesDB.verificaFiltre(camp, ordre, valor, DADES_CAMPS, DADES_ORDENACIONS)) {
 			List<Empleat> empleats;
 			
-			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
-				empleats = escola.getEmpleats();//Llista els empleats amb l'ordre per defecte
-			} else {
-				//Llista els empleats segons la petició
-				String consulta = "SELECT e FROM Empleat e ORDER BY e." + camp + " " + ordre;
-	
-				entityManager.getTransaction().begin();   
+			if (ConsultesDB.isFiltreDefecte(camp, ordre, valor)) {//Llista els empleats amb l'ordre per defecte
+				empleats = escola.getEmpleats();
+			} else {// Llista els empleats segons la petició
 				
-	    		Query query = (Query) entityManager.createQuery(consulta);
-	    		empleats = query.getResultList();  
+				// Estableix Ordre per defecte
+				if (ordre.length() == 0) {
+					ordre = DADES_ORDRE_ASC;
+				}
+				
+				entityManager.getTransaction().begin(); 
+				
+				// Ajusta el valor al tipus de la base de dades
+				Object valorConsulta = null;
+				if (valor.length() > 0) {
+					switch (camp) {
+						case DADES_CAMP_CODI:
+							valorConsulta = Integer.parseInt(valor);
+							break;
+						case DADES_CAMP_CODI_DEPARTAMENT:
+							valorConsulta = escola.trobaDepartament(Integer.parseInt(valor));
+							camp = "departament";
+							break;
+						default:
+							valorConsulta = valor;
+							break;
+					}
+				}
+
+				// Crea consulta
+				Query query = ConsultesDB.creaConsulta(entityManager, ENTITAT, camp, ordre, valorConsulta);
+	    		
+	    		// Obté els resultats
+				empleats = query.getResultList();  
 	    		
 	            entityManager.getTransaction().commit();
 			}
-	
 			
 	        HashMap<Integer, Object> dadesEmpleats = new HashMap<Integer, Object>();
 	        

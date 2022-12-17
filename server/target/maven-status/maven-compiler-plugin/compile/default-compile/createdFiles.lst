@@ -15,6 +15,7 @@ com\eschoolmanager\server\connexio\Servidor.class
 com\eschoolmanager\server\connexio\FilClient.class
 com\eschoolmanager\server\model\Escola.class
 com\eschoolmanager\server\model\Servei.class
+com\eschoolmanager\server\utilitats\ConsultesDB.class
 com\eschoolmanager\server\model\Administratiu.class
 com\eschoolmanager\server\model\Departament.class
 com\eschoolmanager\server\gestors\GestorExcepcions.class

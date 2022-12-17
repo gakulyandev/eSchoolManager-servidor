@@ -21,9 +21,6 @@ public class GestorEscola implements Constants {
     protected Escola escola;
     
 	protected final static String PERMIS_ACCES= "acces";  
-
-	protected final static String DADES_CAMP_CODI = "codi";  
-	protected final static String DADES_ORDRE_ASC = "ASC";  
 	protected final static String[] DADES_ORDENACIONS = {"ASC","DESC"};
 	
     /**

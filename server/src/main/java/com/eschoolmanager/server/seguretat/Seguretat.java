@@ -85,7 +85,7 @@ public class Seguretat implements Constants {
 	 * Encripta contrasenya
 	 * @param contrasenya a encriptar
 	 */
-	public static String encriptaContrasenya(String contrasenya) {
+	public static String encriptaContrasenya(String contrasenya) throws GestorExcepcions {
 		
         MessageDigest md;
         StringBuilder hexString = null;
@@ -102,8 +102,7 @@ public class Seguretat implements Constants {
 	        }  
 	        
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new GestorExcepcions(ERROR_GENERIC);
 		}  
 
         return hexString.toString(); 

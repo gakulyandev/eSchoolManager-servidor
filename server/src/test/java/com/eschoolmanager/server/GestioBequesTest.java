@@ -134,6 +134,7 @@ public class GestioBequesTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "adjudicant");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	dadesPeticio.put(DADES_VALOR, "Entitat Prova");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -156,6 +157,7 @@ public class GestioBequesTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CAMP, "adjudicant");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	dadesPeticio.put(DADES_VALOR, "Entitat Prova");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -177,6 +179,7 @@ public class GestioBequesTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "adjudicantsss");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, "Entitat Prova");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -197,6 +200,7 @@ public class GestioBequesTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_LLISTA_BEQUES);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, "Entitat Prova");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

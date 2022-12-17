@@ -131,6 +131,7 @@ public class GestioServeisTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	dadesPeticio.put(DADES_VALOR, "Psicologia");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -153,6 +154,7 @@ public class GestioServeisTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CAMP, "nom");
     	dadesPeticio.put(DADES_ORDRE, "ASC");
+    	dadesPeticio.put(DADES_VALOR, "Psicologia");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -174,6 +176,7 @@ public class GestioServeisTest extends BaseTest {
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CAMP, "nomS");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, "Psicologia");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
@@ -194,6 +197,7 @@ public class GestioServeisTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_LLISTA_SERVEIS);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_ORDRE, "DESC");
+    	dadesPeticio.put(DADES_VALOR, "Psicologia");
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

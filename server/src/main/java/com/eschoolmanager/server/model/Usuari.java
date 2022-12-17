@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.eschoolmanager.server.gestors.GestorExcepcions;
 import com.eschoolmanager.server.seguretat.Seguretat;
 
 /**
@@ -51,8 +52,9 @@ public class Usuari {
      * @param escola a on està donat d'alta l'usuari
      * @param nomUsuari nom d'usuari
      * @param contrasenya contrasenya
+	 * @throws GestorExcepcions 
      */
-	public Usuari(String nomUsuari, String contrasenya) {
+	public Usuari(String nomUsuari, String contrasenya) throws GestorExcepcions {
         this.setNomUsuari(nomUsuari);
         this.setContrasenya(Seguretat.encriptaContrasenya(contrasenya));
 		this.setActiu(true);

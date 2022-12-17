@@ -17,6 +17,7 @@ import com.eschoolmanager.server.model.Estudiant;
 import com.eschoolmanager.server.model.Professor;
 import com.eschoolmanager.server.model.Servei;
 import com.eschoolmanager.server.model.Sessio;
+import com.eschoolmanager.server.utilitats.ConsultesDB;
 
 /**
  * @author Gayané Akulyan Akulyan
@@ -25,7 +26,8 @@ import com.eschoolmanager.server.model.Sessio;
 public class GestorSessio extends GestorEscola {
 	
 	public final static String DEPARTAMENT_DOCENT = "Docent";
-	private final static String[] DADES_CAMPS = {"codi","codiEmpleat","codiEstudiant", "codiServei", "dataIHora"};
+	private final static String ENTITAT = "Sessio"; 
+	private final static String[] DADES_CAMPS = {DADES_CAMP_CODI, DADES_CAMP_CODI_EMPLEAT, DADES_CAMP_CODI_ESTUDIANT, DADES_CAMP_CODI_SERVEI};
 
 	/**
      * Constructor que associa el gestor a un EntityManager
@@ -71,25 +73,57 @@ public class GestorSessio extends GestorEscola {
      * Obté llistat de les sessions a l'escola
      * @param camp de dades per ordenar
      * @param ordre que ha de mostrar
+     * @param valor que ha de mostrar
      * @return llista de sessions
      * @throws GestorExcepcions
      */
-	public HashMap<Integer, Object> llista(String camp, String ordre) throws GestorExcepcions {
+	public HashMap<Integer, Object> llista(String camp, String ordre, String valor) throws GestorExcepcions {
                 
-		if ((Arrays.asList(DADES_CAMPS).contains(camp) && Arrays.asList(DADES_ORDENACIONS).contains(ordre)) || 
-			 camp.length() == 0 && ordre.length() == 0) {
+		// Verifica el filtre
+		if (ConsultesDB.verificaFiltre(camp, ordre, valor, DADES_CAMPS, DADES_ORDENACIONS)) {
 			List<Sessio> sessions;
 			
-			if ((camp.equals(DADES_CAMP_CODI) && ordre.equals(DADES_ORDRE_ASC)) || camp.length() == 0 && ordre.length() == 0) {
-				sessions = escola.getSessions(); //Llista les sessions amb l'ordre per defecte
-			} else {
-				//Llista les sessions segons la petició
-				String consulta = "SELECT s FROM Sessio s ORDER BY s." + camp + " " + ordre;
-	
-				entityManager.getTransaction().begin();   
+			if (ConsultesDB.isFiltreDefecte(camp, ordre, valor)) {//Llista les sessions amb l'ordre per defecte
+				sessions = escola.getSessions();
+			} else {// Llista les sessions segons la petició
 				
-	    		Query query = (Query) entityManager.createQuery(consulta);
-	    		sessions = query.getResultList();  
+				// Estableix Ordre per defecte
+				if (ordre.length() == 0) {
+					ordre = DADES_ORDRE_ASC;
+				}
+				
+				entityManager.getTransaction().begin(); 
+				
+				// Ajusta el valor al tipus de la base de dades
+				Object valorConsulta = null;
+				if (valor.length() > 0) {
+					switch (camp) {
+						case DADES_CAMP_CODI:
+							valorConsulta = Integer.parseInt(valor);
+							break;
+						case DADES_CAMP_CODI_EMPLEAT:
+							valorConsulta = escola.trobaEmpleat(Integer.parseInt(valor));
+							camp = "professor";
+							break;
+						case DADES_CAMP_CODI_ESTUDIANT:
+							valorConsulta = escola.trobaEstudiant(Integer.parseInt(valor));
+							camp = "estudiant";
+							break;
+						case DADES_CAMP_CODI_SERVEI:
+							valorConsulta = escola.trobaServei(Integer.parseInt(valor));
+							camp = "servei";
+							break;
+						default:
+							valorConsulta = valor;
+							break;
+					}
+				}
+
+				// Crea consulta
+				Query query = ConsultesDB.creaConsulta(entityManager, ENTITAT, camp, ordre, valorConsulta);
+				
+				// Obté els resultats
+				sessions = query.getResultList();  
 	    		
 	            entityManager.getTransaction().commit();
 			}
