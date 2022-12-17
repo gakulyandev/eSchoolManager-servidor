@@ -44,6 +44,7 @@ public interface Constants {
 	public final static String CRIDA_CONSULTA_SESSIO = "CONSULTA SESSIO";
 	public final static String CRIDA_MODI_SESSIO = "MODI SESSIO";
 	public final static String CRIDA_BAIXA_SESSIO = "BAIXA SESSIO";
+	public final static String CRIDA_GENERA_FACTURA = "GENERA FACTURA";
 
 	public final static int CODI_ESCOLA = 1;
 	
@@ -119,6 +120,7 @@ public interface Constants {
 	public final static String DADES_ADJUDICANT_BECA = "adjudicant";
 	public final static String DADES_CODI_BECA = "codiBeca";
 	public final static String DADES_DATA_I_HORA = "dataIHora";
+	public final static String DADES_MES_FACTURA = "mes";
 	
 	public final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","factura"};
 	
