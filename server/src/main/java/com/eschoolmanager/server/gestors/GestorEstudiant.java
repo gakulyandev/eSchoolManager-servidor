@@ -4,17 +4,13 @@
 package com.eschoolmanager.server.gestors;
 
 import java.sql.Date;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.eschoolmanager.server.model.Departament;
-import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Estudiant;
-import com.eschoolmanager.server.model.Usuari;
 import com.eschoolmanager.server.utilitats.ConsultesDB;
 
 /**
@@ -173,7 +169,7 @@ public class GestorEstudiant extends GestorEscola {
         // Actualitza l'estudiant
         escola.actualitzaEstudiant(estudiant, dni, nom, cognoms, dataNaixement, telefon, email, adreca, registrat);
        
-        // Persisteix el departament
+        // Persisteix l'estudiant
         entityManager.getTransaction().begin();
         entityManager.merge(estudiant);
         entityManager.getTransaction().commit();

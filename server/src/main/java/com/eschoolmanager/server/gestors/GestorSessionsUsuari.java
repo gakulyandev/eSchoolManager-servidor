@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.eschoolmanager.server.model.SessioUsuari;
-import com.eschoolmanager.server.model.Usuari;
 
 /**
  * @author Gayané Akulyan Akulyan

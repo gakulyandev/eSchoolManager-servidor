@@ -31,6 +31,7 @@ public class GestorPeticions implements Constants {
 	private GestorEstudiant gestorEstudiant;
 	private GestorBeca gestorBeca;
 	private GestorSessio gestorSessio;
+	private GestorFactura gestorFactura;
 	
 	/**
      * Constructor que associa i inicialitza els diferents gestors
@@ -46,6 +47,7 @@ public class GestorPeticions implements Constants {
 		this.gestorEstudiant = new GestorEstudiant(entityManager);
 		this.gestorBeca = new GestorBeca(entityManager);
 		this.gestorSessio = new GestorSessio(entityManager);
+		this.gestorFactura = new GestorFactura(entityManager);
 	}
 
 	/**
@@ -685,6 +687,39 @@ public class GestorPeticions implements Constants {
 					gestorSessio.baixa(dadesPeticio.getInt(DADES_CODI_SESSIO));
 
 					// Genera resposta					
+					return generaRespostaOK(dadesResposta);	
+				}
+				case CRIDA_GENERA_FACTURA: {
+					// Processa la petició			
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					HashMap<String, Object> dadesFactura = gestorFactura.genera(
+							dadesPeticio.getInt(DADES_CODI_ESTUDIANT),
+							dadesPeticio.getInt(DADES_MES_FACTURA)
+					);
+					
+					// Genera resposta
+					dadesResposta = new JSONObject();
+					dadesResposta.put(DADES_CODI_FACTURA, dadesFactura.get(DADES_CODI_FACTURA));
+					dadesResposta.put(DADES_ESTAT_FACTURA, dadesFactura.get(DADES_ESTAT_FACTURA));
+					dadesResposta.put(DADES_NOM_ESTUDIANT, dadesFactura.get(DADES_NOM_ESTUDIANT));
+					dadesResposta.put(DADES_COGNOMS_ESTUDIANT_COMPLET, dadesFactura.get(DADES_COGNOMS_ESTUDIANT_COMPLET));
+
+					JSONObject dadesRespostaLinies = new JSONObject();
+					HashMap<Integer, Object> dadesLinies = (HashMap<Integer,Object>) dadesFactura.get(DADES_SESSIONS_FACTURA);
+					for (Integer key : dadesLinies.keySet()) {
+						JSONObject dadesRespostaLinia = new JSONObject();
+						dadesRespostaLinia.put(DADES_NOM_SERVEI, ((HashMap<String,Object>) dadesLinies.get(key)).get(DADES_NOM_SERVEI));
+						dadesRespostaLinia.put(DADES_IMPORT_BECA_FACTURA, ((HashMap<String,Object>) dadesLinies.get(key)).get(DADES_IMPORT_BECA_FACTURA));
+						dadesRespostaLinia.put(DADES_IMPORT_ESTUDIANT_FACTURA, ((HashMap<String,Object>) dadesLinies.get(key)).get(DADES_IMPORT_ESTUDIANT_FACTURA));
+						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+						String strDate = dateFormat.format(((HashMap<String,Object>) dadesLinies.get(key)).get(DADES_DATA_I_HORA));  
+						dadesRespostaLinia.put(DADES_DATA_I_HORA, strDate);
+						dadesRespostaLinies.put(String.valueOf(key), dadesRespostaLinia);
+					}
+					dadesResposta.put(DADES_SESSIONS_FACTURA, dadesRespostaLinies);	
+
+					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
 				default: {

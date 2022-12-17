@@ -2,12 +2,14 @@ D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\gestors\GestorExcepcions.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\utilitats\Constants.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\model\Permis.java
+D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\model\FacturaLinia.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\connexio\Servidor.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\connexio\FilClient.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\model\Beca.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\model\SessioUsuari.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\model\Escola.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\seguretat\Seguretat.java
+D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\gestors\GestorFactura.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\gestors\GestorServei.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\model\Servei.java
 D:\Usuarios\GA\ESTUDIOS\IOC\PRACTICA\Eclipse\eSchoolManager\server\src\main\java\com\eschoolmanager\server\model\Informe.java

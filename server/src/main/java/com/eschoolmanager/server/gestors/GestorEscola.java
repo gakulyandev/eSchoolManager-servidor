@@ -1,14 +1,11 @@
 package com.eschoolmanager.server.gestors;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 
 import com.eschoolmanager.server.model.Escola;
-import com.eschoolmanager.server.model.Servei;
 import com.eschoolmanager.server.utilitats.Constants;
 
 /**

@@ -58,8 +58,8 @@ public class Sessio {
 	}
 	
 	/**
-	 * Obté el codi identificador de l'factura
-	 * @return codi identificador de l'factura
+	 * Obté el codi identificador de la sessió
+	 * @return codi identificador de la sessió
 	 */
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

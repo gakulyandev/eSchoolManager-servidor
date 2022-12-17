@@ -64,6 +64,7 @@ public class BaseTest implements Constants {
 	protected final static int CODI_EXEMPLE_SESSIO_1 = 50;
 	protected final static int CODI_EXEMPLE_SESSIO_2 = 51;
 	protected final static int CODI_EXEMPLE_INEXISTENT = 100;
+	protected final static int CODI_EXEMPLE_MES = 1;
     
 	/**
      * Neteja la base de dades i l'omple amb dades de prova

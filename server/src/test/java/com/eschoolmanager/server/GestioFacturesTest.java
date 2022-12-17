@@ -43,14 +43,16 @@ public class GestioFacturesTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_GENERA_FACTURA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
-    	dadesPeticio.put(DADES_MES_FACTURA, 1);
+    	dadesPeticio.put(DADES_MES_FACTURA, CODI_EXEMPLE_MES);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
     	
     	//Comprovació
         assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals("Psicologia", dadesResposta.getJSONObject(DADES_SESSIONS_FACTURA).getJSONObject("0").get(DADES_NOM_SERVEI));
     }
     
     /**
@@ -63,14 +65,36 @@ public class GestioFacturesTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_GENERA_FACTURA);
         peticio.put(CODI_SESSIO, "codiProvaDocent");
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
-    	dadesPeticio.put(DADES_MES_FACTURA, 1);
+    	dadesPeticio.put(DADES_MES_FACTURA, CODI_EXEMPLE_MES);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova generar una factura amb un usuari autoritzat i estudiant inexistent
+     */
+    @Test
+    public void provaGeneraFacturaAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_GENERA_FACTURA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_INEXISTENT);
+    	dadesPeticio.put(DADES_MES_FACTURA, CODI_EXEMPLE_MES);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_ESTUDIANT, resposta.get(MISSATGE));
     }
     
     /**
@@ -83,14 +107,14 @@ public class GestioFacturesTest extends BaseTest {
         peticio.put(CRIDA, CRIDA_GENERA_FACTURA);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
     	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_1);
-    	dadesPeticio.put(DADES_MES_FACTURA, 1);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició
     	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
     	
     	//Comprovació
-        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
 
 }

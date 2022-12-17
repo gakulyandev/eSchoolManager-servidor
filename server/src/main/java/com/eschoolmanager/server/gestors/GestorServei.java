@@ -3,14 +3,12 @@
  */
 package com.eschoolmanager.server.gestors;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Servei;
 import com.eschoolmanager.server.utilitats.ConsultesDB;
 

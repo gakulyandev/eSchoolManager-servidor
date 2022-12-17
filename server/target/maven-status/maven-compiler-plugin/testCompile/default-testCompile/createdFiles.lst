@@ -1,4 +1,5 @@
 com\eschoolmanager\server\GestioSessioUsuariTest.class
+com\eschoolmanager\server\GestioFacturesTest.class
 com\eschoolmanager\server\GestioEmpleatsTest.class
 com\eschoolmanager\server\GestioServeisTest.class
 com\eschoolmanager\server\GestioSessionsTest.class

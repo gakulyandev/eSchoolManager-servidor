@@ -4,14 +4,12 @@
 package com.eschoolmanager.server.gestors;
 
 import java.sql.Date;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.eschoolmanager.server.model.Beca;
 import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Estudiant;
 import com.eschoolmanager.server.model.Professor;

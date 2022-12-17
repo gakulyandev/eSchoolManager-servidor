@@ -120,7 +120,12 @@ public interface Constants {
 	public final static String DADES_ADJUDICANT_BECA = "adjudicant";
 	public final static String DADES_CODI_BECA = "codiBeca";
 	public final static String DADES_DATA_I_HORA = "dataIHora";
+	public final static String DADES_CODI_FACTURA = "codiFactura";
 	public final static String DADES_MES_FACTURA = "mes";
+	public final static String DADES_ESTAT_FACTURA = "pagat";
+	public final static String DADES_IMPORT_BECA_FACTURA = "importBeca";
+	public final static String DADES_IMPORT_ESTUDIANT_FACTURA = "importEstudiant";
+	public final static String DADES_SESSIONS_FACTURA = "sessions";
 	
 	public final static String[] PERMISOS_NOMS = {"escola","departament","empleat","estudiant","servei","beca","sessio","factura"};
 	

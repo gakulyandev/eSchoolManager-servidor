@@ -3,9 +3,7 @@
  */
 package com.eschoolmanager.server.model;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,8 +26,10 @@ import javax.persistence.Table;
 public class Factura {
 	
 	private int codi;
-	private Date dataGeneracio;
+	private int mesFacturat;
+	private boolean pagat;
 	private Estudiant estudiant;
+	private List<FacturaLinia> linies;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -44,14 +44,16 @@ public class Factura {
      * @param dades de l'factura 
      * @param estudiant per qui es genera la factura
      */
-	public Factura(String dades, Estudiant estudiant) {
+	public Factura(List<Sessio> sessions, Estudiant estudiant, int mes) {
         this.setEstudiant(estudiant);
-        this.setDataGeneracio(new Date(Calendar.LONG));
+        this.setMesFacturat(mes);
+        this.generaLinies(sessions);
+        this.setPagat(false);
 	}
 	
 	/**
-	 * Obté el codi identificador de l'factura
-	 * @return codi identificador de l'factura
+	 * Obté el codi identificador de la factura
+	 * @return codi identificador de la factura
 	 */
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -69,20 +71,35 @@ public class Factura {
 	}
 
 	/**
-	 * Obté la data en que es genera la factura
-	 * @return dataGeneracio de la factura
+	 * Obté el mes facturat
+	 * @return mesFacturat
 	 */
-	@Column(name="data_generacio")
-	public Date getDataGeneracio() {
-		return dataGeneracio;
+	public int getMesFacturat() {
+		return mesFacturat;
 	}
 
 	/**
-	 * Actualitza la data de generació de la factura
-	 * @param dataGeneracio actualitzada de la factura
+	 * Actualitza el mes facturat
+	 * @param mesFacturat actualitzat
 	 */
-	public void setDataGeneracio(Date dataGeneracio) {
-		this.dataGeneracio = dataGeneracio;
+	public void setMesFacturat(int mesFacturat) {
+		this.mesFacturat = mesFacturat;
+	}
+
+	/**
+	 * Obté l'estat de la factura
+	 * @return true o false segons si esta o no pagada
+	 */
+	public boolean isPagat() {
+		return pagat;
+	}
+
+	/**
+	 * Actualitza l'estat de la factura
+	 * @param true o false segons si esta o no pagada
+	 */
+	public void setPagat(boolean pagat) {
+		this.pagat = pagat;
 	}
 
 	/**
@@ -101,6 +118,68 @@ public class Factura {
 	 */
 	public void setEstudiant(Estudiant estudiant) {
 		this.estudiant = estudiant;
+	}
+
+	/**
+	 * Llista les línies generades de la factura
+	 * @return línies generades de la factura
+	 */
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="factura")
+	public List<FacturaLinia> getLinies() {
+		return linies;
+	}
+
+	/**
+	 * Actualitza les línies generades de la factura
+	 * @param línies actualitzades de la factura
+	 */
+	public void setLinies(List<FacturaLinia> linies) {
+		this.linies = linies;
+	}
+	
+	/**
+	 * Genera les linies de Factura
+	 * @param sessions per les que s'han de generar les linies
+	 */
+	public void generaLinies(List<Sessio> sessions) {
+		List<FacturaLinia> linies = new ArrayList<FacturaLinia>();
+
+        for (Sessio sessio : sessions) {
+
+        	// Imputa el cost de la sessió
+    		Servei serveiFacturat = sessio.getServei();
+    		Double costServeiFacturat = serveiFacturat.getCost();
+    		
+        	Double importBeca = 0.00;
+        	Double importEstudiant = 0.00;
+        	
+        	for (Beca beca : this.getEstudiant().getBeques()) {
+        		
+        		if ((beca.getServei() == serveiFacturat) && !beca.isFinalitzada() && (costServeiFacturat > 0)) {
+        			
+        			Double importRestantBeca = beca.getImportRestant();
+        			if (importRestantBeca >= costServeiFacturat) {
+        				importBeca = importBeca + costServeiFacturat;
+        				beca.setImportRestant(importRestantBeca - costServeiFacturat);
+        			} else {
+        				importBeca = importBeca + importRestantBeca;
+        				beca.setImportRestant(0.00);
+        			}
+        			
+        			costServeiFacturat = costServeiFacturat - importBeca;
+        		}
+        	}
+
+        	importEstudiant = costServeiFacturat;
+        	
+        	// Crea linia de factura
+        	linies.add(new FacturaLinia(sessio, importBeca, importEstudiant, this));
+        	
+        	// Marca sessió com a facturada
+        	sessio.setFacturada(true);
+        }
+        
+		this.setLinies(linies);
 	}
 
 }

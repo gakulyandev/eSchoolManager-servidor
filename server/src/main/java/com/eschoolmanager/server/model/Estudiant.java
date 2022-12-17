@@ -5,7 +5,7 @@ package com.eschoolmanager.server.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -176,8 +176,8 @@ public class Estudiant extends Persona {
 	 * @param beca a afegir
 	 */
 	public void adjudicaBeca(Beca beca) {
-		if(!beques.contains(beca)) {
-			beques.add(beca);
+		if(!this.beques.contains(beca)) {
+			this.beques.add(beca);
 		}
 	}
 	
@@ -186,9 +186,50 @@ public class Estudiant extends Persona {
 	 * @param sessió a assignar
 	 */
 	public void assignaSessio(Sessio sessio) {
-		if(!sessions.contains(sessio)) {
-			sessions.add(sessio);
+		if(!this.sessions.contains(sessio)) {
+			this.sessions.add(sessio);
 		}
 	}	
 	
+	/**
+	 * Obté factura de l'estudiant
+	 * @param mes de la factura
+	 * @return fctura
+	 */
+	public Factura obteFactura(int mes) {
+		for (Factura factura : this.factures) {
+			if (factura.getMesFacturat() == mes) {
+				return factura;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Genera factura per l'estudiant
+	 * @param mes a facturar
+	 * @return factura generada
+	 */
+	public Factura generaFactura(int mesAFacturar) {
+		
+		// Obté factura si ja ha sigut generada
+		Factura factura = null;
+		if ((factura = obteFactura(mesAFacturar)) != null) {
+			return factura;
+		}
+		
+		// Genera una nova si encara no existeix
+		List<Sessio> sessionsAFacturar = new ArrayList<Sessio>();
+		Calendar calendar = Calendar.getInstance();
+		for(Sessio sessio : this.sessions) {
+			if (sessio.getDataIHora().toLocalDate().getMonthValue() == mesAFacturar) {
+				sessionsAFacturar.add(sessio);
+			}
+		}
+
+		factura = new Factura(sessionsAFacturar, this, mesAFacturar);
+		this.factures.add(factura);
+		
+		return factura;		
+	}
 }
