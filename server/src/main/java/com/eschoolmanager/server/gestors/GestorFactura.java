@@ -40,6 +40,13 @@ public class GestorFactura extends GestorEscola {
         
         Factura factura = estudiant.generaFactura(mes);
         
+        // Persisteix la factura
+        entityManager.getTransaction().begin();
+        entityManager.merge(factura);
+        entityManager.getTransaction().commit();
+        
+        // Obté les dades per retornar
+        factura = estudiant.obteFactura(mes);
         HashMap<String, Object> dadesFactura = new HashMap<String, Object>();
         dadesFactura.put(DADES_CODI_FACTURA, factura.getCodi());
         dadesFactura.put(DADES_ESTAT_FACTURA, factura.isPagat());
