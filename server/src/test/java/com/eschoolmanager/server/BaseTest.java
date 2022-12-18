@@ -25,6 +25,7 @@ import com.eschoolmanager.server.model.Departament;
 import com.eschoolmanager.server.model.Empleat;
 import com.eschoolmanager.server.model.Escola;
 import com.eschoolmanager.server.model.Estudiant;
+import com.eschoolmanager.server.model.Factura;
 import com.eschoolmanager.server.model.Permis;
 import com.eschoolmanager.server.model.Professor;
 import com.eschoolmanager.server.model.SessioUsuari;
@@ -65,6 +66,7 @@ public class BaseTest implements Constants {
 	protected final static int CODI_EXEMPLE_SESSIO_2 = 51;
 	protected final static int CODI_EXEMPLE_INEXISTENT = 100;
 	protected final static int CODI_EXEMPLE_MES = 1;
+	protected final static int CODI_EXEMPLE_FACTURA = 60;
     
 	/**
      * Neteja la base de dades i l'omple amb dades de prova
@@ -143,7 +145,7 @@ public class BaseTest implements Constants {
 		Permis permisEstudiant = new Permis("estudiant","ALTA ESTUDIANT;BAIXA ESTUDIANT;MODI ESTUDIANT;LLISTA ESTUDIANTS;CONSULTA ESTUDIANT");
 		Permis permisBeca = new Permis("beca","ALTA BECA;BAIXA BECA;MODI BECA;LLISTA BEQUES;CONSULTA BECA");
 		Permis permisSessio = new Permis("sessio","ALTA SESSIO;BAIXA SESSIO;MODI SESSIO;LLISTA SESSIONS;CONSULTA SESSIO");
-		Permis permisFactura = new Permis("factura","GENERA FACTURA");
+		Permis permisFactura = new Permis("factura","GENERA FACTURA;PAGA FACTURA");
 		
 		List<Permis> permisosAdministrador = new ArrayList<Permis>();
 		List<Permis> permisosAdministratiu = new ArrayList<Permis>();
@@ -288,6 +290,10 @@ public class BaseTest implements Constants {
 		Sessio sessio2 = escola.altaSessio(empleatDocent, estudiant1, serveiPsicologia, new Date(parsed2.getTime()));
 		sessio2.setCodi(CODI_EXEMPLE_SESSIO_2);
 		sessio2.setFacturada(true);
+		
+		// Creació de factura d'exemple
+		Factura factura = estudiant1.generaFactura(CODI_EXEMPLE_MES);
+		factura.setCodi(CODI_EXEMPLE_FACTURA);
 		
 		insertaDades(escola);
     }

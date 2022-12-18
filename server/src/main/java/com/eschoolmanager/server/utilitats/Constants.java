@@ -45,6 +45,7 @@ public interface Constants {
 	public final static String CRIDA_MODI_SESSIO = "MODI SESSIO";
 	public final static String CRIDA_BAIXA_SESSIO = "BAIXA SESSIO";
 	public final static String CRIDA_GENERA_FACTURA = "GENERA FACTURA";
+	public final static String CRIDA_PAGA_FACTURA = "PAGA FACTURA";
 
 	public final static int CODI_ESCOLA = 1;
 	
@@ -145,6 +146,7 @@ public interface Constants {
     public final static String ERROR_INEXISTENT_RELACIO_PROFESSOR_SERVEI = "El professor indicat no imparteix el servei";
 	public final static String ERROR_INEXISTENT_BECA = "No existeix la beca indicada";
 	public final static String ERROR_INEXISTENT_SESSIO = "No existeix la sessió indicada";
+	public final static String ERROR_INEXISTENT_FACTURA = "No existeix la factura indicada";
 	public final static String ERROR_EXISTEIX_DEPARTAMENT = "Ja existeix un departament amb el mateix nom";
 	public final static String ERROR_EXISTEIX_SERVEI = "Ja existeix un servei amb el mateix nom";
 	public final static String ERROR_EXISTEIX_USUARI = "Ja existeix un usuari amb el mateix nom d'usuari";

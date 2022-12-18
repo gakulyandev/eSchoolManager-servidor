@@ -116,5 +116,88 @@ public class GestioFacturesTest extends BaseTest {
         assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
         assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
     }
+    
+    /**
+     * Mètode que prova pagar una factura amb un usuari autoritzat i estudiant existent
+     */
+    @Test
+    public void provaPagaFacturaAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_PAGA_FACTURA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_FACTURA, CODI_EXEMPLE_FACTURA);
+    	dadesPeticio.put(DADES_ESTAT_FACTURA, true);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	dadesResposta = resposta.getJSONObject(DADES);
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_OK, resposta.get(RESPOSTA));
+    }
+    
+    /**
+     * Mètode que prova pagar una factura amb un usuari no autoritzat
+     */
+    @Test
+    public void provaPagaFacturaNoAutoritzatDadesCorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_PAGA_FACTURA);
+        peticio.put(CODI_SESSIO, "codiProvaDocent");
+    	dadesPeticio.put(DADES_CODI_FACTURA, CODI_EXEMPLE_FACTURA);
+    	dadesPeticio.put(DADES_ESTAT_FACTURA, true);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_NO_AUTORITZAT, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova pagar una factura amb un usuari autoritzat i estudiant inexistent
+     */
+    @Test
+    public void provaPagaFacturaAutoritzatDadesIncorrectes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_PAGA_FACTURA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_FACTURA, CODI_EXEMPLE_INEXISTENT);
+    	dadesPeticio.put(DADES_ESTAT_FACTURA, true);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_INEXISTENT_FACTURA, resposta.get(MISSATGE));
+    }
+    
+    /**
+     * Mètode que prova pagar una factura amb dades incompletes
+     */
+    @Test
+    public void provaPagaFacturaDadesIncompletes() {
+        
+    	//Petició del client
+        peticio.put(CRIDA, CRIDA_PAGA_FACTURA);
+        peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
+    	dadesPeticio.put(DADES_CODI_FACTURA, CODI_EXEMPLE_FACTURA);
+    	peticio.put(DADES, dadesPeticio);
+
+    	//Resposta del servidor una vegada processada la petició
+    	resposta = new JSONObject(gestorPeticions.generaResposta(peticio.toString()));
+    	
+    	//Comprovació
+        assertEquals(RESPOSTA_NOK, resposta.get(RESPOSTA));
+        assertEquals(ERROR_FALTEN_DADES, resposta.get(MISSATGE));
+    }
 
 }

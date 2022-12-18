@@ -30,6 +30,7 @@ public class Factura {
 	private boolean pagat;
 	private Estudiant estudiant;
 	private List<FacturaLinia> linies;
+	private Escola escola;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -135,6 +136,24 @@ public class Factura {
 	 */
 	public void setLinies(List<FacturaLinia> linies) {
 		this.linies = linies;
+	}
+		
+	/**
+	 * Obté l'escola
+	 * @return escola
+	 */
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="escola_codi", nullable=false)
+	public Escola getEscola() {
+		return escola;
+	}
+	
+	/**
+	 * Actualitza l'escola
+	 * @param escola actualitzat
+	 */
+	public void setEscola(Escola escola) {
+		this.escola = escola;
 	}
 	
 	/**

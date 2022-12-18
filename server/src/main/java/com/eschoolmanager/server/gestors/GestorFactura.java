@@ -76,5 +76,28 @@ public class GestorFactura extends GestorEscola {
         
         return dadesFactura;
     }
+	
+	/**
+     * Actualitza l'estat d'una factura de l'estudiant
+     * @param codi de la factura
+     * @return estat de la factura
+     * @throws GestorExcepcions
+     */
+	public void paga(int codiFactura, boolean estat) throws GestorExcepcions {
+        
+		// Troba la factura
+		Factura factura = escola.trobaFactura(codiFactura);
+        if (factura == null) {
+			throw new GestorExcepcions(ERROR_INEXISTENT_FACTURA);
+		}
+        
+        // Actualitza l'estat
+        factura.setPagat(estat);
+        
+        // Persisteix la factura
+        entityManager.getTransaction().begin();
+        entityManager.merge(factura);
+        entityManager.getTransaction().commit();
+    }
 
 }

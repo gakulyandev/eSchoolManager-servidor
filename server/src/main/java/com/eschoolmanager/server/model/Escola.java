@@ -40,6 +40,7 @@ public class Escola implements Constants {
 	private List<Servei> serveis;
 	private List<Beca> beques;
 	private List<Sessio> sessions;
+	private List<Factura> factures;
 	
 
 	/**
@@ -67,6 +68,7 @@ public class Escola implements Constants {
 		this.setServeis(new ArrayList<Servei>());
 		this.setBeques(new ArrayList<Beca>());
 		this.setSessions(new ArrayList<Sessio>());
+		this.setFactures(new ArrayList<Factura>());
 	}
 	
 	/**
@@ -256,6 +258,23 @@ public class Escola implements Constants {
 	 */
 	public void setSessions(List<Sessio> sessions) {
 		this.sessions = sessions;
+	}
+	
+	/**
+	 * Obté les factures de l'escola
+	 * @return factures de l'escola
+	 */
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy="escola")
+	public List<Factura> getFactures() {
+		return factures;
+	}
+
+	/**
+	 * Actualitza les factures de l'escola
+	 * @param factures actualitzades de l'escola
+	 */
+	public void setFactures(List<Factura> factures) {
+		this.factures = factures;
 	}
 	
 	/**
@@ -777,5 +796,32 @@ public class Escola implements Constants {
 			throw new GestorExcepcions(ERROR_SESSIO_FACTURADA);
 		}
 		this.sessions.remove(sessio);
+	}
+
+	/**
+	 * Afegeix una factura 
+     * @param factura
+     * @throws GestorExcepcions
+	 */
+	public void afegeixFactura(Factura factura) throws GestorExcepcions {
+		
+		if (!this.factures.contains(factura)) {
+			this.factures.add(factura);
+			factura.setEscola(this);			
+		}
+	}
+	
+	/**
+	 * Obté una factura amb el codi indicat
+	 * @return factura trobada o null
+	 */
+	public Factura trobaFactura(int codi) {
+		for(Factura factura : this.factures) {
+			if (factura.getCodi() == codi) {
+				return factura;
+			}
+		}
+		
+		return null;
 	}
 }

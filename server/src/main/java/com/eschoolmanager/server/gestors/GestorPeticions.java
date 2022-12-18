@@ -722,6 +722,18 @@ public class GestorPeticions implements Constants {
 					// Genera resposta
 					return generaRespostaOK(dadesResposta);	
 				}
+				case CRIDA_PAGA_FACTURA: {
+					// Processa la petició
+					dadesPeticio = peticio.getJSONObject(DADES);
+					
+					gestorFactura.paga(
+							dadesPeticio.getInt(DADES_CODI_FACTURA),
+							dadesPeticio.getBoolean(DADES_ESTAT_FACTURA)
+					);
+
+					// Genera resposta
+					return generaRespostaOK(dadesResposta);	
+				}
 				default: {
 					// Genera resposta
 					return generaRespostaNOK(ERROR_GENERIC);

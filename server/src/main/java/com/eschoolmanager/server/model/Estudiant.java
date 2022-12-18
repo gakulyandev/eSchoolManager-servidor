@@ -5,7 +5,6 @@ package com.eschoolmanager.server.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -209,8 +208,9 @@ public class Estudiant extends Persona {
 	 * Genera factura per l'estudiant
 	 * @param mes a facturar
 	 * @return factura generada
+	 * @throws GestorExcepcions 
 	 */
-	public Factura generaFactura(int mesAFacturar) {
+	public Factura generaFactura(int mesAFacturar) throws GestorExcepcions {
 		
 		// Obté factura si ja ha sigut generada
 		Factura factura = null;
@@ -220,7 +220,6 @@ public class Estudiant extends Persona {
 		
 		// Genera una nova si encara no existeix
 		List<Sessio> sessionsAFacturar = new ArrayList<Sessio>();
-		Calendar calendar = Calendar.getInstance();
 		for(Sessio sessio : this.sessions) {
 			if (sessio.getDataIHora().toLocalDate().getMonthValue() == mesAFacturar) {
 				sessionsAFacturar.add(sessio);
@@ -229,6 +228,7 @@ public class Estudiant extends Persona {
 
 		factura = new Factura(sessionsAFacturar, this, mesAFacturar);
 		this.factures.add(factura);
+		this.getEscola().afegeixFactura(factura);
 		
 		return factura;		
 	}
