@@ -143,6 +143,7 @@ public class Usuari {
     /**
      * Actualitza la contrasenya
      * @param contrasenya actualitzada de l'usuari
+     * @throws GestorExcepcions 
      */
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
@@ -185,11 +186,12 @@ public class Usuari {
 	 * Actualitza l'usuari
      * @param nom d'usuari de l'empleat
      * @param contrasenya d'usuari de l'empleat
+	 * @throws GestorExcepcions 
 	 */
-	public void actualitza(String nomUsuari, String contrasenya) {
+	public void actualitza(String nomUsuari, String contrasenya) throws GestorExcepcions {
 		this.setNomUsuari(nomUsuari);
 		if (contrasenya != null && contrasenya.length() > 0) {
-			this.setContrasenya(contrasenya);
+			this.setContrasenya(Seguretat.encriptaContrasenya(contrasenya));
 		}
 	}
 }
