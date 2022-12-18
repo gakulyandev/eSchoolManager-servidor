@@ -161,8 +161,10 @@ public class Factura {
 	 * @param sessions per les que s'han de generar les linies
 	 */
 	public void generaLinies(List<Sessio> sessions) {
+		
 		List<FacturaLinia> linies = new ArrayList<FacturaLinia>();
 
+		// Genera una línia de factura per cada sessió a facturar
         for (Sessio sessio : sessions) {
 
         	// Imputa el cost de la sessió

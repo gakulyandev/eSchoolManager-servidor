@@ -77,6 +77,16 @@ public class Professor extends Empleat {
 	}
 	
 	/**
+	 * Desassigna una sessió
+	 * @param sessió a desassignar
+	 */
+	public void desassignaSessio(Sessio sessio) {
+		if(this.sessions.contains(sessio)) {
+			this.sessions.remove(sessio);
+		}
+	}	
+	
+	/**
 	 * Indica si l'empleat té o no elements relacionats
 	 * @return true o false segons si té o no elements relacionats
 	 */

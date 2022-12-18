@@ -504,7 +504,7 @@ public class GestioEstudiantsTest extends BaseTest {
     	//Petició del client
         peticio.put(CRIDA, CRIDA_BAIXA_ESTUDIANT);
         peticio.put(CODI_SESSIO, "codiProvaAdministratiu");
-    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_2);
+    	dadesPeticio.put(DADES_CODI_ESTUDIANT, CODI_EXEMPLE_ESTUDIANT_3);
     	peticio.put(DADES, dadesPeticio);
 
     	//Resposta del servidor una vegada processada la petició

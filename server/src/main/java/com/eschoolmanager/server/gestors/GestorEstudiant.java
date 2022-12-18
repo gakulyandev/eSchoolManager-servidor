@@ -140,7 +140,6 @@ public class GestorEstudiant extends GestorEscola {
         dadesEstudiant.put(DADES_TELEFON_ESTUDIANT, estudiant.getTelefon());
         dadesEstudiant.put(DADES_EMAIL_ESTUDIANT, estudiant.getEmail());
         dadesEstudiant.put(DADES_ESTAT_ESTUDIANT, estudiant.isRegistrat());
-        dadesEstudiant.put(DADES_IMPORT_IMPUTAT_ESTUDIANT, estudiant.getImportImputat());
         
         return dadesEstudiant;
     }

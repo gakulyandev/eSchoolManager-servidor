@@ -26,12 +26,12 @@ import javax.persistence.Table;
 public class Servei {
 	
 	private int codi;
-	private Escola escola;
 	private String nom;
-	private double cost;
 	private int durada;
+	private double cost;
 	private List<Beca> beques;
 	private List<Sessio> sessions;
+	private Escola escola;
 	
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -200,6 +200,16 @@ public class Servei {
 	}
 	
 	/**
+	 * Desassigna una beca del llistat
+	 * @param beca a desassignar
+	 */
+	public void desassignaBeca(Beca beca) {
+		if(this.beques.contains(beca)) {
+			this.beques.remove(beca);
+		}
+	}
+	
+	/**
 	 * Assigna una sessió
 	 * @param sessió a assignar
 	 */
@@ -207,8 +217,17 @@ public class Servei {
 		if(!sessions.contains(sessio)) {
 			sessions.add(sessio);
 		}
-		
 	}
+	
+	/**
+	 * Desassigna una sessió
+	 * @param sessió a desassignar
+	 */
+	public void desassignaSessio(Sessio sessio) {
+		if(this.sessions.contains(sessio)) {
+			this.sessions.remove(sessio);
+		}
+	}	
 	
 	/**
 	 * Indica si el servei té o no elements relacionats

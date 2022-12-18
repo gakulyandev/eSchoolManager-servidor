@@ -61,6 +61,7 @@ public class BaseTest implements Constants {
 	protected final static int CODI_EXEMPLE_SERVEI_PSICOPEDAGODIA = 21;
 	protected final static int CODI_EXEMPLE_ESTUDIANT_1 = 30;
 	protected final static int CODI_EXEMPLE_ESTUDIANT_2 = 31;
+	protected final static int CODI_EXEMPLE_ESTUDIANT_3 = 32;
 	protected final static int CODI_EXEMPLE_BECA = 40;
 	protected final static int CODI_EXEMPLE_SESSIO_1 = 50;
 	protected final static int CODI_EXEMPLE_SESSIO_2 = 51;
@@ -272,6 +273,8 @@ public class BaseTest implements Constants {
 		estudiant1.setCodi(CODI_EXEMPLE_ESTUDIANT_1);
 		Estudiant estudiant2 = escola.altaEstudiant("22233344N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4");
 		estudiant2.setCodi(CODI_EXEMPLE_ESTUDIANT_2);
+		Estudiant estudiant3 = escola.altaEstudiant("22233345N", "Pedro", "Gomez", new Date(parsed.getTime()), "622555222", "p.gomez@gmail.com", "c/S/N, 4");
+		estudiant3.setCodi(CODI_EXEMPLE_ESTUDIANT_3);
 		
 		// Creació de beques d'exemple
 		Beca beca = escola.altaBeca("Entitat Prova", 1000.00, estudiant1, serveiPsicologia);
@@ -287,9 +290,9 @@ public class BaseTest implements Constants {
 		}
 		Sessio sessio = escola.altaSessio(empleatDocent, estudiant1, serveiPsicologia, new Date(parsed2.getTime()));
 		sessio.setCodi(CODI_EXEMPLE_SESSIO_1);
-		Sessio sessio2 = escola.altaSessio(empleatDocent, estudiant1, serveiPsicologia, new Date(parsed2.getTime()));
+		sessio.setFacturada(true);
+		Sessio sessio2 = escola.altaSessio(empleatDocent, estudiant2, serveiPsicologia, new Date(parsed2.getTime()));
 		sessio2.setCodi(CODI_EXEMPLE_SESSIO_2);
-		sessio2.setFacturada(true);
 		
 		// Creació de factura d'exemple
 		Factura factura = estudiant1.generaFactura(CODI_EXEMPLE_MES);

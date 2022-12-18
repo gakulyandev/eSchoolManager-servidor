@@ -135,9 +135,12 @@ public class Empleat extends Persona {
 	 */
 	public void actualitza(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca, Boolean actiu, Departament departament) throws GestorExcepcions {
 		this.actualitzaPersona(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
-		this.setDepartament(departament);
 		this.setActiu(actiu);
 		this.getUsuari().setActiu(actiu);
+		
+		//  Actualitza el departament
+		this.getDepartament().baixaEmpleat(this);
+		this.setDepartament(departament);
 	}
 	
 	/**

@@ -35,10 +35,10 @@ import com.eschoolmanager.server.gestors.GestorExcepcions;
 public class Departament {
 
 	private int codi;
-	private Escola escola;
 	private String nom;
 	private List<Empleat> empleats;
 	private List<Permis> permisos;	
+	private Escola escola;
 	
 	private final static String DEPARTAMENT_DOCENT = "Docent";
 	private final static String DEPARTAMENT_ADMINISTRATIU = "Administratiu";	
@@ -52,7 +52,6 @@ public class Departament {
 	
 	/**
      * Constructor parametritzat: construeix un nou departament amb els paràmetres especificats
-     * @param escola a on és el departament
      * @param nom del departament
      * @param permisos del departament
      */
@@ -60,7 +59,6 @@ public class Departament {
         this.setNom(nom);
         this.setEmpleats(new ArrayList<Empleat>());
     	this.setPermisos(permisos);
-        
 	}
 	
 	/**
@@ -218,6 +216,7 @@ public class Departament {
 	 */
 	public Empleat altaEmpleat(String dni, String nom, String cognoms, Date dataNaixement, String telefon, String email, String adreca) throws GestorExcepcions {
 		
+		// Crea un tipus d'empleat segons el departament al que pertany
 		switch (this.getNom()) {
 			case DEPARTAMENT_DOCENT: {
 				Professor professor = new Professor(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
@@ -248,7 +247,9 @@ public class Departament {
 	 * @throws GestorExcepcions 
 	 */
 	public void baixaEmpleat(Empleat empleat) throws GestorExcepcions {
-		this.empleats.remove(empleat);
+		if(this.empleats.contains(empleat)) {
+			this.empleats.remove(empleat);
+		}
 	}
 	
 }

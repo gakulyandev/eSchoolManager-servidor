@@ -25,12 +25,12 @@ import javax.persistence.Table;
 public class Sessio {
 
 	private int codi;
+	private Date dataIHora;
+	private boolean facturada;
 	private Professor professor;
 	private Estudiant estudiant;
 	private Servei servei;
-	private Date dataIHora;
 	private Escola escola;
-	private boolean facturada;
 	
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -169,6 +169,7 @@ public class Sessio {
 	 * Obté l'estat de facturació
 	 * @return true o false segons si la sessió ha sigut o no facturada
 	 */
+	@Column(name="facturada")
 	public boolean isFacturada() {
 		return facturada;
 	}
@@ -188,12 +189,22 @@ public class Sessio {
      * @param data i hora a actualitzar
 	 */
 	public void actualitza(Professor professor, Estudiant estudiant, Servei servei, Date dataIHora) {
-		this.setProfessor(professor);
-		this.setEstudiant(estudiant);
-		this.setServei(servei);
+		
 		this.setDataIHora(dataIHora);
+		
+		// Actualitza el professor
+		this.getProfessor().desassignaSessio(this);
+		this.setProfessor(professor);
 		professor.assignaSessio(this);
+		
+		// Actualitza l'estudiant
+		this.getEstudiant().desassignaSessio(this);
+		this.setEstudiant(estudiant);
 		estudiant.assignaSessio(this);
+
+		// Actualitza el servei	
+		this.getServei().desassignaSessio(this);	
+		this.setServei(servei);
 		servei.assignaSessio(this);
 	}
 

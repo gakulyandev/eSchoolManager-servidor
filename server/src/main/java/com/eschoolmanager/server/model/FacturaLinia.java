@@ -24,11 +24,11 @@ import javax.persistence.Table;
 public class FacturaLinia {
 
 	private int codi;
-	private Factura factura;
 	private Date dataIHora;
-	private Servei servei;
 	private Double importBeca;
 	private Double importEstudiant;
+	private Servei servei;
+	private Factura factura;
 
 	/**
 	 * Constructor per defecte sense paràmetres

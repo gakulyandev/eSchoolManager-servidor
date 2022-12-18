@@ -507,7 +507,6 @@ public class Escola implements Constants {
 		if (!empleat.isBuit()) {
 			throw new GestorExcepcions(ERROR_ELEMENTS_RELACIONATS_EMPLEAT);
 		}
-		empleat.getDepartament().baixaEmpleat(empleat);
 		this.empleats.remove(empleat);
 	}
 	
@@ -736,7 +735,7 @@ public class Escola implements Constants {
 	 * Dona de baixa una beca
 	 * @throws GestorExcepcions 
 	 */
-	public void baixaBeca(Beca beca) throws GestorExcepcions {
+	public void baixaBeca(Beca beca) throws GestorExcepcions {		
 		this.beques.remove(beca);
 	}
 
@@ -793,6 +792,7 @@ public class Escola implements Constants {
 	 */
 	public void baixaSessio(Sessio sessio) throws GestorExcepcions {
 		if (sessio.isFacturada()) {
+	        System.out.println("DFASFAF");
 			throw new GestorExcepcions(ERROR_SESSIO_FACTURADA);
 		}
 		this.sessions.remove(sessio);

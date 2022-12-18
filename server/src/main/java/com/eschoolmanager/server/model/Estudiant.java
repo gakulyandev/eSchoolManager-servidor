@@ -26,7 +26,6 @@ import com.eschoolmanager.server.gestors.GestorExcepcions;
 public class Estudiant extends Persona {
 	
 	private boolean registrat = false;
-	private Double importImputat;
 	private List<Beca> beques;
 	private List<Sessio> sessions;
 	private List<Factura> factures;
@@ -40,7 +39,6 @@ public class Estudiant extends Persona {
 	
 	/**
      * Constructor parametritzat: construeix un nou estudiant amb els paràmetres especificats
-     * @param escola a on és registrat l'estudiant
      * @param dni identificador de l'estudiant
      * @param nom de l'estudiant
      * @param cognoms de l'estudiant
@@ -54,7 +52,6 @@ public class Estudiant extends Persona {
 		super(dni, nom, cognoms, dataNaixement, telefon, email, adreca);
 		
 		this.setRegistrat(true);
-		this.setImportImputat(0.00);
 		this.setBeques(new ArrayList<Beca>());
 		this.setSessions(new ArrayList<Sessio>());
 		this.setFactures(new ArrayList<Factura>());
@@ -75,22 +72,6 @@ public class Estudiant extends Persona {
 	 */
 	public void setRegistrat(boolean registrat) {
 		this.registrat = registrat;
-	}
-	
-	/**
-	 * Obté l'import acumulat de les sessions realitzades
-	 * @return importImputat
-	 */
-	public Double getImportImputat() {
-		return importImputat;
-	}
-
-	/**
-	 * Actualitza l'import acumulat de les sessions realitzades
-	 * @param importImputat actualitzat
-	 */
-	public void setImportImputat(Double importImputat) {
-		this.importImputat = importImputat;
 	}
 
 	/**
@@ -181,6 +162,16 @@ public class Estudiant extends Persona {
 	}
 	
 	/**
+	 * Elimina una beca del llistat
+	 * @param beca a eliminar
+	 */
+	public void eliminaBeca(Beca beca) {
+		if(this.beques.contains(beca)) {
+			this.beques.remove(beca);
+		}
+	}
+	
+	/**
 	 * Assigna una sessió
 	 * @param sessió a assignar
 	 */
@@ -191,11 +182,21 @@ public class Estudiant extends Persona {
 	}	
 	
 	/**
+	 * Desassigna una sessió
+	 * @param sessió a desassignar
+	 */
+	public void desassignaSessio(Sessio sessio) {
+		if(this.sessions.contains(sessio)) {
+			this.sessions.remove(sessio);
+		}
+	}	
+	
+	/**
 	 * Obté factura de l'estudiant
 	 * @param mes de la factura
 	 * @return fctura
 	 */
-	public Factura obteFactura(int mes) {
+	public Factura trobaFactura(int mes) {
 		for (Factura factura : this.factures) {
 			if (factura.getMesFacturat() == mes) {
 				return factura;
@@ -214,7 +215,7 @@ public class Estudiant extends Persona {
 		
 		// Obté factura si ja ha sigut generada
 		Factura factura = null;
-		if ((factura = obteFactura(mesAFacturar)) != null) {
+		if ((factura = trobaFactura(mesAFacturar)) != null) {
 			return factura;
 		}
 		

@@ -28,11 +28,11 @@ public class Beca {
 	private String adjudicant;
 	private double importInicial;
 	private double importRestant;
+	private Date dataAdjudicacio;
+	private boolean finalitzada = false;
 	private Estudiant estudiant;
 	private Servei servei;
-	private Date dataAdjudicacio;
 	private Escola escola;
-	private boolean finalitzada = false;
 
 	/**
 	 * Constructor per defecte sense paràmetres
@@ -233,19 +233,16 @@ public class Beca {
 			this.setImportRestant(importInicial);
 		}
 		this.setImportInicial(importInicial);
+		this.setFinalitzada(finalitzada);
 			
+		// Actualitza l'estudiant
+		this.getEstudiant().eliminaBeca(this);
 		this.setEstudiant(estudiant);
 		estudiant.adjudicaBeca(this);
+
+		// Actualitza el servei	
+		this.getServei().desassignaBeca(this);	
 		this.setServei(servei);
 		servei.assignaBeca(this);
-		this.setFinalitzada(finalitzada);
 	}
-	
-	/**
-	 * Imputa el servei impartit a la beca una vegada es crea una sessió
-	 */
-	public void imputaImport(Double importAImputar) {
-		this.setImportRestant(this.getImportRestant() - importAImputar);
-	}
-
 }

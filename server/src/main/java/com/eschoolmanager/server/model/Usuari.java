@@ -34,11 +34,11 @@ import com.eschoolmanager.server.seguretat.Seguretat;
 public class Usuari {
 	
 	private int codi;
-	private boolean actiu = false;
-	private Escola escola;
 	private String nomUsuari;
 	private String contrasenya;
+	private boolean actiu = false;
 	private Empleat empleat;
+	private Escola escola;
 	
 	/**
 	 * Constructor per defecte sense paràmetres
